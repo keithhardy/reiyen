@@ -2,26 +2,26 @@ export const menuLinks = [
   {
     title: 'Users',
     href: '/users',
-    description: 'Administer user accounts and permissions within the system.',
+    description: 'Manage user accounts and permissions within the electrical certification system.',
   },
   {
     title: 'Clients',
     href: '/clients',
-    description: 'Manage client information, contacts, and related data within the system.',
+    description: 'Handle client information and scheduling for electrical services.',
   },
   {
     title: 'Properties',
     href: '/properties',
-    description: 'Oversee property listings, details, and ownership information.',
+    description: 'Maintain records of properties requiring electrical certifications.',
   },
   {
     title: 'Certificates',
     href: '/certificates',
-    description: 'Handle certification records, compliance documents, and related data.',
+    description: 'Create, edit, and manage all types of electrical certificates.',
   },
   {
     title: 'Settings',
     href: '/settings',
-    description: 'Adjust system-wide settings and configurations.',
+    description: 'Configure system-wide settings for electrical certificate management.',
   },
 ];
