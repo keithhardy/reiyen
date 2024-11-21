@@ -17,7 +17,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Reiyen Forms",
+  title: "Reiyen",
   description: "Forms based of the BS7671 model forms.",
 };
 
