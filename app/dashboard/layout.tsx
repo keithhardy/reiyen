@@ -18,7 +18,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth0.getSession()
-
   if (!session) redirect("/auth/login")
 
   return (
