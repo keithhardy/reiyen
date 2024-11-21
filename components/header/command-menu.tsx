@@ -7,6 +7,8 @@ import { useEffect, useState, useCallback } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
+import { DialogTitle } from '@/components/ui/dialog';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import { menuLinks } from '@/lib/config';
 
 export default function CommandMenu() {
@@ -39,7 +41,11 @@ export default function CommandMenu() {
       <Button variant="ghost" className="h-8 px-2" onClick={() => setOpen(true)}>
         <Search className="h-5 w-5" /> Search
       </Button>
+      
       <CommandDialog open={open} onOpenChange={setOpen}>
+        <VisuallyHidden>
+          <DialogTitle>Command Menu</DialogTitle>
+        </VisuallyHidden>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
@@ -55,7 +61,7 @@ export default function CommandMenu() {
           <CommandGroup heading="Theme">
             {['light', 'dark', 'system'].map((theme) => (
               <CommandItem key={theme} onSelect={() => runCommand(() => setTheme(theme))}>
-                {theme}
+                {theme.charAt(0).toUpperCase() + theme.slice(1)}
               </CommandItem>
             ))}
           </CommandGroup>
