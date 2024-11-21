@@ -3,7 +3,7 @@ import { auth0 } from "@/lib/auth0";
 import CommandMenu from '@/components/header/command-menu';
 import DesktopMenu from '@/components/header/desktop-menu';
 import MobileMenu from '@/components/header/mobile-menu';
-import ReiyenLogo from '@/components/logo';
+import Logo from '@/components/logo';
 import UserMenu from '@/components/header/user-menu';
 
 export default async function Header() {
@@ -15,7 +15,7 @@ export default async function Header() {
       <div className='flex justify-between px-4'>
         <nav className='flex items-center'>
           <MobileMenu />
-          <ReiyenLogo className='mr-2 w-6' />
+          <Logo className='mr-2 w-6' />
           <DesktopMenu />
         </nav>
         <div className='flex items-center'>
