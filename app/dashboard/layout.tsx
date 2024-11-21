@@ -23,7 +23,7 @@ export default async function RootLayout({
   return (
     <>
       <Header/>
-      <main className='flex-grow'>
+      <main className='container mx-auto max-w-screen-xl flex-grow space-y-4 p-4'>
         {children}
       </main>
       <Footer />

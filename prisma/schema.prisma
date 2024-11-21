@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Settings {
+  id                  String  @id @default(uuid())
+  name                String
+  email               String
+  phone               String
+  logoUrl             String
+  governingBody       String
+  governingBodyNumber String
+  addressId           String  @unique
+  address             Address @relation(fields: [addressId], references: [id])
+}
+
+model Preferences {
+  id        String @id @default(uuid())
+  userId    String
+  position  String
+  signature String
+
+  @@unique([userId])
+}
+
+model Qualification {
+  id                  String @id @default(uuid())
+  userId              String
+  awardingBody        String
+  qualification       String
+  qualificationNumber String
+  awardDate           String
+  certificateUrl      String
+}
+
+model Equipment {
+  id             String @id @default(uuid())
+  userId         String
+  type           String
+  make           String
+  model          String
+  serialNumber   String
+  testDate       String
+  certificateUrl String
+
+  @@unique([userId, type])
+}
+
+model Permission {
+  id         String  @id @default(uuid())
+  userId     String
+  permission String
+  clientId   String?
+
+  client Client? @relation(fields: [clientId], references: [id])
+
+  @@unique([userId, permission, clientId])
+}
+
+model Address {
+  id            String     @id @default(uuid())
+  streetAddress String
+  city          String
+  county        String?
+  postTown      String
+  postcode      String
+  country       String     @default("United Kingdom")
+  clients       Client[]
+  properties    Property[]
+  settings      Settings[]
+}
+
+model Client {
+  id         String       @id @default(uuid())
+  name       String
+  email      String
+  phone      String
+  logoUrl    String
+  addressId  String       @unique
+  address    Address      @relation(fields: [addressId], references: [id])
+  Permission Permission[]
+  Property   Property[]
+}
+
+model Property {
+  id          String        @id @default(uuid())
+  uprn        String
+  occupier    String
+  addressId   String        @unique
+  clientId    String
+  address     Address       @relation(fields: [addressId], references: [id])
+  client      Client        @relation(fields: [clientId], references: [id])
+  Certificate Certificate[]
+
+  @@index([clientId])
+}
+
+model Certificate {
+  id         String   @id @default(uuid())
+  name       String
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+
+  @@index([propertyId])
+}

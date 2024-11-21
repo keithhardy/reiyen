@@ -4,11 +4,11 @@ export const menuLinks = [
     href: '/dashboard',
     description: 'View an overview of system activities and key metrics in electrical certification.',
   },
-  // {
-  //   title: 'Users',
-  //   href: '/dashboard/users',
-  //   description: 'Manage user accounts and permissions within the electrical certification system.',
-  // },
+  {
+    title: 'Users',
+    href: '/dashboard/users',
+    description: 'Manage user accounts and permissions within the electrical certification system.',
+  },
   // {
   //   title: 'Clients',
   //   href: '/dashboard/clients',
