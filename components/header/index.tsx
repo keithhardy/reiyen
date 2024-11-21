@@ -3,7 +3,7 @@ import { auth0 } from "@/lib/auth0";
 import CommandMenu from '@/components/header/command-menu';
 import DesktopMenu from '@/components/header/desktop-menu';
 import MobileMenu from '@/components/header/mobile-menu';
-import ReiyenLogo from '@/components/reiyen-logo';
+import ReiyenLogo from '@/components/logo';
 import UserMenu from '@/components/header/user-menu';
 
 export default async function Header() {
