@@ -3,7 +3,7 @@
 import { Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
@@ -15,49 +15,49 @@ export default function CommandMenu() {
   const { setTheme } = useTheme();
 
   useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
-        if ((e.target instanceof HTMLElement && e.target.isContentEditable) || e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLSelectElement) {
-          return;
-        }
-
+    const handleShortcut = (e: KeyboardEvent) => {
+      if (
+        ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') &&
+        !['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement).tagName)
+      ) {
         e.preventDefault();
-        setOpen((open) => !open);
+        setOpen((prev) => !prev);
       }
     };
 
-    document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
+    document.addEventListener('keydown', handleShortcut);
+    return () => document.removeEventListener('keydown', handleShortcut);
   }, []);
 
-  const runCommand = useCallback((command: () => unknown) => {
+  const runCommand = useCallback((action: () => void) => {
     setOpen(false);
-    command();
+    action();
   }, []);
 
   return (
     <>
-      <Button variant={'ghost'} className='h-8 px-2' onClick={() => setOpen(true)}>
-        <Search className='h-5 w-5' /> Search
+      <Button variant="ghost" className="h-8 px-2" onClick={() => setOpen(true)}>
+        <Search className="h-5 w-5" /> Search
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder='Type a command or search...' />
+        <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
+
           <CommandGroup heading="Dashboard">
-            {links.map((link) => (
-              <CommandItem
-                key={link.href}
-                onSelect={() => runCommand(() => router.push(link.href))}
-              >
-                {link.title}
+            {links.map(({ href, title }) => (
+              <CommandItem key={href} onSelect={() => runCommand(() => router.push(href))}>
+                {title}
               </CommandItem>
             ))}
           </CommandGroup>
-          <CommandGroup heading='Theme'>
-            <CommandItem onSelect={() => runCommand(() => setTheme('light'))}>Light</CommandItem>
-            <CommandItem onSelect={() => runCommand(() => setTheme('dark'))}>Dark</CommandItem>
-            <CommandItem onSelect={() => runCommand(() => setTheme('system'))}>System</CommandItem>
+
+          <CommandGroup heading="Theme">
+            {['light', 'dark', 'system'].map((theme) => (
+              <CommandItem key={theme} onSelect={() => runCommand(() => setTheme(theme))}>
+                {theme}
+              </CommandItem>
+            ))}
           </CommandGroup>
         </CommandList>
       </CommandDialog>

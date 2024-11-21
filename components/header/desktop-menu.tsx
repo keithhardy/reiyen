@@ -11,7 +11,7 @@ import {
 import { cn } from '@/lib/utils';
 import { links } from '@/config/links';
 
-export default function DesktopSiteMenu() {
+export default function DesktopMenu() {
   return (
     <NavigationMenu className="hidden lg:block">
       <NavigationMenuList>
