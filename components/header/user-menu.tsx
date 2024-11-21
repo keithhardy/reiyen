@@ -1,46 +1,50 @@
 'use client';
 
-import { useUser } from '@auth0/nextjs-auth0';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuGroup, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuPortal, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useTheme } from 'next-themes';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { ThemeToggle } from '@/components/header/theme-toggle';
+import { Avatar, AvatarFallback, AvatarImage, } from "@/components/ui/avatar"
 
-export default function UserMenu() {
-  const { user, isLoading } = useUser();
-  const { setTheme } = useTheme();
+export interface User {
+  sub: string;
+  name?: string;
+  nickname?: string;
+  given_name?: string;
+  family_name?: string;
+  picture?: string;
+  email?: string;
+  email_verified?: boolean;
+  org_id?: string;
+  [key: string]: any;
+}
 
-  if (isLoading) return <Skeleton className='ml-2 h-8 w-8 rounded-full' />;
-
+export default function UserMenu({
+  user
+}: {
+  user: User
+}) {
   return (
     user && (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant='outline' size='icon' className='ml-2 h-8 w-8 overflow-hidden rounded-full'>
-            <Image src={user.picture ?? '/placeholder-user.webp'} alt={user.name ?? 'User avatar'} width={50} height={50} />
+            <Avatar>
+              <AvatarImage src={user.picture} alt="Profile picture" />
+              <AvatarFallback>{user.name}</AvatarFallback>
+            </Avatar>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align='end'>
-          <DropdownMenuLabel>{user.nickname || user.name}</DropdownMenuLabel>
+          <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
-            <Link href={`/users/${encodeURIComponent(user.sub as string)}/update`}>Account</Link>
+            <Link href={`/users/${encodeURIComponent(user.sub)}/update`}>Account</Link>
           </DropdownMenuItem>
-          <DropdownMenuGroup>
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>Theme</DropdownMenuSubTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuSubContent>
-                  <DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>
-                </DropdownMenuSubContent>
-              </DropdownMenuPortal>
-            </DropdownMenuSub>
-          </DropdownMenuGroup>          <DropdownMenuSeparator />
+          <ThemeToggle />
+          <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <Link href='/api/auth/logout'>Logout</Link>
           </DropdownMenuItem>

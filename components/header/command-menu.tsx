@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
+import { links } from '@/config/links';
 
 export default function CommandMenu() {
   const router = useRouter();
@@ -43,12 +44,15 @@ export default function CommandMenu() {
         <CommandInput placeholder='Type a command or search...' />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading='Dashboard'>
-            <CommandItem onSelect={() => runCommand(() => router.push('/users'))}>Users</CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push('/clients'))}>Clients</CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push('/properties'))}>Properties</CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push('/certificates'))}>Certificates</CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push('/settings'))}>Settings</CommandItem>
+          <CommandGroup heading="Dashboard">
+            {links.map((link) => (
+              <CommandItem
+                key={link.href}
+                onSelect={() => runCommand(() => router.push(link.href))}
+              >
+                {link.title}
+              </CommandItem>
+            ))}
           </CommandGroup>
           <CommandGroup heading='Theme'>
             <CommandItem onSelect={() => runCommand(() => setTheme('light'))}>Light</CommandItem>
