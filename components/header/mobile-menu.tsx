@@ -6,8 +6,9 @@ import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { menuLinks } from '@/lib/config';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
@@ -20,6 +21,9 @@ export default function MobileMenu() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left">
+      <VisuallyHidden>
+          <SheetTitle>Mobile Menu</SheetTitle>
+        </VisuallyHidden>
         <ScrollArea className="my-4 h-[calc(100vh-6rem)] pb-10 pl-6">
           <div className="flex flex-col space-y-2">
             <div className="flex flex-col space-y-3 pt-6">

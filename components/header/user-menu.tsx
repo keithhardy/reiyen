@@ -22,7 +22,7 @@ export default function UserMenu({ user }: { user: any }) {
           <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
-            <Link href={`/users/${encodeURIComponent(user.sub)}/update`}>Account</Link>
+            <Link href={`/users/${encodeURIComponent(user.sub)}/update`}>Settings</Link>
           </DropdownMenuItem>
             <DropdownMenuGroup>
               <DropdownMenuSub>
