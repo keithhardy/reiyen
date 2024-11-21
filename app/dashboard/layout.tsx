@@ -14,8 +14,10 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  modal
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   const session = await auth0.getSession()
   if (!session) redirect("/auth/login")
@@ -27,6 +29,8 @@ export default async function RootLayout({
         {children}
       </main>
       <Footer />
+      
+      {modal}
     </>
   );
 }
