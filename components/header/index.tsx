@@ -20,7 +20,7 @@ export default async function Header() {
         </nav>
         <div className='flex items-center'>
           <CommandMenu />
-          {user && <UserMenu user={user} />}
+          <UserMenu user={user} />
         </div>
       </div>
     </header>
