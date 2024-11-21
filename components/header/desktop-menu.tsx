@@ -17,7 +17,7 @@ export default function DesktopMenu() {
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger className="h-8 bg-transparent px-2 hover:bg-transparent data-[state=open]:bg-transparent">
-            Dashboard
+            Reiyen
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[300px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">

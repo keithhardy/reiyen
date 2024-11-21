@@ -27,7 +27,7 @@ export default function MobileMenu() {
         <ScrollArea className="my-4 h-[calc(100vh-6rem)] pb-10 pl-6">
           <div className="flex flex-col space-y-2">
             <div className="flex flex-col space-y-3 pt-6">
-              <h4 className="font-medium">Dashboard</h4>
+              <h4 className="font-medium">Reiyen</h4>
               {menuLinks.map((link) => (
                 <Link
                   key={link.href}

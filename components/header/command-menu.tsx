@@ -50,7 +50,7 @@ export default function CommandMenu() {
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
 
-          <CommandGroup heading="Dashboard">
+          <CommandGroup heading="Reiyen">
             {menuLinks.map(({ href, title }) => (
               <CommandItem key={href} onSelect={() => runCommand(() => router.push(href))}>
                 {title}
