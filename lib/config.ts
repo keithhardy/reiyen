@@ -1,4 +1,4 @@
-export const links = [
+export const menuLinks = [
   {
     title: 'Users',
     href: '/users',

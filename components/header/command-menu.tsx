@@ -7,7 +7,7 @@ import { useEffect, useState, useCallback } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
-import { links } from '@/config/links';
+import { menuLinks } from '@/lib/config';
 
 export default function CommandMenu() {
   const router = useRouter();
@@ -45,7 +45,7 @@ export default function CommandMenu() {
           <CommandEmpty>No results found.</CommandEmpty>
 
           <CommandGroup heading="Dashboard">
-            {links.map(({ href, title }) => (
+            {menuLinks.map(({ href, title }) => (
               <CommandItem key={href} onSelect={() => runCommand(() => router.push(href))}>
                 {title}
               </CommandItem>

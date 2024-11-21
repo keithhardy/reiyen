@@ -9,7 +9,7 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
-import { links } from '@/config/links';
+import { menuLinks } from '@/lib/config';
 
 export default function DesktopMenu() {
   return (
@@ -21,7 +21,7 @@ export default function DesktopMenu() {
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[300px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-              {links.map((item) => (
+              {menuLinks.map((item) => (
                 <li key={item.title}>
                   <NavigationMenuLink asChild>
                     <a

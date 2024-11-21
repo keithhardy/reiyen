@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { links } from '@/config/links';
+import { menuLinks } from '@/lib/config';
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
@@ -24,7 +24,7 @@ export default function MobileMenu() {
           <div className="flex flex-col space-y-2">
             <div className="flex flex-col space-y-3 pt-6">
               <h4 className="font-medium">Dashboard</h4>
-              {links.map((link) => (
+              {menuLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
