@@ -7,21 +7,21 @@ export const menuLinks = [
   {
     title: 'Clients',
     href: '/clients',
-    description: 'Manage client records and associated data within the system.',
+    description: 'Manage client information, contacts, and related data within the system.',
   },
   {
     title: 'Properties',
     href: '/properties',
-    description: 'Manage client records and associated data within the system.',
+    description: 'Oversee property listings, details, and ownership information.',
   },
   {
     title: 'Certificates',
     href: '/certificates',
-    description: 'Manage client records and associated data within the system.',
+    description: 'Handle certification records, compliance documents, and related data.',
   },
   {
     title: 'Settings',
     href: '/settings',
-    description: 'Manage system wide settings.',
+    description: 'Adjust system-wide settings and configurations.',
   },
 ];
