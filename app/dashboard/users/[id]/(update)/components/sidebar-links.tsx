@@ -5,18 +5,13 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { userLinks } from '@/lib/config';
 
 export function SidebarLinks({ userId }: { userId: string }) {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const links = [
-    { href: `/dashboard/users/${userId}/general`, label: 'General' },
-    { href: `/dashboard/users/${userId}/preferences`, label: 'Preferences' },
-    { href: `/dashboard/users/${userId}/equipment`, label: 'Equipment' },
-    { href: `/dashboard/users/${userId}/qualifications`, label: 'Qualifications' },
-    { href: `/dashboard/users/${userId}/permissions`, label: 'Permissions' },
-  ];
+  const links = userLinks(userId)
 
   const handleItemClick = () => {
     setIsSidebarOpen(false);

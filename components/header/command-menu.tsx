@@ -41,7 +41,7 @@ export default function CommandMenu() {
       <Button variant="ghost" className="h-8 px-2" onClick={() => setOpen(true)}>
         <Search className="h-5 w-5" /> Search
       </Button>
-      
+
       <CommandDialog open={open} onOpenChange={setOpen}>
         <VisuallyHidden>
           <DialogTitle>Command Menu</DialogTitle>
@@ -51,9 +51,9 @@ export default function CommandMenu() {
           <CommandEmpty>No results found.</CommandEmpty>
 
           <CommandGroup heading="Reiyen">
-            {menuLinks.map(({ href, title }) => (
+            {menuLinks.map(({ href, label }) => (
               <CommandItem key={href} onSelect={() => runCommand(() => router.push(href))}>
-                {title}
+                {label}
               </CommandItem>
             ))}
           </CommandGroup>

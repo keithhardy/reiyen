@@ -21,7 +21,7 @@ export default function MobileMenu() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left">
-      <VisuallyHidden>
+        <VisuallyHidden>
           <SheetTitle>Mobile Menu</SheetTitle>
         </VisuallyHidden>
         <ScrollArea className="my-4 h-[calc(100vh-6rem)] pb-10 pl-6">
@@ -37,7 +37,7 @@ export default function MobileMenu() {
                     setOpen(false);
                   }}
                 >
-                  {link.title}
+                  {link.label}
                 </Link>
               ))}
             </div>
