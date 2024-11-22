@@ -1,6 +1,6 @@
 'use server';
 
-import { del,put } from '@vercel/blob';
+import { del, put } from '@vercel/blob';
 
 export async function uploadFile(
   fileData: string | Buffer,
