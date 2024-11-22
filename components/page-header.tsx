@@ -2,9 +2,9 @@ import { cn } from '@/lib/utils';
 
 function PageHeader({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <section className={cn('mx-auto flex flex-col items-start gap-2 py-6 lg:py-10', className)} {...props}>
+    <header className={cn('mx-auto flex flex-col items-start gap-2 py-6 lg:py-10', className)} {...props}>
       {children}
-    </section>
+    </header>
   );
 }
 

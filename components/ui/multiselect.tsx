@@ -32,8 +32,6 @@ export function MultiSelect({
   disabled = false,
 }: MultiSelectProps) {
   const allSelected = options.length > 0 && selectedValues.length === options.length;
-  const isIndeterminate =
-    selectedValues.length > 0 && selectedValues.length < options.length;
 
   const displayText = (() => {
     if (selectedValues.length === 0) {
