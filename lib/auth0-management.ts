@@ -24,7 +24,7 @@ export async function waitForOperationInLogs({
   operationType,
   startTime = new Date(Date.now() - 5000).toISOString(),
   retries = 5,
-  delayMs = 1000,
+  delayMs = 2000,
 }: {
   userId: string;
   operationType: 'Create a User' | 'Delete a User' | 'Update a User';

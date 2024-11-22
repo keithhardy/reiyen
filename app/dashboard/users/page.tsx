@@ -7,6 +7,8 @@ import { PageActions, PageHeader, PageHeaderDescription, PageHeaderHeading } fro
 import { Button } from '@/components/ui/button';
 import { auth0Management } from '@/lib/auth0-management';
 
+export const dynamic = 'force-dynamic';
+
 export default async function UsersPage() {
   const response = await auth0Management.users.getAll();
   const users = response.data
