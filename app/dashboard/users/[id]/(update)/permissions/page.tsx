@@ -5,7 +5,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { prisma } from '@/lib/prisma';
 
-export default async function UserPermissionsPage({ params }: { params: { id: string } }) {
+export default async function UserPermissionsPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const permissions = await prisma.permission.findMany({
     where: { userId: decodeURIComponent(params.id) },
   });

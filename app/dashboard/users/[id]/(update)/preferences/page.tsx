@@ -2,7 +2,8 @@ import { UserPreferencesForm } from '@/app/dashboard/users/[id]/(update)/prefere
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
-export default async function UserPreferencesPage({ params }: { params: { id: string } }) {
+export default async function UserPreferencesPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const preferences = await prisma.preferences.findUnique({
     where: {
       userId: decodeURIComponent(params.id),

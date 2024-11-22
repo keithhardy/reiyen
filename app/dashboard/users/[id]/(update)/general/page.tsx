@@ -2,7 +2,8 @@ import { UserGeneralForm } from '@/app/dashboard/users/[id]/(update)/general/for
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { auth0Management } from '@/lib/auth0-management';
 
-export default async function UserGeneralPage({ params }: { params: { id: string } }) {
+export default async function UserGeneralPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const { data: user } = await auth0Management.users.get({
     id: decodeURIComponent(params.id),
   });

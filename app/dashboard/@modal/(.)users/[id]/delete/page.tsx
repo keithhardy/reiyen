@@ -3,7 +3,8 @@ import { DeleteUserForm } from '@/app/dashboard/users/[id]/delete/form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { auth0Management } from '@/lib/auth0-management';
 
-export default async function DeleteUserPage({ params }: { params: { id: string } }) {
+export default async function DeleteUserPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const { data: user } = await auth0Management.users.get({
     id: decodeURIComponent(params.id),
   });

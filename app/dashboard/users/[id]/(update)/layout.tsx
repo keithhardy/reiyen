@@ -6,13 +6,18 @@ import { PageActions, PageHeader, PageHeaderDescription, PageHeaderHeading } fro
 import { Button } from '@/components/ui/button';
 import { auth0Management } from '@/lib/auth0-management';
 
-export default async function UserUpdateLayout({
-  children,
-  params,
-}: Readonly<{
-  children: React.ReactNode;
-  params: { id: string };
-}>) {
+export default async function UserUpdateLayout(
+  props: Readonly<{
+    children: React.ReactNode;
+    params: Promise<{ id: string }>;
+  }>
+) {
+  const params = await props.params;
+
+  const {
+    children
+  } = props;
+
   const { data: user } = await auth0Management.users.get({
     id: decodeURIComponent(params.id),
   });

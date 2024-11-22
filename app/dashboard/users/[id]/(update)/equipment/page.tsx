@@ -5,7 +5,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { prisma } from '@/lib/prisma';
 
-export default async function UserEquipmentPage({ params }: { params: { id: string } }) {
+export default async function UserEquipmentPage(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const equipment = await prisma.equipment.findMany({
     where: {
       userId: decodeURIComponent(params.id),
