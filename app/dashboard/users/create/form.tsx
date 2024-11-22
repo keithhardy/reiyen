@@ -1,16 +1,13 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-
 import { createUser } from '@/app/dashboard/users/create/action';
 import { Schema } from '@/app/dashboard/users/create/schema';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { ToastAction } from '@/components/ui/toast';
 import { useToast } from '@/hooks/use-toast';
 import { User } from '@/lib/auth0-management';
 
@@ -35,11 +32,6 @@ export function CreateUserForm() {
       toast({
         title: 'User Created',
         description: `${user.name} was created successfully`,
-        action: (
-          <Link href={`/users/${user.user_id}/general`}>
-            <ToastAction altText='Undo user creation'>Update</ToastAction>
-          </Link>
-        ),
       });
     } catch {
       toast({

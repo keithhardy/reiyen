@@ -21,10 +21,12 @@ export async function updatePreferences(data: Preferences): Promise<Preferences>
     }
 
     const updatedPreferences = await prisma.preferences.upsert({
-      where: { userId: data.userId },
+      where: { 
+        userId: data.userId 
+      },
       update: {
         position: data.position,
-        signature: signatureUrl || '',
+        signature: signatureUrl,
       },
       create: {
         userId: data.userId,

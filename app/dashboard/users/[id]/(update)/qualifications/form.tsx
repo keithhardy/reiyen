@@ -2,9 +2,8 @@
 
 import { Qualification } from '@prisma/client';
 import { useForm } from 'react-hook-form';
-
 import { createQualification } from '@/app/dashboard/users/[id]/(update)/qualifications/action';
-import { handleFileChange } from '@/components/handle-file-change';
+import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -46,7 +45,7 @@ export function UserQualificationsForm({ user }: { user: { user_id: string } }) 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-6'>
+        <div className='space-y-4'>
           <FormField
             control={form.control}
             name='awardingBody'

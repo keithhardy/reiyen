@@ -3,12 +3,11 @@
 import { Client, Permission } from '@prisma/client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-
 import { addPermissions } from '@/app/dashboard/users/[id]/(update)/permissions/action';
 import { DataList } from '@/app/dashboard/users/[id]/(update)/permissions/components/data-list';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import { MultiSelect } from '@/components/ui/multiselect';
+import { MultiSelect } from '@/components/form/multiselect';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { availablePermissions } from '@/lib/permissions';

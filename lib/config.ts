@@ -24,11 +24,11 @@ export const menuLinks = [
   //   href: '/dashboard/certificates',
   //   description: 'Create, edit, and manage all types of electrical certificates.',
   // },
-  // {
-  //   label: 'Settings',
-  //   href: '/dashboard/settings',
-  //   description: 'Configure system-wide settings for electrical certificate management.',
-  // },
+  {
+    label: 'Settings',
+    href: '/dashboard/settings',
+    description: 'Configure system-wide settings for electrical certificate management.',
+  },
 ];
 
 export const userLinks = (userId: string) => [

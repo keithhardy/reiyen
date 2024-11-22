@@ -18,6 +18,8 @@ model Settings {
   governingBodyNumber String
   addressId           String  @unique
   address             Address @relation(fields: [addressId], references: [id])
+
+  @@unique([id])
 }
 
 model Preferences {
@@ -64,16 +66,18 @@ model Permission {
 }
 
 model Address {
-  id            String     @id @default(uuid())
+  id            String    @id @default(uuid())
   streetAddress String
   city          String
   county        String?
   postTown      String
   postcode      String
-  country       String     @default("United Kingdom")
-  clients       Client[]
-  properties    Property[]
-  settings      Settings[]
+  country       String    @default("United Kingdom")
+  clients       Client?
+  properties    Property?
+  settings      Settings?
+
+  @@unique([id])
 }
 
 model Client {

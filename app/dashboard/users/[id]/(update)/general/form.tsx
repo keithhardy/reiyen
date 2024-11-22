@@ -3,9 +3,8 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-
 import { updateUser } from '@/app/dashboard/users/[id]/(update)/general/action';
-import { handleFileChange } from '@/components/handle-file-change';
+import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -40,7 +39,7 @@ export function UserGeneralForm({ user }: { user: User }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-4 pb-4'>
+        <div className='space-y-4'>
           <FormField
             control={form.control}
             name='picture'
