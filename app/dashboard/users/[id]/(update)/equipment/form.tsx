@@ -33,7 +33,9 @@ export function UserEquipmentForm({ user }: { user: { user_id: string } }) {
         title: 'Equipment Created',
         description: 'The equipment has been successfully created.',
       });
-    } catch {
+    } catch (error) {
+      console.error('Error during equipment creation:', error);
+
       toast({
         title: 'Create Failed',
         description: 'An error occurred while creating the equipment. Please try again later.',
@@ -45,7 +47,7 @@ export function UserEquipmentForm({ user }: { user: { user_id: string } }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-4 pb-4'>
+        <div className='space-y-6'>
           <FormField
             control={form.control}
             name='type'
@@ -124,11 +126,11 @@ export function UserEquipmentForm({ user }: { user: { user_id: string } }) {
               </FormItem>
             )}
           />
-        </div>
-        <div className='flex justify-end'>
-          <Button type='submit' disabled={form.formState.isSubmitting} variant='outline' size='sm'>
-            {form.formState.isSubmitting ? 'Adding' : 'Add'}
-          </Button>
+          <div className='flex justify-end'>
+            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline' size='sm'>
+              {form.formState.isSubmitting ? 'Adding' : 'Add'}
+            </Button>
+          </div>
         </div>
       </form>
     </Form>

@@ -2,8 +2,9 @@ import { DataList } from '@/app/dashboard/users/[id]/(update)/qualifications/com
 import { UserQualificationsForm } from '@/app/dashboard/users/[id]/(update)/qualifications/form';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { prisma } from '@/lib/prisma';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 export default async function UserQualificationsPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
@@ -30,6 +31,9 @@ export default async function UserQualificationsPage(props: { params: Promise<{ 
             </Button>
           </DialogTrigger>
           <DialogContent>
+            <VisuallyHidden >
+              <DialogTitle />
+            </VisuallyHidden>
             <Card className='border-none shadow-none'>
               <CardHeader>
                 <CardTitle>Add Qualification</CardTitle>

@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import { addPermissions } from '@/app/dashboard/users/[id]/(update)/permissions/action';
 import { DataList } from '@/app/dashboard/users/[id]/(update)/permissions/components/data-list';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
 import { MultiSelect } from '@/components/ui/multiselect';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -74,56 +73,48 @@ export function UserPermissionsForm({ permissions, clients, user }: { permission
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className='border-none shadow-none'>
-          <CardHeader>
-            <CardTitle>Add Permissions</CardTitle>
-            <CardDescription>Assign specific permissions to the user for global or client-specific access.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className='space-y-6'>
-              <DataList permissions={newPermissions} clients={clients} />
-              <div className='space-y-4'>
-                <p className='text-sm font-medium leading-none'>Client</p>
-                <Select
-                  onValueChange={(value) => {
-                    setSelectedClient(value);
-                    setSelectedPermissions([]);
-                  }}
-                  value={selectedClient}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder='Select client' />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {clientOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className='space-y-4'>
-                <p className='text-sm font-medium leading-none'>Permissions</p>
-                <MultiSelect
-                  options={availablePermissionsForClient.map((perm) => ({
-                    value: perm,
-                    label: perm,
-                  }))}
-                  selectedValues={selectedPermissions}
-                  onChange={handlePermissionToggle}
-                  placeholder={selectedClient ? (availablePermissionsForClient.length ? 'Select permissions' : 'No permissions available') : 'Select client'}
-                  disabled={!selectedClient || !availablePermissionsForClient.length}
-                />
-              </div>
-            </div>
-          </CardContent>
-          <CardFooter className='flex justify-end'>
-            <Button size='sm' variant='default' type='submit' disabled={!newPermissions.length || form.formState.isSubmitting}>
+        <div className='space-y-6'>
+          <DataList permissions={newPermissions} clients={clients} />
+          <div className='space-y-4'>
+            <p className='text-sm font-medium leading-none'>Client</p>
+            <Select
+              onValueChange={(value) => {
+                setSelectedClient(value);
+                setSelectedPermissions([]);
+              }}
+              value={selectedClient}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder='Select client' />
+              </SelectTrigger>
+              <SelectContent>
+                {clientOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className='space-y-4'>
+            <p className='text-sm font-medium leading-none'>Permissions</p>
+            <MultiSelect
+              options={availablePermissionsForClient.map((perm) => ({
+                value: perm,
+                label: perm,
+              }))}
+              selectedValues={selectedPermissions}
+              onChange={handlePermissionToggle}
+              placeholder={selectedClient ? (availablePermissionsForClient.length ? 'Select permissions' : 'No permissions available') : 'Select client'}
+              disabled={!selectedClient || !availablePermissionsForClient.length}
+            />
+          </div>
+          <div className='flex justify-end'>
+            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline' size='sm'>
               {form.formState.isSubmitting ? 'Adding' : 'Add'}
             </Button>
-          </CardFooter>
-        </Card>
+          </div>
+        </div>
       </form>
     </Form>
   );

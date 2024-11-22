@@ -2,8 +2,9 @@ import { DataList } from '@/app/dashboard/users/[id]/(update)/permissions/compon
 import { UserPermissionsForm } from '@/app/dashboard/users/[id]/(update)/permissions/form';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { prisma } from '@/lib/prisma';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
 export default async function UserPermissionsPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
@@ -30,7 +31,18 @@ export default async function UserPermissionsPage(props: { params: Promise<{ id:
             </Button>
           </DialogTrigger>
           <DialogContent>
-            <UserPermissionsForm permissions={permissions} clients={clients} user={{ user_id: decodeURIComponent(params.id) }} />
+            <VisuallyHidden >
+              <DialogTitle />
+            </VisuallyHidden>
+            <Card className='border-none shadow-none'>
+              <CardHeader>
+                <CardTitle>Add Permissions</CardTitle>
+                <CardDescription>Assign specific permissions to the user for global or client-specific access.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <UserPermissionsForm permissions={permissions} clients={clients} user={{ user_id: decodeURIComponent(params.id) }} />
+              </CardContent>
+            </Card>
           </DialogContent>
         </Dialog>
       </CardFooter>

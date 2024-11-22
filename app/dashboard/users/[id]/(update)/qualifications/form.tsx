@@ -46,7 +46,7 @@ export function UserQualificationsForm({ user }: { user: { user_id: string } }) 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-4 pb-4'>
+        <div className='space-y-6'>
           <FormField
             control={form.control}
             name='awardingBody'
@@ -112,11 +112,11 @@ export function UserQualificationsForm({ user }: { user: { user_id: string } }) 
               </FormItem>
             )}
           />
-        </div>
-        <div className='flex justify-end'>
-          <Button type='submit' disabled={form.formState.isSubmitting} variant='outline' size='sm'>
-            {form.formState.isSubmitting ? 'Adding' : 'Add'}
-          </Button>
+          <div className='flex justify-end'>
+            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline' size='sm'>
+              {form.formState.isSubmitting ? 'Adding' : 'Add'}
+            </Button>
+          </div>
         </div>
       </form>
     </Form>
