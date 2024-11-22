@@ -72,7 +72,7 @@ export function DeleteUserForm({ user }: { user: User }) {
           />
         </div>
         <div className='flex justify-end'>
-          <Button type='submit' disabled={form.watch('name') !== user.name || form.formState.isSubmitting} variant='destructive' size='sm'>
+          <Button type='submit' disabled={form.watch('name') !== user.name || form.formState.isSubmitting} variant='destructive'>
             {form.formState.isSubmitting ? 'Deleting' : 'Delete'}
           </Button>
         </div>

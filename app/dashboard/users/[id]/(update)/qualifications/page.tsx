@@ -26,7 +26,7 @@ export default async function UserQualificationsPage(props: { params: Promise<{ 
       <CardFooter className='col-span-2'>
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant='outline' size='sm' className='ml-auto'>
+            <Button variant='outline' className='ml-auto'>
               Add Qualification
             </Button>
           </DialogTrigger>

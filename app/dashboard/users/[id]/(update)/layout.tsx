@@ -28,7 +28,7 @@ export default async function UserUpdateLayout(
         <PageHeaderHeading>{user.name}</PageHeaderHeading>
         <PageHeaderDescription>Edit user details, account status, and role. Update general info, preferences, equipment, qualifications, and permissions as needed.</PageHeaderDescription>
         <PageActions>
-          <Button asChild variant='outline' size='sm'>
+          <Button asChild variant='outline'>
             <Link href='/dashboard/users'>
               <ArrowLeft />
               Back to users

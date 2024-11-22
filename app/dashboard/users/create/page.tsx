@@ -13,7 +13,7 @@ export default function CreateUserPage() {
         <PageHeaderHeading>Create User</PageHeaderHeading>
         <PageHeaderDescription>Fill out the form below to create a new user account. Ensure the information is accurate, and remember to assign roles on the user update page.</PageHeaderDescription>
         <PageActions>
-          <Button asChild variant='outline' size='sm'>
+          <Button asChild variant='outline'>
             <Link href='/dashboard/users'>
               <ArrowLeft />
               Back to users

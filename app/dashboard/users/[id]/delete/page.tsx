@@ -19,7 +19,7 @@ export default async function DeleteUserPage(props: { params: Promise<{ id: stri
         <PageHeaderHeading>Delete</PageHeaderHeading>
         <PageHeaderDescription>Permanently delete a user account. Review the user&apos;s details carefully before proceeding with this irreversible action.</PageHeaderDescription>
         <PageActions>
-          <Button asChild variant='outline' size='sm'>
+          <Button asChild variant='outline'>
             <Link href='/dashboard/users'>
               <ArrowLeft />
               Back to users

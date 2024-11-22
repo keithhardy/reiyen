@@ -26,7 +26,7 @@ export default async function UserPermissionsPage(props: { params: Promise<{ id:
       <CardFooter className='col-span-2'>
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant='outline' size='sm' className='ml-auto'>
+            <Button variant='outline' className='ml-auto'>
               Add Permissions
             </Button>
           </DialogTrigger>

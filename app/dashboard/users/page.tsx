@@ -19,7 +19,7 @@ export default async function UsersPage() {
         <PageHeaderHeading>Users</PageHeaderHeading>
         <PageHeaderDescription>Manage users with convenient links to view, update, or delete accounts. Oversee all user activity and account statuses in one place.</PageHeaderDescription>
         <PageActions>
-          <Button asChild variant='outline' size='sm'>
+          <Button asChild variant='outline'>
             <Link href='/dashboard/users/create'>
               <Plus />
               Create User

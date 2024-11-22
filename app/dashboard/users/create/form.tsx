@@ -94,7 +94,7 @@ export function CreateUserForm() {
             )}
           />
           <div className='flex justify-end'>
-            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline' size='sm'>
+            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Creating' : 'Create'}
             </Button>
           </div>
