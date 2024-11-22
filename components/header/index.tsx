@@ -1,8 +1,8 @@
 import CommandMenu from '@/components/header/command-menu';
 import DesktopMenu from '@/components/header/desktop-menu';
 import MobileMenu from '@/components/header/mobile-menu';
-import Logo from '@/components/logo';
 import UserMenu from '@/components/header/user-menu';
+import Logo from '@/components/logo';
 
 export default async function Header() {
   return (
@@ -15,7 +15,7 @@ export default async function Header() {
         </nav>
         <div className='flex items-center'>
           <CommandMenu />
-          <UserMenu/>
+          <UserMenu />
         </div>
       </div>
     </header>

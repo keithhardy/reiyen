@@ -1,6 +1,5 @@
 app/fonts/**/*
 app/globals.css
-
 components/ui/**/*
 hooks/use-toast.ts
 node_modules/**/*

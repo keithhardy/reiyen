@@ -5,13 +5,27 @@ import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SignatureCanvas from 'react-signature-canvas';
+
 import { updatePreferences } from '@/app/dashboard/users/[id]/(update)/preferences/action';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
-export function UserPreferencesForm({ preferences, user }: { preferences?: Preferences; user: { user_id: string } }) {
+export function UserPreferencesForm({
+  preferences,
+  user,
+}: {
+  preferences?: Preferences;
+  user: { user_id: string };
+}) {
   const { toast } = useToast();
 
   const [isEditingSignature, setIsEditingSignature] = useState(false);
@@ -49,7 +63,8 @@ export function UserPreferencesForm({ preferences, user }: { preferences?: Prefe
     } catch {
       toast({
         title: 'Update Failed',
-        description: 'An error occurred while updating the preferences. Please try again later.',
+        description:
+          'An error occurred while updating the preferences. Please try again later.',
         variant: 'destructive',
       });
     }
@@ -83,14 +98,25 @@ export function UserPreferencesForm({ preferences, user }: { preferences?: Prefe
                     <SignatureCanvas
                       ref={signaturePad}
                       canvasProps={{
-                        className: 'signature-canvas border rounded-md w-full h-56 bg-white',
+                        className:
+                          'signature-canvas border rounded-md w-full h-56 bg-white',
                       }}
                     />
                   ) : (
-                    <Image src={preferences.signature} alt='Saved signature' width='1000' height='1000' className='h-56 w-full rounded-md border bg-white' />
+                    <Image
+                      src={preferences.signature}
+                      alt='Saved signature'
+                      width='1000'
+                      height='1000'
+                      className='h-56 w-full rounded-md border bg-white'
+                    />
                   )}
                 </FormControl>
-                <button type='button' onClick={handleClearSignature} className='mt-2 bg-background text-sm'>
+                <button
+                  type='button'
+                  onClick={handleClearSignature}
+                  className='mt-2 bg-background text-sm'
+                >
                   Clear Signature
                 </button>
                 <FormMessage />
@@ -99,7 +125,11 @@ export function UserPreferencesForm({ preferences, user }: { preferences?: Prefe
           />
         </div>
         <div className='flex justify-end'>
-          <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
+          <Button
+            type='submit'
+            disabled={form.formState.isSubmitting}
+            variant='outline'
+          >
             {form.formState.isSubmitting ? 'Saving' : 'Save'}
           </Button>
         </div>

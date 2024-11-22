@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { ChevronsUpDown } from 'lucide-react';
 
@@ -31,7 +31,8 @@ export function MultiSelect({
   placeholder = 'Select options',
   disabled = false,
 }: MultiSelectProps) {
-  const allSelected = options.length > 0 && selectedValues.length === options.length;
+  const allSelected =
+    options.length > 0 && selectedValues.length === options.length;
 
   const displayText = (() => {
     if (selectedValues.length === 0) {
@@ -39,7 +40,9 @@ export function MultiSelect({
     } else if (allSelected) {
       return `All options selected`;
     } else if (selectedValues.length === 1) {
-      const selectedOption = options.find((option) => option.value === selectedValues[0]);
+      const selectedOption = options.find(
+        (option) => option.value === selectedValues[0]
+      );
       return selectedOption ? selectedOption.label : placeholder;
     } else {
       return `${selectedValues.length} options selected`;
@@ -56,18 +59,18 @@ export function MultiSelect({
   };
 
   return (
-    <DropdownMenu >
+    <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
+          variant='outline'
           disabled={disabled || options.length === 0}
-          className="w-full justify-between truncate"
+          className='w-full justify-between truncate'
         >
-          <span className="truncate">{displayText}</span>
-          <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50 flex-shrink-0" />
+          <span className='truncate'>{displayText}</span>
+          <ChevronsUpDown className='ml-2 h-4 w-4 flex-shrink-0 opacity-50' />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-full max-h-60 overflow-auto">
+      <DropdownMenuContent className='max-h-60 w-full overflow-auto'>
         <DropdownMenuCheckboxItem
           checked={allSelected}
           onCheckedChange={handleSelectAll}

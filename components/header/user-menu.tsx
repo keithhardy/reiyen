@@ -1,27 +1,39 @@
 'use client';
 
+import { useUser } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { useUser } from "@auth0/nextjs-auth0"
 
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, DropdownMenuGroup, DropdownMenuPortal, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger } from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage, } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function UserMenu() {
   const { setTheme } = useTheme();
-  const { user, isLoading, error } = useUser()
+  const { user, isLoading, error } = useUser();
 
   if (isLoading) {
     return (
-      <div className="ml-2">
-        <Skeleton className="h-8 w-8 rounded-full" />
+      <div className='ml-2'>
+        <Skeleton className='h-8 w-8 rounded-full' />
       </div>
     );
   }
 
   if (error) {
-    console.error("UserMenu error:", error);
+    console.error('UserMenu error:', error);
     return null;
   }
 
@@ -33,7 +45,7 @@ export default function UserMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Avatar className='ml-2 h-8 w-8 cursor-pointer'>
-          <AvatarImage src={user.picture} alt="Profile picture" />
+          <AvatarImage src={user.picture} alt='Profile picture' />
           <AvatarFallback>{user.name!.charAt(0)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
@@ -41,27 +53,31 @@ export default function UserMenu() {
         <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href={`/dashboard/users/${encodeURIComponent(user.sub)}/general`}>Profile</Link>
+          <Link
+            href={`/dashboard/users/${encodeURIComponent(user.sub)}/general`}
+          >
+            Profile
+          </Link>
         </DropdownMenuItem>
-          <DropdownMenuGroup>
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>Theme</DropdownMenuSubTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuSubContent>
-                    {['light', 'dark', 'system'].map((theme) => (
-                      <DropdownMenuItem key={theme} onClick={() => setTheme(theme)}>
-                        {theme.charAt(0).toUpperCase() + theme.slice(1)}
-                      </DropdownMenuItem>
-                    ))}
-                </DropdownMenuSubContent>
-              </DropdownMenuPortal>
-            </DropdownMenuSub>
-          </DropdownMenuGroup>
+        <DropdownMenuGroup>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>Theme</DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                {['light', 'dark', 'system'].map((theme) => (
+                  <DropdownMenuItem key={theme} onClick={() => setTheme(theme)}>
+                    {theme.charAt(0).toUpperCase() + theme.slice(1)}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <a href='/auth/logout'>Logout</a>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

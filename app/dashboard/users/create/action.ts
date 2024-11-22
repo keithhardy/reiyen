@@ -1,8 +1,12 @@
 'use server';
 
-import { auth0Management, User, waitForOperationInLogs } from '@/lib/auth0-management';
 import { revalidatePath } from 'next/cache';
 
+import {
+  auth0Management,
+  User,
+  waitForOperationInLogs,
+} from '@/lib/auth0-management';
 
 export async function createUser(user: Omit<User, 'user_id'>): Promise<User> {
   try {

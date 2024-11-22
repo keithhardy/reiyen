@@ -1,12 +1,16 @@
-"use server"
+'use server';
 
-import { put, del } from '@vercel/blob';
+import { del,put } from '@vercel/blob';
 
-export async function uploadFile(fileData: string | Buffer, fileName: string): Promise<string> {
+export async function uploadFile(
+  fileData: string | Buffer,
+  fileName: string
+): Promise<string> {
   try {
-    const binaryData = typeof fileData === 'string'
-      ? Buffer.from(fileData.replace(/^data:.+;base64,/, ''), 'base64')
-      : fileData;
+    const binaryData =
+      typeof fileData === 'string'
+        ? Buffer.from(fileData.replace(/^data:.+;base64,/, ''), 'base64')
+        : fileData;
 
     const blob = await put(fileName, binaryData, { access: 'public' });
     return blob.url;

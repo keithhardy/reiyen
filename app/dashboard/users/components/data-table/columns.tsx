@@ -10,7 +10,15 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: 'picture',
     header: 'Picture',
-    cell: ({ row }) => <Image src={row.getValue('picture')} width={30} height={0} alt='User picture' className='rounded-full' />,
+    cell: ({ row }) => (
+      <Image
+        src={row.getValue('picture')}
+        width={30}
+        height={0}
+        alt='User picture'
+        className='rounded-full'
+      />
+    ),
   },
   {
     accessorKey: 'name',
@@ -23,12 +31,16 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: 'logins_count',
     header: 'Logins Count',
-    cell: ({ row }) => (row.getValue('logins_count') ? row.getValue('logins_count') : '-'),
+    cell: ({ row }) =>
+      row.getValue('logins_count') ? row.getValue('logins_count') : '-',
   },
   {
     accessorKey: 'last_login',
     header: 'Last Login',
-    cell: ({ row }) => (row.getValue('last_login') ? new Date(row.getValue('last_login')).toLocaleDateString('en-GB') : '-'),
+    cell: ({ row }) =>
+      row.getValue('last_login')
+        ? new Date(row.getValue('last_login')).toLocaleDateString('en-GB')
+        : '-',
   },
   {
     id: 'actions',

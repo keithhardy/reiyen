@@ -3,10 +3,18 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+
 import { createUser } from '@/app/dashboard/users/create/action';
 import { Schema } from '@/app/dashboard/users/create/schema';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { User } from '@/lib/auth0-management';
@@ -79,14 +87,22 @@ export function CreateUserForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type='password' {...field} autoComplete='new-password' />
+                  <Input
+                    type='password'
+                    {...field}
+                    autoComplete='new-password'
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           <div className='flex justify-end'>
-            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
+            <Button
+              type='submit'
+              disabled={form.formState.isSubmitting}
+              variant='outline'
+            >
               {form.formState.isSubmitting ? 'Creating' : 'Create'}
             </Button>
           </div>

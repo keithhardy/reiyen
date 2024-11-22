@@ -2,10 +2,18 @@
 
 import { Equipment } from '@prisma/client';
 import { useForm } from 'react-hook-form';
+
 import { createEquipment } from '@/app/dashboard/users/[id]/(update)/equipment/action';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
@@ -37,7 +45,8 @@ export function UserEquipmentForm({ user }: { user: { user_id: string } }) {
 
       toast({
         title: 'Create Failed',
-        description: 'An error occurred while creating the equipment. Please try again later.',
+        description:
+          'An error occurred while creating the equipment. Please try again later.',
         variant: 'destructive',
       });
     }
@@ -119,14 +128,24 @@ export function UserEquipmentForm({ user }: { user: { user_id: string } }) {
               <FormItem>
                 <FormLabel>Certificate</FormLabel>
                 <FormControl>
-                  <Input type='file' accept='image/*' onChange={(e) => handleFileChange(e, form.setValue, 'certificateUrl')} />
+                  <Input
+                    type='file'
+                    accept='image/*'
+                    onChange={(e) =>
+                      handleFileChange(e, form.setValue, 'certificateUrl')
+                    }
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           <div className='flex justify-end'>
-            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
+            <Button
+              type='submit'
+              disabled={form.formState.isSubmitting}
+              variant='outline'
+            >
               {form.formState.isSubmitting ? 'Adding' : 'Add'}
             </Button>
           </div>

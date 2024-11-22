@@ -45,7 +45,9 @@ export async function waitForOperationInLogs({
       if (
         logs?.some((log) => {
           if (operationType === 'Delete a User') {
-            return log?.details?.request?.path?.includes(`/api/v2/users/${encodedUserId}`);
+            return log?.details?.request?.path?.includes(
+              `/api/v2/users/${encodedUserId}`
+            );
           } else {
             return log?.details?.response?.body?.user_id === userId;
           }

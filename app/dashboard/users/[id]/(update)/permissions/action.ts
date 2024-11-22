@@ -35,7 +35,10 @@ export async function removePermission(permission: Omit<Permission, 'id'>) {
   }
 }
 
-export async function removeClientPermissions(userId: string, clientId: string | null) {
+export async function removeClientPermissions(
+  userId: string,
+  clientId: string | null
+) {
   try {
     await prisma.permission.deleteMany({
       where: {

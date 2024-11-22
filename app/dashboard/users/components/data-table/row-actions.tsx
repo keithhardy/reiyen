@@ -2,7 +2,14 @@ import { MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { User } from '@/lib/auth0-management';
 
 export function RowActions({ user }: { user: User }) {
@@ -18,13 +25,25 @@ export function RowActions({ user }: { user: User }) {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href={`/dashboard/users/${encodeURIComponent(user.user_id)}/general`}>Update</Link>
+          <Link
+            href={`/dashboard/users/${encodeURIComponent(user.user_id)}/general`}
+          >
+            Update
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild disabled>
-          <Link href={`/dashboard/users/${encodeURIComponent(user.user_id)}/block`}>Block</Link>
+          <Link
+            href={`/dashboard/users/${encodeURIComponent(user.user_id)}/block`}
+          >
+            Block
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={`/dashboard/users/${encodeURIComponent(user.user_id)}/delete`}>Delete</Link>
+          <Link
+            href={`/dashboard/users/${encodeURIComponent(user.user_id)}/delete`}
+          >
+            Delete
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

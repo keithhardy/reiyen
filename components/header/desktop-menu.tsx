@@ -8,19 +8,19 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import { cn } from '@/lib/utils';
 import { menuLinks } from '@/lib/config';
+import { cn } from '@/lib/utils';
 
 export default function DesktopMenu() {
   return (
-    <NavigationMenu className="hidden lg:block">
+    <NavigationMenu className='hidden lg:block'>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="h-8 bg-transparent px-2 hover:bg-transparent data-[state=open]:bg-transparent">
+          <NavigationMenuTrigger className='h-8 bg-transparent px-2 hover:bg-transparent data-[state=open]:bg-transparent'>
             Reiyen
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[300px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+            <ul className='grid w-[300px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]'>
               {menuLinks.map((item) => (
                 <li key={item.label}>
                   <NavigationMenuLink asChild>
@@ -31,8 +31,10 @@ export default function DesktopMenu() {
                         'hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
                       )}
                     >
-                      <div className="text-sm font-medium leading-none">{item.label}</div>
-                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                      <div className='text-sm font-medium leading-none'>
+                        {item.label}
+                      </div>
+                      <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
                         {item.description}
                       </p>
                     </a>

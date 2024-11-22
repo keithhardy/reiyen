@@ -1,12 +1,27 @@
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+
 import { DataList } from '@/app/dashboard/users/[id]/(update)/equipment/components/data-list';
 import { UserEquipmentForm } from '@/app/dashboard/users/[id]/(update)/equipment/form';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { prisma } from '@/lib/prisma';
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 
-export default async function UserEquipmentPage(props: { params: Promise<{ id: string }> }) {
+export default async function UserEquipmentPage(props: {
+  params: Promise<{ id: string }>;
+}) {
   const params = await props.params;
   const equipment = await prisma.equipment.findMany({
     where: {
@@ -18,7 +33,11 @@ export default async function UserEquipmentPage(props: { params: Promise<{ id: s
     <Card className='grid grid-cols-2'>
       <CardHeader className='col-span-2 lg:col-span-1'>
         <CardTitle>Equipment</CardTitle>
-        <CardDescription>This equipment is used by the user for work purposes. The information provided will be displayed on test certificates and other relevant documents.</CardDescription>
+        <CardDescription>
+          This equipment is used by the user for work purposes. The information
+          provided will be displayed on test certificates and other relevant
+          documents.
+        </CardDescription>
       </CardHeader>
       <CardContent className='col-span-2 p-6 lg:col-span-1'>
         <DataList equipment={equipment} />
@@ -31,16 +50,22 @@ export default async function UserEquipmentPage(props: { params: Promise<{ id: s
             </Button>
           </DialogTrigger>
           <DialogContent>
-            <VisuallyHidden >
+            <VisuallyHidden>
               <DialogTitle />
             </VisuallyHidden>
             <Card className='border-none shadow-none'>
               <CardHeader>
                 <CardTitle>Add Equipment</CardTitle>
-                <CardDescription>This equipment is used by the user for work purposes. The information provided will be displayed on test certificates and other relevant documents.</CardDescription>
+                <CardDescription>
+                  This equipment is used by the user for work purposes. The
+                  information provided will be displayed on test certificates
+                  and other relevant documents.
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <UserEquipmentForm user={{ user_id: decodeURIComponent(params.id) }} />
+                <UserEquipmentForm
+                  user={{ user_id: decodeURIComponent(params.id) }}
+                />
               </CardContent>
             </Card>
           </DialogContent>

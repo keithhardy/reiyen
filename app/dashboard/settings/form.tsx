@@ -1,19 +1,32 @@
 'use client';
 
+import { Address, Settings } from '@prisma/client';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Address, Settings } from '@prisma/client';
-import { updateSettings } from './action';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
-import { handleFileChange } from '@/components/form/handle-file-change';
 
-export function SettingsUpdateForm({ settings }: { settings: Settings & { address: Address } }) {
+import { handleFileChange } from '@/components/form/handle-file-change';
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
+
+import { updateSettings } from './action';
+
+export function SettingsUpdateForm({
+  settings,
+}: {
+  settings: Settings & { address: Address };
+}) {
   const { toast } = useToast();
-  
+
   const [imagePreview, setImagePreview] = useState(settings?.logoUrl || '');
 
   const form = useForm({
@@ -39,7 +52,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
   });
 
   const onSubmit = async (data: Settings & { address: Address }) => {
-    console.log(data)
+    console.log(data);
 
     try {
       await updateSettings(data);
@@ -106,12 +119,29 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
               <FormItem>
                 <FormLabel>Company Logo</FormLabel>
                 <FormControl>
-                  <Input type='file' accept='image/*' onChange={(e) => handleFileChange(e, form.setValue, 'logoUrl', setImagePreview)} />
+                  <Input
+                    type='file'
+                    accept='image/*'
+                    onChange={(e) =>
+                      handleFileChange(
+                        e,
+                        form.setValue,
+                        'logoUrl',
+                        setImagePreview
+                      )
+                    }
+                  />
                 </FormControl>
                 <FormMessage />
                 {imagePreview && (
                   <div className='mt-2'>
-                    <Image src={imagePreview} alt='Logo Preview' width={200} height={200} className='rounded border' />
+                    <Image
+                      src={imagePreview}
+                      alt='Logo Preview'
+                      width={200}
+                      height={200}
+                      className='rounded border'
+                    />
                   </div>
                 )}
               </FormItem>
@@ -223,7 +253,11 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
           />
         </div>
         <div className='flex justify-end'>
-          <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
+          <Button
+            type='submit'
+            disabled={form.formState.isSubmitting}
+            variant='outline'
+          >
             {form.formState.isSubmitting ? 'Saving' : 'Save'}
           </Button>
         </div>

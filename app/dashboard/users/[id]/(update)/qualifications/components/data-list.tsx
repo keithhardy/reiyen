@@ -9,18 +9,28 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 
-export function DataList({ qualifications }: { qualifications: Qualification[] }) {
+export function DataList({
+  qualifications,
+}: {
+  qualifications: Qualification[];
+}) {
   const { toast } = useToast();
 
   return (
     <ScrollArea className='h-[310px]'>
       <div className='space-y-4 pr-4'>
         {qualifications.map((qualification, index) => (
-          <div key={qualification.id} className={`grid grid-cols-5 items-center pb-4 ${index !== qualifications.length - 1 ? 'border-b border-dashed' : ''}`}>
+          <div
+            key={qualification.id}
+            className={`grid grid-cols-5 items-center pb-4 ${index !== qualifications.length - 1 ? 'border-b border-dashed' : ''}`}
+          >
             <div className='col-span-4 space-y-1'>
-              <p className='text-sm font-medium'>{qualification.qualification}</p>
+              <p className='text-sm font-medium'>
+                {qualification.qualification}
+              </p>
               <p className='text-sm text-muted-foreground'>
-                {qualification.awardingBody} - {qualification.qualificationNumber} - {qualification.awardDate}
+                {qualification.awardingBody} -{' '}
+                {qualification.qualificationNumber} - {qualification.awardDate}
               </p>
             </div>
             <div className='col-span-1'>
@@ -39,14 +49,19 @@ export function DataList({ qualifications }: { qualifications: Qualification[] }
 
                       toast({
                         title: 'Qualification Deleted',
-                        description: 'The qualification has been successfully deleted.',
+                        description:
+                          'The qualification has been successfully deleted.',
                       });
                     } catch (error) {
-                      console.error('Error during qualification deletion:', error);
+                      console.error(
+                        'Error during qualification deletion:',
+                        error
+                      );
 
                       toast({
                         title: 'Deletion Failed',
-                        description: 'An error occurred while deleting the qualification. Please try again later.',
+                        description:
+                          'An error occurred while deleting the qualification. Please try again later.',
                         variant: 'destructive',
                       });
                     }

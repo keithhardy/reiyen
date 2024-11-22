@@ -6,7 +6,9 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
-export async function updateSettings(data: Settings & { address: Address }): Promise<Settings> {
+export async function updateSettings(
+  data: Settings & { address: Address }
+): Promise<Settings> {
   try {
     const settingsResponse = await prisma.settings.findUnique({
       where: { id: data.id },

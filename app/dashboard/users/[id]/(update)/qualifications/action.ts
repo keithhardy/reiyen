@@ -6,7 +6,9 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { deleteFile, uploadFile } from '@/lib/vercel-blob';
 
-export async function createQualification(qualification: Omit<Qualification, 'id'>): Promise<void> {
+export async function createQualification(
+  qualification: Omit<Qualification, 'id'>
+): Promise<void> {
   try {
     let certificateUrl = qualification.certificateUrl;
 
@@ -33,7 +35,9 @@ export async function createQualification(qualification: Omit<Qualification, 'id
   }
 }
 
-export async function deleteQualification(qualification: Qualification): Promise<void> {
+export async function deleteQualification(
+  qualification: Qualification
+): Promise<void> {
   try {
     if (qualification.certificateUrl) {
       await deleteFile(qualification.certificateUrl);

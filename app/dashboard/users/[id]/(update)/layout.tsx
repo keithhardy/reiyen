@@ -2,7 +2,12 @@ import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 import { SidebarLinks } from '@/app/dashboard/users/[id]/(update)/components/sidebar-links';
-import { PageActions, PageHeader, PageHeaderDescription, PageHeaderHeading } from '@/components/page-header';
+import {
+  PageActions,
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderHeading,
+} from '@/components/page-header';
 import { Button } from '@/components/ui/button';
 import { auth0Management } from '@/lib/auth0-management';
 
@@ -14,9 +19,7 @@ export default async function UserUpdateLayout(
 ) {
   const params = await props.params;
 
-  const {
-    children
-  } = props;
+  const { children } = props;
 
   const { data: user } = await auth0Management.users.get({
     id: decodeURIComponent(params.id),
@@ -26,7 +29,10 @@ export default async function UserUpdateLayout(
     <>
       <PageHeader>
         <PageHeaderHeading>{user.name}</PageHeaderHeading>
-        <PageHeaderDescription>Edit user details, account status, and role. Update general info, preferences, equipment, qualifications, and permissions as needed.</PageHeaderDescription>
+        <PageHeaderDescription>
+          Edit user details, account status, and role. Update general info,
+          preferences, equipment, qualifications, and permissions as needed.
+        </PageHeaderDescription>
         <PageActions>
           <Button asChild variant='outline'>
             <Link href='/dashboard/users'>

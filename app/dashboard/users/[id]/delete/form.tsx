@@ -2,9 +2,17 @@
 
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+
 import { deleteUser } from '@/app/dashboard/users/[id]/delete/action';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { User } from '@/lib/auth0-management';
@@ -48,7 +56,8 @@ export function DeleteUserForm({ user }: { user: User }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className='text-muted-foreground'>
-                  Enter <span className='text-foreground'>{user.name}</span> and press delete to remove.
+                  Enter <span className='text-foreground'>{user.name}</span> and
+                  press delete to remove.
                 </FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -71,7 +80,13 @@ export function DeleteUserForm({ user }: { user: User }) {
           />
         </div>
         <div className='flex justify-end'>
-          <Button type='submit' disabled={form.watch('name') !== user.name || form.formState.isSubmitting} variant='destructive'>
+          <Button
+            type='submit'
+            disabled={
+              form.watch('name') !== user.name || form.formState.isSubmitting
+            }
+            variant='destructive'
+          >
             {form.formState.isSubmitting ? 'Deleting' : 'Delete'}
           </Button>
         </div>

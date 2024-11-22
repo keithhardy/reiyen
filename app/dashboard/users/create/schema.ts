@@ -3,7 +3,10 @@ import { z } from 'zod';
 export const Schema = z.object({
   email: z.string().email('Invalid email address.'),
 
-  name: z.string().min(5, { message: 'Name should be at least 5 characters long.' }).max(50, { message: 'Name should not exceed 50 characters.' }),
+  name: z
+    .string()
+    .min(5, { message: 'Name should be at least 5 characters long.' })
+    .max(50, { message: 'Name should not exceed 50 characters.' }),
 
   password: z
     .string()
@@ -16,6 +19,7 @@ export const Schema = z.object({
     })
     .regex(/[0-9]/, { message: 'Password must include at least one digit.' })
     .regex(/[!@#$%^&*]/, {
-      message: 'Password must include at least one special character (!@#$%^&*).',
+      message:
+        'Password must include at least one special character (!@#$%^&*).',
     }),
 });

@@ -2,8 +2,12 @@
 
 import { revalidatePath } from 'next/cache';
 
+import {
+  auth0Management,
+  User,
+  waitForOperationInLogs,
+} from '@/lib/auth0-management';
 import { updateFile } from '@/lib/vercel-blob';
-import { auth0Management, User, waitForOperationInLogs } from '@/lib/auth0-management';
 
 export async function updateUser(user: User): Promise<User> {
   try {
@@ -12,7 +16,11 @@ export async function updateUser(user: User): Promise<User> {
 
     let pictureUrl;
     try {
-      pictureUrl = await updateFile(user.picture, currentPicture, 'profile-picture');
+      pictureUrl = await updateFile(
+        user.picture,
+        currentPicture,
+        'profile-picture'
+      );
     } catch {
       throw new Error('Failed to update user: Error updating file.');
     }

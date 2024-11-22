@@ -3,10 +3,18 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+
 import { updateUser } from '@/app/dashboard/users/[id]/(update)/general/action';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { User } from '@/lib/auth0-management';
@@ -47,9 +55,28 @@ export function UserGeneralForm({ user }: { user: User }) {
               <FormItem>
                 <FormLabel>Profile Picture</FormLabel>
                 <div className='flex items-center space-x-4'>
-                  {imagePreview && <Image src={imagePreview} alt='Profile Picture Preview' width={50} height={50} className='rounded-full' />}
+                  {imagePreview && (
+                    <Image
+                      src={imagePreview}
+                      alt='Profile Picture Preview'
+                      width={50}
+                      height={50}
+                      className='rounded-full'
+                    />
+                  )}
                   <FormControl>
-                    <Input type='file' accept='image/*' onChange={(e) => handleFileChange(e, form.setValue, 'picture', setImagePreview)} />
+                    <Input
+                      type='file'
+                      accept='image/*'
+                      onChange={(e) =>
+                        handleFileChange(
+                          e,
+                          form.setValue,
+                          'picture',
+                          setImagePreview
+                        )
+                      }
+                    />
                   </FormControl>
                 </div>
                 <FormMessage />
@@ -84,7 +111,11 @@ export function UserGeneralForm({ user }: { user: User }) {
           />
         </div>
         <div className='flex justify-end'>
-          <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
+          <Button
+            type='submit'
+            disabled={form.formState.isSubmitting}
+            variant='outline'
+          >
             {form.formState.isSubmitting ? 'Saving' : 'Save'}
           </Button>
         </div>

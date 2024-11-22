@@ -6,7 +6,9 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { deleteFile, uploadFile } from '@/lib/vercel-blob';
 
-export async function createEquipment(equipment: Omit<Equipment, 'id'>): Promise<void> {
+export async function createEquipment(
+  equipment: Omit<Equipment, 'id'>
+): Promise<void> {
   try {
     let certificateUrl = equipment.certificateUrl;
 
@@ -34,7 +36,9 @@ export async function createEquipment(equipment: Omit<Equipment, 'id'>): Promise
   }
 }
 
-export async function deleteEquipment(equipment: Pick<Equipment, 'id' | 'certificateUrl'>): Promise<void> {
+export async function deleteEquipment(
+  equipment: Pick<Equipment, 'id' | 'certificateUrl'>
+): Promise<void> {
   try {
     if (equipment.certificateUrl) {
       await deleteFile(equipment.certificateUrl);

@@ -2,12 +2,14 @@ export const menuLinks = [
   {
     label: 'Dashboard',
     href: '/dashboard',
-    description: 'View an overview of system activities and key metrics in electrical certification.',
+    description:
+      'View an overview of system activities and key metrics in electrical certification.',
   },
   {
     label: 'Users',
     href: '/dashboard/users',
-    description: 'Manage user accounts and permissions within the electrical certification system.',
+    description:
+      'Manage user accounts and permissions within the electrical certification system.',
   },
   // {
   //   label: 'Clients',
@@ -27,7 +29,8 @@ export const menuLinks = [
   {
     label: 'Settings',
     href: '/dashboard/settings',
-    description: 'Configure system-wide settings for electrical certificate management.',
+    description:
+      'Configure system-wide settings for electrical certificate management.',
   },
 ];
 
