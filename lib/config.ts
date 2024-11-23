@@ -17,11 +17,12 @@ export const menuLinks = [
     description:
       'Handle client information and scheduling for electrical services.',
   },
-  // {
-  //   label: 'Properties',
-  //   href: '/dashboard/properties',
-  //   description: 'Maintain records of properties requiring electrical certifications.',
-  // },
+  {
+    label: 'Properties',
+    href: '/dashboard/properties',
+    description:
+      'Maintain records of properties requiring electrical certifications.',
+  },
   // {
   //   label: 'Certificates',
   //   href: '/dashboard/certificates',
