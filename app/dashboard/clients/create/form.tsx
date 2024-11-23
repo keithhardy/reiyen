@@ -1,7 +1,8 @@
 'use client';
 
-import { Address, Settings } from '@prisma/client';
+import { Address, Client } from '@prisma/client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -18,50 +19,48 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
-import { updateSettings } from './action';
+import { createClient } from './action';
 
-export function SettingsUpdateForm({
-  settings,
-}: {
-  settings: Settings & { address: Address };
-}) {
+export function CreateClientForm() {
+  const router = useRouter();
+
   const { toast } = useToast();
 
-  const [imagePreview, setImagePreview] = useState(settings?.logoUrl || '');
+  const [imagePreview, setImagePreview] = useState('');
 
   const form = useForm({
     defaultValues: {
-      id: settings?.id,
-      name: settings?.name || '',
-      email: settings?.email || '',
-      phone: settings?.phone || '',
-      logoUrl: settings?.logoUrl || '',
-      governingBody: settings?.governingBody || '',
-      governingBodyNumber: settings?.governingBodyNumber || '',
-      addressId: settings?.addressId,
-      address: settings?.address || {
-        id: settings?.address.id || '',
-        streetAddress: settings?.address.streetAddress || '',
-        city: settings?.address.city || '',
-        county: settings?.address.county || '',
-        postTown: settings?.address.postTown || '',
-        postcode: settings?.address.postcode || '',
-        country: settings?.address.country || '',
+      name: '',
+      email: '',
+      phone: '',
+      logoUrl: '',
+      address: {
+        streetAddress: '',
+        city: '',
+        county: '',
+        postTown: '',
+        postcode: '',
+        country: '',
       },
     },
   });
 
-  const onSubmit = async (data: Settings & { address: Address }) => {
+  const onSubmit = async (
+    data: Omit<Client, 'id' | 'addressId'> & {
+      address: Omit<Address, 'id'>;
+    }
+  ) => {
     try {
-      await updateSettings(data);
+      const client = await createClient(data);
+      router.back();
       toast({
-        title: 'Settings Updated',
-        description: `Settings was successfully updated.`,
+        title: 'Client Created',
+        description: `Client ${client.name} was successfully created.`,
       });
     } catch {
       toast({
         title: 'Error',
-        description: 'Failed to update the settings. Please try again.',
+        description: 'Failed to create the Client. Please try again.',
         variant: 'destructive',
       });
     }
@@ -70,7 +69,7 @@ export function SettingsUpdateForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-4'>
+        <div className='space-y-4 pb-4'>
           <FormField
             control={form.control}
             name='name'
@@ -78,7 +77,7 @@ export function SettingsUpdateForm({
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} autoComplete='new-name' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -91,7 +90,7 @@ export function SettingsUpdateForm({
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type='email' {...field} autoComplete='email' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -104,7 +103,7 @@ export function SettingsUpdateForm({
               <FormItem>
                 <FormLabel>Phone</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type='tel' {...field} autoComplete='tel' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -147,38 +146,12 @@ export function SettingsUpdateForm({
           />
           <FormField
             control={form.control}
-            name='governingBody'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Governing Body</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='governingBodyNumber'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Governing Body Number</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name='address.streetAddress'
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Street Address</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} autoComplete='address-line1' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -191,7 +164,7 @@ export function SettingsUpdateForm({
               <FormItem>
                 <FormLabel>City</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} autoComplete='address-level2' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -204,7 +177,7 @@ export function SettingsUpdateForm({
               <FormItem>
                 <FormLabel>County</FormLabel>
                 <FormControl>
-                  <Input {...field} value={field.value ?? ''} />
+                  <Input {...field} autoComplete='address-level1' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -217,7 +190,7 @@ export function SettingsUpdateForm({
               <FormItem>
                 <FormLabel>Post Town</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} autoComplete='address-level2' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -230,7 +203,7 @@ export function SettingsUpdateForm({
               <FormItem>
                 <FormLabel>Postcode</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} autoComplete='postal-code' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -243,7 +216,7 @@ export function SettingsUpdateForm({
               <FormItem>
                 <FormLabel>Country</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input {...field} autoComplete='country-name' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -255,7 +228,7 @@ export function SettingsUpdateForm({
               disabled={form.formState.isSubmitting}
               variant='outline'
             >
-              {form.formState.isSubmitting ? 'Saving' : 'Save'}
+              {form.formState.isSubmitting ? 'Creating' : 'Create'}
             </Button>
           </div>
         </div>

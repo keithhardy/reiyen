@@ -12,9 +12,13 @@ export async function createEquipment(
   try {
     let certificateUrl = equipment.certificateUrl;
 
-    if (certificateUrl) {
-      const fileName = `certificate-${Date.now()}.png`;
-      certificateUrl = await uploadFile(certificateUrl, fileName);
+    try {
+      if (certificateUrl) {
+        const fileName = `certificate-${Date.now()}.png`;
+        certificateUrl = await uploadFile(certificateUrl, fileName);
+      }
+    } catch {
+      throw new Error('Failed to create certificate: Error updating file.');
     }
 
     await prisma.equipment.create({

@@ -1,6 +1,6 @@
 'use client';
 
-import { Address, Settings } from '@prisma/client';
+import { Address, Client } from '@prisma/client';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -18,50 +18,38 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
-import { updateSettings } from './action';
+import { updateClient } from './action';
 
-export function SettingsUpdateForm({
-  settings,
+export function UpdateClientForm({
+  client,
 }: {
-  settings: Settings & { address: Address };
+  client: Client & {
+    address: Address;
+  };
 }) {
   const { toast } = useToast();
 
-  const [imagePreview, setImagePreview] = useState(settings?.logoUrl || '');
+  const [imagePreview, setImagePreview] = useState(client.logoUrl || '');
 
   const form = useForm({
-    defaultValues: {
-      id: settings?.id,
-      name: settings?.name || '',
-      email: settings?.email || '',
-      phone: settings?.phone || '',
-      logoUrl: settings?.logoUrl || '',
-      governingBody: settings?.governingBody || '',
-      governingBodyNumber: settings?.governingBodyNumber || '',
-      addressId: settings?.addressId,
-      address: settings?.address || {
-        id: settings?.address.id || '',
-        streetAddress: settings?.address.streetAddress || '',
-        city: settings?.address.city || '',
-        county: settings?.address.county || '',
-        postTown: settings?.address.postTown || '',
-        postcode: settings?.address.postcode || '',
-        country: settings?.address.country || '',
-      },
-    },
+    defaultValues: client,
   });
 
-  const onSubmit = async (data: Settings & { address: Address }) => {
+  const onSubmit = async (
+    data: Client & {
+      address: Address;
+    }
+  ) => {
     try {
-      await updateSettings(data);
+      const client = await updateClient(data);
       toast({
-        title: 'Settings Updated',
-        description: `Settings was successfully updated.`,
+        title: 'Client Updated',
+        description: `Client ${client.name} was successfully updated.`,
       });
     } catch {
       toast({
         title: 'Error',
-        description: 'Failed to update the settings. Please try again.',
+        description: 'Failed to update the Client. Please try again.',
         variant: 'destructive',
       });
     }
@@ -70,7 +58,7 @@ export function SettingsUpdateForm({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-4'>
+        <div className='space-y-4 pb-4'>
           <FormField
             control={form.control}
             name='name'
@@ -91,7 +79,7 @@ export function SettingsUpdateForm({
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type='email' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -104,7 +92,7 @@ export function SettingsUpdateForm({
               <FormItem>
                 <FormLabel>Phone</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input type='tel' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -142,32 +130,6 @@ export function SettingsUpdateForm({
                     />
                   </div>
                 )}
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='governingBody'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Governing Body</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='governingBodyNumber'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Governing Body Number</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />

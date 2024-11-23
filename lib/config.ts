@@ -11,11 +11,12 @@ export const menuLinks = [
     description:
       'Manage user accounts and permissions within the electrical certification system.',
   },
-  // {
-  //   label: 'Clients',
-  //   href: '/dashboard/clients',
-  //   description: 'Handle client information and scheduling for electrical services.',
-  // },
+  {
+    label: 'Clients',
+    href: '/dashboard/clients',
+    description:
+      'Handle client information and scheduling for electrical services.',
+  },
   // {
   //   label: 'Properties',
   //   href: '/dashboard/properties',
