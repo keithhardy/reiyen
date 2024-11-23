@@ -19,11 +19,10 @@ import { prisma } from '@/lib/prisma';
 
 import { UpdateClientForm } from './form';
 
-export default async function ClientUpdatePage({
-  params,
-}: {
-  params: { id: string };
+export default async function ClientUpdatePage(props: {
+  params: Promise<{ id: string }>;
 }) {
+  const params = await props.params;
   const client = await prisma.client.findUnique({
     where: {
       id: params.id,

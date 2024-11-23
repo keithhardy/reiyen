@@ -19,11 +19,10 @@ import { prisma } from '@/lib/prisma';
 
 import { DeleteClientForm } from './form';
 
-export default async function DeleteClientPage({
-  params,
-}: {
-  params: { id: string };
+export default async function DeleteClientPage(props: {
+  params: Promise<{ id: string }>;
 }) {
+  const params = await props.params;
   const client = await prisma.client.findUnique({
     where: {
       id: params.id,

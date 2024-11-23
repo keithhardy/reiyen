@@ -19,11 +19,10 @@ import { prisma } from '@/lib/prisma';
 
 import { PropertyUpdateForm } from './form';
 
-export default async function PropertyUpdatePage({
-  params,
-}: {
-  params: { id: string };
+export default async function PropertyUpdatePage(props: {
+  params: Promise<{ id: string }>;
 }) {
+  const params = await props.params;
   const clients = await prisma.client.findMany();
 
   const property = await prisma.property.findUnique({
