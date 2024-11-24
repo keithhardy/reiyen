@@ -35,7 +35,7 @@ export function UserPreferencesForm({
   const form = useForm<Preferences>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      id: preferences?.id,
+      id: preferences?.id || '',
       position: preferences?.position || '',
       signature: preferences?.signature || '',
       userId: user.user_id,
@@ -56,7 +56,6 @@ export function UserPreferencesForm({
     } else {
       data.signature = isEditingSignature ? '' : preferences?.signature || '';
     }
-
     try {
       await updatePreferences(data);
       toast({

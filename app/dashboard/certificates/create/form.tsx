@@ -30,7 +30,7 @@ import { useToast } from '@/hooks/use-toast';
 export function CertificateCreateForm({
   clients,
 }: {
-  clients: (Client & { Property: (Property & { address: Address })[] })[];
+  clients: (Client & { properties: (Property & { address: Address })[] })[];
 }) {
   const router = useRouter();
 
@@ -56,7 +56,7 @@ export function CertificateCreateForm({
   );
 
   const onSubmit = async (
-    data: Omit<Certificate, 'id' | 'propertyId'> & {
+    data: Omit<Certificate, 'id' | 'propertyId' | 'createdAt' | 'updatedAt'> & {
       property: Pick<Property, 'id'> & {
         client: Pick<Client, 'id'>;
       };
@@ -113,7 +113,7 @@ export function CertificateCreateForm({
             )}
           />
 
-          {selectedClient && selectedClient.Property.length > 0 && (
+          {selectedClient && selectedClient.properties.length > 0 && (
             <FormField
               control={form.control}
               name='property.id'
@@ -129,7 +129,7 @@ export function CertificateCreateForm({
                         <SelectValue placeholder='Select a property' />
                       </SelectTrigger>
                       <SelectContent>
-                        {selectedClient.Property.map((property) => (
+                        {selectedClient.properties.map((property) => (
                           <SelectItem key={property.id} value={property.id}>
                             {property.address.streetAddress},{' '}
                             {property.address.postcode}

@@ -21,7 +21,7 @@ import { prisma } from '@/lib/prisma';
 export default async function CertificateCreatePage() {
   const clients = await prisma.client.findMany({
     include: {
-      Property: {
+      properties: {
         include: {
           address: true,
         },

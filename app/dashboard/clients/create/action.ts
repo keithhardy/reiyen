@@ -7,8 +7,8 @@ import { prisma } from '@/lib/prisma';
 import { uploadFile } from '@/lib/vercel-blob';
 
 export async function createClient(
-  client: Omit<Client, 'id' | 'addressId'> & {
-    address: Omit<Address, 'id'>;
+  client: Omit<Client, 'id' | 'addressId' | 'createdAt' | 'updatedAt'> & {
+    address: Omit<Address, 'id' | 'createdAt' | 'updatedAt'>;
   }
 ): Promise<Client> {
   try {

@@ -39,7 +39,7 @@ export default async function CertificateUpdatePage(props: {
 
   const clients = await prisma.client.findMany({
     include: {
-      Property: {
+      properties: {
         include: {
           address: true,
         },

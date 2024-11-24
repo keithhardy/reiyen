@@ -51,8 +51,11 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
   });
 
   const onSubmit = async (
-    data: Omit<Property, 'id' | 'addressId' | 'clientId'> & {
-      address: Omit<Address, 'id' | 'propertyId'>;
+    data: Omit<
+      Property,
+      'id' | 'addressId' | 'clientId' | 'createdAt' | 'updatedAt'
+    > & {
+      address: Omit<Address, 'id' | 'propertyId' | 'createdAt' | 'updatedAt'>;
       client: Pick<Client, 'id'>;
     }
   ) => {

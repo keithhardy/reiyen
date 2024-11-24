@@ -26,8 +26,8 @@ export async function updateCertificate(
     });
 
     revalidatePath('/certificates');
-  } catch(error) {
-    console.log(error)
+  } catch (error) {
+    console.log(error);
     throw new Error('Certificate update failed');
   }
 }

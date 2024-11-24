@@ -48,8 +48,8 @@ export function ClientCreateForm() {
   });
 
   const onSubmit = async (
-    data: Omit<Client, 'id' | 'addressId'> & {
-      address: Omit<Address, 'id'>;
+    data: Omit<Client, 'id' | 'addressId' | 'createdAt' | 'updatedAt'> & {
+      address: Omit<Address, 'id' | 'createdAt' | 'updatedAt'>;
     }
   ) => {
     try {

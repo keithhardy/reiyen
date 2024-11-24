@@ -8,37 +8,14 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-model Settings {
-  id                  String  @id @default(uuid())
-  name                String
-  email               String
-  phone               String
-  logoUrl             String
-  governingBody       String
-  governingBodyNumber String
-  addressId           String  @unique
-  address             Address @relation(fields: [addressId], references: [id])
-
-  @@unique([id])
-}
-
 model Preferences {
   id        String @id @default(uuid())
-  userId    String
+  userId    String @unique
   position  String
   signature String
 
-  @@unique([userId])
-}
-
-model Qualification {
-  id                  String @id @default(uuid())
-  userId              String
-  awardingBody        String
-  qualification       String
-  qualificationNumber String
-  awardDate           String
-  certificateUrl      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Equipment {
@@ -51,7 +28,23 @@ model Equipment {
   testDate       String
   certificateUrl String
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([userId, type])
+}
+
+model Qualification {
+  id                  String @id @default(uuid())
+  userId              String
+  awardingBody        String
+  qualification       String
+  qualificationNumber String
+  awardDate           String
+  certificateUrl      String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Permission {
@@ -61,6 +54,9 @@ model Permission {
   clientId   String?
 
   client Client? @relation(fields: [clientId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, permission, clientId])
 }
@@ -73,34 +69,56 @@ model Address {
   postTown      String
   postcode      String
   country       String    @default("United Kingdom")
-  clients       Client?
-  properties    Property?
+  client        Client?
+  property      Property?
   settings      Settings?
 
-  @@unique([id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Settings {
+  id                  String  @id @default(uuid())
+  name                String
+  email               String
+  phone               String
+  logoUrl             String
+  governingBody       String
+  governingBodyNumber String
+  addressId           String  @unique
+  address             Address @relation(fields: [addressId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Client {
-  id         String       @id @default(uuid())
-  name       String
-  email      String
-  phone      String
-  logoUrl    String
-  addressId  String       @unique
-  address    Address      @relation(fields: [addressId], references: [id])
-  Permission Permission[]
-  Property   Property[]
+  id          String       @id @default(uuid())
+  name        String
+  email       String
+  phone       String
+  logoUrl     String
+  addressId   String       @unique
+  address     Address      @relation(fields: [addressId], references: [id])
+  permissions Permission[]
+  properties  Property[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Property {
-  id          String        @id @default(uuid())
-  uprn        String
-  occupier    String
-  addressId   String        @unique
-  clientId    String
-  address     Address       @relation(fields: [addressId], references: [id])
-  client      Client        @relation(fields: [clientId], references: [id])
-  Certificate Certificate[]
+  id           String        @id @default(uuid())
+  uprn         String
+  occupier     String
+  addressId    String        @unique
+  clientId     String
+  address      Address       @relation(fields: [addressId], references: [id])
+  client       Client        @relation(fields: [clientId], references: [id])
+  certificates Certificate[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([clientId])
 }
@@ -110,6 +128,9 @@ model Certificate {
   name       String
   propertyId String
   property   Property @relation(fields: [propertyId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([propertyId])
 }
