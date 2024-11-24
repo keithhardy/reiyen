@@ -5,7 +5,9 @@ import { revalidatePath } from 'next/cache';
 
 import { prisma } from '@/lib/prisma';
 
-export async function addPermissions(permissions: Omit<Permission, 'id' | 'createdAt' | 'updatedAt'>[]) {
+export async function addPermissions(
+  permissions: Omit<Permission, 'id' | 'createdAt' | 'updatedAt'>[]
+) {
   try {
     await prisma.permission.createMany({
       data: permissions,
