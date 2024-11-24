@@ -2,7 +2,7 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
-import { RowActions } from './row-actions';
+import { RowActions } from '@/app/dashboard/properties/components/data-table/row-actions';
 
 type Address = {
   id: string;

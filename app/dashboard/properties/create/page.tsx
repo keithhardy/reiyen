@@ -1,6 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
+import { PropertyCreateForm } from '@/app/dashboard/properties/create/form';
 import {
   PageActions,
   PageHeader,
@@ -16,8 +17,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
-
-import { PropertyCreateForm } from './form';
 
 export default async function CreatePropertyPage() {
   const clients = await prisma.client.findMany();

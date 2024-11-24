@@ -4,6 +4,7 @@ import { Property } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
+import { deleteProperty } from '@/app/dashboard/properties/[id]/delete/action';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -15,8 +16,6 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-
-import { deleteProperty } from './action';
 
 export function PropertyDeleteForm({ property }: { property: Property }) {
   const router = useRouter();

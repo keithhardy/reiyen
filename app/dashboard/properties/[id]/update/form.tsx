@@ -3,6 +3,7 @@
 import { Address, Client, Property } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 
+import { updateProperty } from '@/app/dashboard/properties/[id]/update/action';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -21,8 +22,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-
-import { updateProperty } from './action';
 
 export function PropertyUpdateForm({
   property,

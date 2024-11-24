@@ -1,6 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
+import { PropertyDeleteForm } from '@/app/dashboard/properties/[id]/delete/form';
 import {
   PageActions,
   PageHeader,
@@ -16,8 +17,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
-
-import { PropertyDeleteForm } from './form';
 
 export default async function UserDeletePage(props: {
   params: Promise<{ id: string }>;

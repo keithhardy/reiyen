@@ -1,3 +1,4 @@
+import { SettingsUpdateForm } from '@/app/dashboard/settings/form';
 import {
   PageHeader,
   PageHeaderDescription,
@@ -11,8 +12,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
-
-import { SettingsUpdateForm } from './form';
 
 export default async function UsersPage() {
   const settings = await prisma.settings.findFirst({

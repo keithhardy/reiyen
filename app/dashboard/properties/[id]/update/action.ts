@@ -5,10 +5,12 @@ import { revalidatePath } from 'next/cache';
 
 import { prisma } from '@/lib/prisma';
 
-export async function updateProperty(data: Property & {
-  address: Address;
-  client: Client;
-}): Promise<void> {
+export async function updateProperty(
+  data: Property & {
+    address: Address;
+    client: Client;
+  }
+): Promise<void> {
   const { id, address, client, ...propertyData } = data;
 
   await prisma.property.update({

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { updateClient } from '@/app/dashboard/clients/[id]/update/action';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
 import {
@@ -17,8 +18,6 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-
-import { updateClient } from './action';
 
 export function UpdateClientForm({
   client,

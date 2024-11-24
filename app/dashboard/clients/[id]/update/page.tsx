@@ -1,6 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
+import { UpdateClientForm } from '@/app/dashboard/clients/[id]/update/form';
 import {
   PageActions,
   PageHeader,
@@ -16,8 +17,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
-
-import { UpdateClientForm } from './form';
 
 export default async function ClientUpdatePage(props: {
   params: Promise<{ id: string }>;

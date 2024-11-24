@@ -1,6 +1,8 @@
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
 
+import { columns } from '@/app/dashboard/clients/components/data-table/columns';
+import { DataTable } from '@/app/dashboard/clients/components/data-table/data-table';
 import {
   PageActions,
   PageHeader,
@@ -9,9 +11,6 @@ import {
 } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
 import { prisma } from '@/lib/prisma';
-
-import { columns } from './components/data-table/columns';
-import { DataTable } from './components/data-table/data-table';
 
 export default async function UsersPage() {
   const clients = await prisma.client.findMany({

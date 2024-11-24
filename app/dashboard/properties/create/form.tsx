@@ -4,6 +4,7 @@ import { Address, Client, Property } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
+import { createProperty } from '@/app/dashboard/properties/create/action';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -22,8 +23,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-
-import { createProperty } from './action';
 
 export function PropertyCreateForm({ clients }: { clients: Client[] }) {
   const router = useRouter();

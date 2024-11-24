@@ -1,6 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
+import { CreateClientForm } from '@/app/dashboard/clients/create/form';
 import {
   PageActions,
   PageHeader,
@@ -15,8 +16,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-
-import { CreateClientForm } from './form';
 
 export default function CreateClientPage() {
   return (
