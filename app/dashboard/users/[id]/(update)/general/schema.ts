@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 export const Schema = z.object({
-  user_id: z.string(),
-  picture: z.string(),
+  user_id: z.string().min(1, { message: "User ID cannot be empty" }),
+  picture: z.string().optional(),
   email: z.string().email('Invalid email address.'),
   name: z
     .string()
