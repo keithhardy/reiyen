@@ -1,11 +1,13 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Address, Certificate, Client, Property } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { createCertificate } from '@/app/dashboard/certificates/create/action';
+import { Schema } from '@/app/dashboard/certificates/create/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -37,6 +39,7 @@ export function CertificateCreateForm({
   const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
 
   const form = useForm({
+    resolver: zodResolver(Schema),
     defaultValues: {
       name: '',
       property: {

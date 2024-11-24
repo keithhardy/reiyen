@@ -1,10 +1,12 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Certificate } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import { deleteCertificate } from '@/app/dashboard/certificates/[id]/delete/action';
+import { Schema } from '@/app/dashboard/certificates/[id]/delete/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -27,6 +29,7 @@ export function CertificateDeleteForm({
   const { toast } = useToast();
 
   const form = useForm({
+    resolver: zodResolver(Schema),
     defaultValues: {
       id: certificate.id,
       name: '',

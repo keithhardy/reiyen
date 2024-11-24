@@ -1,9 +1,12 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Address, Certificate, Client, Property } from '@prisma/client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { updateCertificate } from '@/app/dashboard/certificates/[id]/update/action';
+import { Schema } from '@/app/dashboard/certificates/[id]/update/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -23,8 +26,6 @@ import {
 } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 
-import { updateCertificate } from './action';
-
 export function CertificateUpdateForm({
   certificate,
   clients,
@@ -40,6 +41,7 @@ export function CertificateUpdateForm({
     certificate.property.client.id
   );
   const form = useForm({
+    resolver: zodResolver(Schema),
     defaultValues: certificate,
   });
 
