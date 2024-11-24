@@ -20,7 +20,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
-export function CreateClientForm() {
+export function ClientCreateForm() {
   const router = useRouter();
 
   const { toast } = useToast();

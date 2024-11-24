@@ -19,7 +19,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
-export function UpdateClientForm({
+export function ClientUpdateForm({
   client,
 }: {
   client: Client & {

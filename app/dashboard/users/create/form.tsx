@@ -19,7 +19,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { User } from '@/lib/auth0-management';
 
-export function CreateUserForm() {
+export function UserCreateForm() {
   const router = useRouter();
 
   const { toast } = useToast();

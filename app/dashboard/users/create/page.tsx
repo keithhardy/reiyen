@@ -1,7 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-import { CreateUserForm } from '@/app/dashboard/users/create/form';
+import { UserCreateForm } from '@/app/dashboard/users/create/form';
 import {
   PageActions,
   PageHeader,
@@ -17,7 +17,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-export default function CreateUserPage() {
+export default function UserCreatePage() {
   return (
     <>
       <PageHeader>
@@ -45,7 +45,7 @@ export default function CreateUserPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className='col-span-2 p-6 lg:col-span-1'>
-          <CreateUserForm />
+          <UserCreateForm />
         </CardContent>
       </Card>
     </>

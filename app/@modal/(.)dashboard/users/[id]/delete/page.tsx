@@ -1,5 +1,5 @@
-import { Modal } from '@/app/dashboard/@modal/components/modal';
-import { DeleteUserForm } from '@/app/dashboard/users/[id]/delete/form';
+import { Modal } from '@/app/@modal/components/modal';
+import { UserDeleteForm } from '@/app/dashboard/users/[id]/delete/form';
 import {
   Card,
   CardContent,
@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/card';
 import { auth0Management } from '@/lib/auth0-management';
 
-export default async function DeleteUserPage(props: {
+export default async function UserDeletePage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
@@ -30,7 +30,7 @@ export default async function DeleteUserPage(props: {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <DeleteUserForm user={user} />
+          <UserDeleteForm user={user} />
         </CardContent>
       </Card>
     </Modal>

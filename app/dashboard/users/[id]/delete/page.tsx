@@ -1,7 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-import { DeleteUserForm } from '@/app/dashboard/users/[id]/delete/form';
+import { UserDeleteForm } from '@/app/dashboard/users/[id]/delete/form';
 import {
   PageActions,
   PageHeader,
@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/card';
 import { auth0Management } from '@/lib/auth0-management';
 
-export default async function DeleteUserPage(props: {
+export default async function UserDeletePage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
@@ -55,7 +55,7 @@ export default async function DeleteUserPage(props: {
           </CardDescription>
         </CardHeader>
         <CardContent className='col-span-2 p-6 lg:col-span-1'>
-          <DeleteUserForm user={user} />
+          <UserDeleteForm user={user} />
         </CardContent>
       </Card>
     </>

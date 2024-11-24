@@ -1,7 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-import { UpdateClientForm } from '@/app/dashboard/clients/[id]/update/form';
+import { ClientUpdateForm } from '@/app/dashboard/clients/[id]/update/form';
 import {
   PageActions,
   PageHeader,
@@ -59,7 +59,7 @@ export default async function ClientUpdatePage(props: {
           </CardDescription>
         </CardHeader>
         <CardContent className='col-span-2 p-6 lg:col-span-1'>
-          <UpdateClientForm client={client!} />
+          <ClientUpdateForm client={client!} />
         </CardContent>
       </Card>
     </>

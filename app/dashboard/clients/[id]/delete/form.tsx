@@ -17,7 +17,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
-export function DeleteClientForm({ client }: { client: Client }) {
+export function ClientDeleteForm({ client }: { client: Client }) {
   const router = useRouter();
 
   const { toast } = useToast();

@@ -1,7 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-import { CreateClientForm } from '@/app/dashboard/clients/create/form';
+import { ClientCreateForm } from '@/app/dashboard/clients/create/form';
 import {
   PageActions,
   PageHeader,
@@ -44,7 +44,7 @@ export default function CreateClientPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className='col-span-2 p-6 lg:col-span-1'>
-          <CreateClientForm />
+          <ClientCreateForm />
         </CardContent>
       </Card>
     </>

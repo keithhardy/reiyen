@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
-export default async function CreatePropertyPage() {
+export default async function PropertyCreatePage() {
   const clients = await prisma.client.findMany();
 
   return (

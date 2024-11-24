@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { User } from '@/lib/auth0-management';
 
-export function DeleteUserForm({ user }: { user: User }) {
+export function UserDeleteForm({ user }: { user: User }) {
   const router = useRouter();
 
   const { toast } = useToast();

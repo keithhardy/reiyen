@@ -1,7 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-import { DeleteClientForm } from '@/app/dashboard/clients/[id]/delete/form';
+import { ClientDeleteForm } from '@/app/dashboard/clients/[id]/delete/form';
 import {
   PageActions,
   PageHeader,
@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
-export default async function DeleteClientPage(props: {
+export default async function ClientDeletePage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
@@ -60,7 +60,7 @@ export default async function DeleteClientPage(props: {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <DeleteClientForm client={client!} />
+          <ClientDeleteForm client={client!} />
         </CardContent>
       </Card>
     </>

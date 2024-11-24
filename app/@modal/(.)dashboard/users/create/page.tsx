@@ -1,5 +1,5 @@
-import { Modal } from '@/app/dashboard/@modal/components/modal';
-import { CreateUserForm } from '@/app/dashboard/users/create/form';
+import { Modal } from '@/app/@modal/components/modal';
+import { UserCreateForm } from '@/app/dashboard/users/create/form';
 import {
   Card,
   CardContent,
@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-export default function CreateUserPage() {
+export default function UserCreatePage() {
   return (
     <Modal>
       <Card className='border-none shadow-none'>
@@ -19,7 +19,7 @@ export default function CreateUserPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <CreateUserForm />
+          <UserCreateForm />
         </CardContent>
       </Card>
     </Modal>
