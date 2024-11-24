@@ -1,10 +1,12 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Address, Client, Property } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import { createProperty } from '@/app/dashboard/properties/create/action';
+import { Schema } from '@/app/dashboard/properties/create/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -30,6 +32,7 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
   const { toast } = useToast();
 
   const form = useForm({
+    resolver: zodResolver(Schema),
     defaultValues: {
       uprn: '',
       occupier: '',

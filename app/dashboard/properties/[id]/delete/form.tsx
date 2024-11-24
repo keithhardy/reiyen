@@ -1,10 +1,12 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Property } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import { deleteProperty } from '@/app/dashboard/properties/[id]/delete/action';
+import { Schema } from '@/app/dashboard/properties/[id]/delete/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -23,6 +25,7 @@ export function PropertyDeleteForm({ property }: { property: Property }) {
   const { toast } = useToast();
 
   const form = useForm({
+    resolver: zodResolver(Schema),
     defaultValues: {
       id: property.id,
       uprn: '',

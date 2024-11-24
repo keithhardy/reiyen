@@ -1,9 +1,11 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Address, Client, Property } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 
 import { updateProperty } from '@/app/dashboard/properties/[id]/update/action';
+import { Schema } from '@/app/dashboard/properties/[id]/update/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -36,6 +38,7 @@ export function PropertyUpdateForm({
   const { toast } = useToast();
 
   const form = useForm({
+    resolver: zodResolver(Schema),
     defaultValues: property,
   });
 
