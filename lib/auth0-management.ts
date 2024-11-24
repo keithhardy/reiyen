@@ -9,6 +9,16 @@ export const auth0Management = new ManagementClient({
   },
 });
 
+export type User = {
+  user_id: string;
+  name: string;
+  email: string;
+  picture?: string;
+  password?: string;
+  last_login?: string | { [key: string]: unknown };
+  logins_count?: number;
+};
+
 export async function waitForOperationInLogs({
   userId,
   operationType,
