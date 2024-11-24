@@ -1,5 +1,6 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Address, Client } from '@prisma/client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -7,6 +8,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { createClient } from '@/app/dashboard/clients/create/action';
+import { Schema } from '@/app/dashboard/clients/create/schema';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
 import {
@@ -28,6 +30,7 @@ export function ClientCreateForm() {
   const [imagePreview, setImagePreview] = useState('');
 
   const form = useForm({
+    resolver: zodResolver(Schema),
     defaultValues: {
       name: '',
       email: '',
@@ -51,7 +54,7 @@ export function ClientCreateForm() {
   ) => {
     try {
       const client = await createClient(data);
-      router.push('/dashboard/certificates');
+      router.push('/dashboard/clients');
       toast({
         title: 'Client Created',
         description: `Client ${client.name} was successfully created.`,

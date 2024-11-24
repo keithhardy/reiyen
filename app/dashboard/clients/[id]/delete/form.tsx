@@ -1,10 +1,12 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Client } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import { deleteClient } from '@/app/dashboard/clients/[id]/delete/action';
+import { Schema } from '@/app/dashboard/clients/[id]/delete/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -23,6 +25,7 @@ export function ClientDeleteForm({ client }: { client: Client }) {
   const { toast } = useToast();
 
   const form = useForm({
+    resolver: zodResolver(Schema),
     defaultValues: {
       id: client.id,
       name: '',

@@ -33,7 +33,6 @@ export default function UserMenu() {
   }
 
   if (error) {
-    console.error('UserMenu error:', error);
     return null;
   }
 
