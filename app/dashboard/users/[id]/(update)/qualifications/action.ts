@@ -10,10 +10,13 @@ export async function createQualification(
   qualification: Omit<Qualification, 'id'>
 ): Promise<void> {
   try {
-    let certificateUrl
+    let certificateUrl;
     try {
-      certificateUrl = await uploadFile(qualification.certificateUrl, 'certifictate');
-    }catch {
+      certificateUrl = await uploadFile(
+        qualification.certificateUrl,
+        'certifictate'
+      );
+    } catch {
       throw new Error('Failed to create qualification: Error updating file.');
     }
 
@@ -24,7 +27,7 @@ export async function createQualification(
         qualification: qualification.qualification,
         qualificationNumber: qualification.qualificationNumber,
         awardDate: qualification.awardDate,
-        certificateUrl: certificateUrl  || '',
+        certificateUrl: certificateUrl || '',
       },
     });
 

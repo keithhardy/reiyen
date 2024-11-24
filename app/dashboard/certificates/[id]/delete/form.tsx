@@ -86,7 +86,10 @@ export function CertificateDeleteForm({
           <div className='flex justify-end'>
             <Button
               type='submit'
-              disabled={form.formState.isSubmitting}
+              disabled={
+                form.watch('name') !== certificate.name ||
+                form.formState.isSubmitting
+              }
               variant='outline'
             >
               {form.formState.isSubmitting ? 'Deleting' : 'Delete'}

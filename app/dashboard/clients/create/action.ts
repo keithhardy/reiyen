@@ -12,10 +12,10 @@ export async function createClient(
   }
 ): Promise<Client> {
   try {
-    let logoUrl
+    let logoUrl;
     try {
       logoUrl = await uploadFile(client.logoUrl, 'certifictate');
-    }catch {
+    } catch {
       throw new Error('Failed to create qualification: Error updating file.');
     }
 

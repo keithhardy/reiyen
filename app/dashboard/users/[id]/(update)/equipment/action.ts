@@ -10,10 +10,13 @@ export async function createEquipment(
   equipment: Omit<Equipment, 'id'>
 ): Promise<void> {
   try {
-    let certificateUrl
+    let certificateUrl;
     try {
-      certificateUrl = await uploadFile(equipment.certificateUrl, 'certifictate');
-    }catch {
+      certificateUrl = await uploadFile(
+        equipment.certificateUrl,
+        'certifictate'
+      );
+    } catch {
       throw new Error('Failed to create qualification: Error updating file.');
     }
 
