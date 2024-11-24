@@ -33,7 +33,7 @@ export function DeleteClientForm({ client }: { client: Client }) {
   const onSubmit = async (data: Pick<Client, 'id' | 'name' | 'logoUrl'>) => {
     try {
       await deleteClient(data);
-      router.back();
+      router.push('/dashboard/clients');
       toast({
         title: 'User Deleted',
         description: `${data.name} was successfully removed.`,

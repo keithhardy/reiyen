@@ -61,7 +61,7 @@ export function CertificateCreateForm({
   ) => {
     try {
       await createCertificate(data);
-      router.back();
+      router.push('/dashboard/certificates');
       toast({
         title: 'Certificate Created',
         description: `Certificate was successfully created.`,

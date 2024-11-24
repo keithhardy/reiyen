@@ -51,7 +51,7 @@ export function CreateClientForm() {
   ) => {
     try {
       const client = await createClient(data);
-      router.back();
+      router.push('/dashboard/certificates');
       toast({
         title: 'Client Created',
         description: `Client ${client.name} was successfully created.`,

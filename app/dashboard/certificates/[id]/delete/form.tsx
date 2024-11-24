@@ -36,7 +36,7 @@ export function CertificateDeleteForm({
   const onSubmit = async (data: Pick<Certificate, 'id' | 'name'>) => {
     try {
       await deleteCertificate(data);
-      router.back();
+      router.push('/dashboard/certificates');
       toast({
         title: 'User Deleted',
         description: `${data.name} was successfully removed.`,

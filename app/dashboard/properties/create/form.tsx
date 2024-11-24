@@ -55,7 +55,7 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
   ) => {
     try {
       await createProperty(data);
-      router.back();
+      router.push('/dashboard/properties');
       toast({
         title: 'Client Created',
         description: 'Property was successfully created.',

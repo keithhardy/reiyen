@@ -32,7 +32,7 @@ export function PropertyDeleteForm({ property }: { property: Property }) {
   const onSubmit = async (data: Pick<Property, 'id'>) => {
     try {
       await deleteProperty(data);
-      router.back();
+      router.push('/dashboard/properties');
       toast({
         title: 'Property Deleted',
         description: 'Property was successfully removed.',
