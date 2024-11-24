@@ -10,15 +10,11 @@ export async function createEquipment(
   equipment: Omit<Equipment, 'id'>
 ): Promise<void> {
   try {
-    let certificateUrl = equipment.certificateUrl;
-
+    let certificateUrl
     try {
-      if (certificateUrl) {
-        const fileName = `certificate-${Date.now()}.png`;
-        certificateUrl = await uploadFile(certificateUrl, fileName);
-      }
-    } catch {
-      throw new Error('Failed to create certificate: Error updating file.');
+      certificateUrl = await uploadFile(equipment.certificateUrl, 'certifictate');
+    }catch {
+      throw new Error('Failed to create qualification: Error updating file.');
     }
 
     await prisma.equipment.create({
@@ -29,13 +25,12 @@ export async function createEquipment(
         model: equipment.model,
         serialNumber: equipment.serialNumber,
         testDate: equipment.testDate,
-        certificateUrl,
+        certificateUrl: certificateUrl || '',
       },
     });
 
     revalidatePath('/users');
-  } catch (error) {
-    console.error('Failed to create equipment:', error);
+  } catch {
     throw new Error('Equipment creation failed');
   }
 }
@@ -44,17 +39,16 @@ export async function deleteEquipment(
   equipment: Pick<Equipment, 'id' | 'certificateUrl'>
 ): Promise<void> {
   try {
-    if (equipment.certificateUrl) {
-      await deleteFile(equipment.certificateUrl);
-    }
-
     await prisma.equipment.delete({
       where: { id: equipment.id },
     });
 
+    if (equipment.certificateUrl) {
+      await deleteFile(equipment.certificateUrl);
+    }
+
     revalidatePath('/users');
-  } catch (error) {
-    console.error('Failed to delete equipment:', error);
+  } catch {
     throw new Error('Equipment deletion failed');
   }
 }

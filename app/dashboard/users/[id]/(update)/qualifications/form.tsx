@@ -43,9 +43,7 @@ export function UserQualificationsForm({
         title: 'Qualification Created',
         description: 'The qualification has been successfully created.',
       });
-    } catch (error) {
-      console.error('Error during qualification creation:', error);
-
+    } catch {
       toast({
         title: 'Creation Failed',
         description:

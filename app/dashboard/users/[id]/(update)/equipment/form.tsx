@@ -40,9 +40,7 @@ export function UserEquipmentForm({ user }: { user: { user_id: string } }) {
         title: 'Equipment Created',
         description: 'The equipment has been successfully created.',
       });
-    } catch (error) {
-      console.error('Error during equipment creation:', error);
-
+    } catch {
       toast({
         title: 'Create Failed',
         description:

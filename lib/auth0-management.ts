@@ -9,16 +9,6 @@ export const auth0Management = new ManagementClient({
   },
 });
 
-export type User = {
-  user_id: string;
-  name: string;
-  email: string;
-  picture?: string;
-  password?: string;
-  last_login?: string | { [key: string]: unknown };
-  logins_count?: number;
-};
-
 export async function waitForOperationInLogs({
   userId,
   operationType,
@@ -58,12 +48,10 @@ export async function waitForOperationInLogs({
 
       await new Promise((resolve) => setTimeout(resolve, delayMs));
       delayMs *= 2;
-    } catch (error) {
-      console.error(`Error fetching logs: ${error}`);
+    } catch {
+      throw new Error(
+        `${operationType} operation for user ${userId} not found in logs after ${retries} retries starting from time: ${startTime}.`
+      );
     }
   }
-
-  throw new Error(
-    `${operationType} operation for user ${userId} not found in logs after ${retries} retries starting from time: ${startTime}.`
-  );
 }

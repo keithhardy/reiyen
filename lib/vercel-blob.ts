@@ -1,8 +1,6 @@
-'use server';
-
 import { del, put } from '@vercel/blob';
 
-export async function uploadFile(
+async function saveFile(
   fileData: string | Buffer,
   fileName: string
 ): Promise<string> {
@@ -14,8 +12,7 @@ export async function uploadFile(
 
     const blob = await put(fileName, binaryData, { access: 'public' });
     return blob.url;
-  } catch (error) {
-    console.error('Failed to upload file:', error);
+  } catch {
     throw new Error('File upload failed');
   }
 }
@@ -24,9 +21,34 @@ export async function deleteFile(fileUrl: string): Promise<void> {
   try {
     const blobName = new URL(fileUrl).pathname.slice(1);
     await del(blobName);
-  } catch (error) {
-    console.error(`Failed to delete file at ${fileUrl}:`, error);
+  } catch {
     throw new Error('File deletion failed');
+  }
+}
+
+export async function uploadFile(
+  newFile?: string,
+  filePrefix: string = 'uploaded-file'
+): Promise<string | undefined> {
+  if (newFile === '') {
+    return undefined;
+  }
+
+  if (!newFile) {
+    return undefined;
+  }
+
+  try {
+    const fileExtension =
+      newFile.match(/data:(.*?);base64/)?.[1]?.split('/')[1] || 'unknown';
+
+    const fileName = `${filePrefix}-${Date.now()}.${fileExtension}`;
+
+    const uploadedFileUrl = await saveFile(newFile, fileName);
+
+    return uploadedFileUrl;
+  } catch {
+    throw new Error('Failed to upload the new file.');
   }
 }
 
@@ -56,7 +78,7 @@ export async function updateFile(
 
     const fileName = `${filePrefix}-${Date.now()}.${fileExtension}`;
 
-    const uploadedFileUrl = await uploadFile(newFile, fileName);
+    const uploadedFileUrl = await saveFile(newFile, fileName);
 
     if (currentFile && currentFile.includes('blob.vercel-storage.com')) {
       await deleteFile(currentFile);

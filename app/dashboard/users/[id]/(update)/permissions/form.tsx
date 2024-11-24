@@ -99,9 +99,7 @@ export function UserPermissionsForm({
           title: 'Permissions Added',
           description: 'The permissions have been successfully added.',
         });
-      } catch (error) {
-        console.error('Error during adding permissions:', error);
-
+      } catch {
         toast({
           title: 'Adding Failed',
           description:

@@ -52,12 +52,7 @@ export function DataList({
                         description:
                           'The qualification has been successfully deleted.',
                       });
-                    } catch (error) {
-                      console.error(
-                        'Error during qualification deletion:',
-                        error
-                      );
-
+                    } catch {
                       toast({
                         title: 'Deletion Failed',
                         description:

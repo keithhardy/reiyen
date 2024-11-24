@@ -12,15 +12,11 @@ export async function createClient(
   }
 ): Promise<Client> {
   try {
-    let logoUrl = client.logoUrl;
-
+    let logoUrl
     try {
-      if (logoUrl) {
-        const fileName = `logo-${Date.now()}.png`;
-        logoUrl = await uploadFile(logoUrl, fileName);
-      }
-    } catch {
-      throw new Error('Failed to create client: Error updating file.');
+      logoUrl = await uploadFile(client.logoUrl, 'certifictate');
+    }catch {
+      throw new Error('Failed to create qualification: Error updating file.');
     }
 
     const createdClient = await prisma.client.create({
@@ -28,7 +24,7 @@ export async function createClient(
         name: client.name,
         email: client.email,
         phone: client.phone,
-        logoUrl: logoUrl,
+        logoUrl: logoUrl || '',
         address: {
           create: {
             streetAddress: client.address.streetAddress,

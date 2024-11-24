@@ -10,11 +10,11 @@ export async function createQualification(
   qualification: Omit<Qualification, 'id'>
 ): Promise<void> {
   try {
-    let certificateUrl = qualification.certificateUrl;
-
-    if (certificateUrl) {
-      const fileName = `certificate-${Date.now()}.png`;
-      certificateUrl = await uploadFile(certificateUrl, fileName);
+    let certificateUrl
+    try {
+      certificateUrl = await uploadFile(qualification.certificateUrl, 'certifictate');
+    }catch {
+      throw new Error('Failed to create qualification: Error updating file.');
     }
 
     await prisma.qualification.create({
@@ -24,13 +24,12 @@ export async function createQualification(
         qualification: qualification.qualification,
         qualificationNumber: qualification.qualificationNumber,
         awardDate: qualification.awardDate,
-        certificateUrl,
+        certificateUrl: certificateUrl  || '',
       },
     });
 
     revalidatePath('/users');
-  } catch (error) {
-    console.error('Failed to create qualification:', error);
+  } catch {
     throw new Error('Qualification creation failed');
   }
 }
@@ -39,17 +38,16 @@ export async function deleteQualification(
   qualification: Qualification
 ): Promise<void> {
   try {
-    if (qualification.certificateUrl) {
-      await deleteFile(qualification.certificateUrl);
-    }
-
     await prisma.qualification.delete({
       where: { id: qualification.id },
     });
 
+    if (qualification.certificateUrl) {
+      await deleteFile(qualification.certificateUrl);
+    }
+
     revalidatePath('/users');
-  } catch (error) {
-    console.error('Failed to delete qualification:', error);
+  } catch {
     throw new Error('Qualification deletion failed');
   }
 }
