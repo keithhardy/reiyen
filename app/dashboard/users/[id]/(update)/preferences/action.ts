@@ -7,18 +7,18 @@ import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
 export async function updatePreferences(
-  data: Preferences
+  preferences: Preferences
 ): Promise<Preferences> {
   try {
     const preferencesResponse = await prisma.preferences.findUnique({
-      where: { userId: data.userId },
+      where: { userId: preferences.userId },
     });
     const currentSignature = preferencesResponse?.signature;
 
     let signatureUrl;
     try {
       signatureUrl = await updateFile(
-        data.signature,
+        preferences.signature,
         currentSignature,
         'signature'
       );
@@ -28,15 +28,15 @@ export async function updatePreferences(
 
     const updatedPreferences = await prisma.preferences.upsert({
       where: {
-        userId: data.userId,
+        userId: preferences.userId,
       },
       update: {
-        position: data.position,
+        position: preferences.position,
         signature: signatureUrl,
       },
       create: {
-        userId: data.userId,
-        position: data.position,
+        userId: preferences.userId,
+        position: preferences.position,
         signature: signatureUrl || '',
       },
     });

@@ -6,26 +6,26 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 
 export async function updateClient(
-  data: Client & { address: Address }
+  client: Client & { address: Address }
 ): Promise<Client> {
   try {
     const updatedClient = await prisma.client.update({
       where: {
-        id: data.id,
+        id: client.id,
       },
       data: {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        logoUrl: data.logoUrl,
+        name: client.name,
+        email: client.email,
+        phone: client.phone,
+        logoUrl: client.logoUrl,
         address: {
           update: {
-            streetAddress: data.address.streetAddress,
-            city: data.address.city,
-            county: data.address.county,
-            postTown: data.address.postTown,
-            postcode: data.address.postcode,
-            country: data.address.country,
+            streetAddress: client.address.streetAddress,
+            city: client.address.city,
+            county: client.address.county,
+            postTown: client.address.postTown,
+            postcode: client.address.postcode,
+            country: client.address.country,
           },
         },
       },

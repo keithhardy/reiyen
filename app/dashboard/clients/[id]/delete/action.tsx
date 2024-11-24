@@ -7,21 +7,21 @@ import { prisma } from '@/lib/prisma';
 import { deleteFile } from '@/lib/vercel-blob';
 
 export async function deleteClient(
-  data: Pick<Client, 'id' | 'logoUrl'>
+  client: Pick<Client, 'id' | 'logoUrl'>
 ): Promise<void> {
   try {
     await prisma.client.delete({
       where: {
-        id: data.id,
+        id: client.id,
       },
     });
 
-    if (data.logoUrl) {
-      await deleteFile(data.logoUrl);
+    if (client.logoUrl) {
+      await deleteFile(client.logoUrl);
     }
 
     revalidatePath('/clients');
   } catch {
-    throw new Error('Client update failed');
+    throw new Error('Client deletion failed');
   }
 }

@@ -12,6 +12,7 @@ export default async function UserPreferencesPage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
+
   const preferences = await prisma.preferences.findUnique({
     where: {
       userId: decodeURIComponent(params.id),

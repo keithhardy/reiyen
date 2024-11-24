@@ -22,6 +22,7 @@ export default async function DeleteUserPage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
+
   const { data: user } = await auth0Management.users.get({
     id: decodeURIComponent(params.id),
   });

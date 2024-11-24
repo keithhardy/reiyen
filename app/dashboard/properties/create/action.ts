@@ -6,32 +6,36 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 
 export async function createProperty(
-  data: Omit<Property, 'id' | 'addressId' | 'clientId'> & {
+  property: Omit<Property, 'id' | 'addressId' | 'clientId'> & {
     address: Omit<Address, 'id' | 'propertyId'>;
     client: Pick<Client, 'id'>;
   }
 ): Promise<Property> {
-  const createdProperty = await prisma.property.create({
-    data: {
-      uprn: data.uprn,
-      occupier: data.occupier,
-      client: {
-        connect: { id: data.client.id },
-      },
-      address: {
-        create: {
-          streetAddress: data.address.streetAddress,
-          city: data.address.city,
-          county: data.address.county,
-          postTown: data.address.postTown,
-          postcode: data.address.postcode,
-          country: data.address.country,
+  try {
+    const createdProperty = await prisma.property.create({
+      data: {
+        uprn: property.uprn,
+        occupier: property.occupier,
+        client: {
+          connect: { id: property.client.id },
+        },
+        address: {
+          create: {
+            streetAddress: property.address.streetAddress,
+            city: property.address.city,
+            county: property.address.county,
+            postTown: property.address.postTown,
+            postcode: property.address.postcode,
+            country: property.address.country,
+          },
         },
       },
-    },
-  });
+    });
 
-  revalidatePath('/properties');
+    revalidatePath('/properties');
 
-  return createdProperty;
+    return createdProperty;
+  } catch {
+    throw new Error('Failed to create property.');
+  }
 }

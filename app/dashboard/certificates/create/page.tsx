@@ -1,7 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-import { PropertyUpdateForm } from '@/app/dashboard/properties/[id]/update/form';
+import { CertificateCreateForm } from '@/app/dashboard/certificates/create/form';
 import {
   PageActions,
   PageHeader,
@@ -18,37 +18,30 @@ import {
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
-export default async function PropertyUpdatePage(props: {
-  params: Promise<{ id: string }>;
-}) {
-  const params = await props.params;
-
-  const clients = await prisma.client.findMany();
-
-  const property = await prisma.property.findUnique({
-    where: {
-      id: params.id,
-    },
+export default async function CertificateCreatePage() {
+  const clients = await prisma.client.findMany({
     include: {
-      client: true,
-      address: true,
+      Property: {
+        include: {
+          address: true,
+        },
+      },
     },
   });
 
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Update</PageHeaderHeading>
+        <PageHeaderHeading>Add Certificate</PageHeaderHeading>
         <PageHeaderDescription>
-          Update the property&apos;s profile information, account details, and
-          associated data. Make adjustments to ensure the property&apos;s
-          information is accurate and up to date.
+          Please fill out the form below to add a new certificate to the
+          database with accurate information for proper management.
         </PageHeaderDescription>
         <PageActions>
           <Button asChild variant='outline' size='sm'>
-            <Link href={'/dashboard/properties'}>
+            <Link href='/dashboard/certificates'>
               <ArrowLeft />
-              Back to properties
+              Back to certificates
             </Link>
           </Button>
         </PageActions>
@@ -56,13 +49,13 @@ export default async function PropertyUpdatePage(props: {
 
       <Card className='grid grid-cols-2'>
         <CardHeader className='col-span-2 lg:col-span-1'>
-          <CardTitle>Property Details</CardTitle>
+          <CardTitle>Certificate Details</CardTitle>
           <CardDescription>
             Ensure each field is completed accurately.
           </CardDescription>
         </CardHeader>
         <CardContent className='col-span-2 p-6 lg:col-span-1'>
-          <PropertyUpdateForm property={property!} clients={clients!} />
+          <CertificateCreateForm clients={clients} />
         </CardContent>
       </Card>
     </>

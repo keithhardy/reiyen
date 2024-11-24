@@ -23,6 +23,7 @@ export default async function UserPermissionsPage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
+
   const permissions = await prisma.permission.findMany({
     where: { userId: decodeURIComponent(params.id) },
   });

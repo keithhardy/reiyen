@@ -23,6 +23,7 @@ export default async function UserEquipmentPage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
+
   const equipment = await prisma.equipment.findMany({
     where: {
       userId: decodeURIComponent(params.id),

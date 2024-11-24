@@ -7,12 +7,12 @@ import { prisma } from '@/lib/prisma';
 import { uploadFile } from '@/lib/vercel-blob';
 
 export async function createClient(
-  data: Omit<Client, 'id' | 'addressId'> & {
+  client: Omit<Client, 'id' | 'addressId'> & {
     address: Omit<Address, 'id'>;
   }
 ): Promise<Client> {
   try {
-    let logoUrl = data.logoUrl;
+    let logoUrl = client.logoUrl;
 
     try {
       if (logoUrl) {
@@ -25,18 +25,18 @@ export async function createClient(
 
     const createdClient = await prisma.client.create({
       data: {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
+        name: client.name,
+        email: client.email,
+        phone: client.phone,
         logoUrl: logoUrl,
         address: {
           create: {
-            streetAddress: data.address.streetAddress,
-            city: data.address.city,
-            county: data.address.county,
-            postTown: data.address.postTown,
-            postcode: data.address.postcode,
-            country: data.address.country,
+            streetAddress: client.address.streetAddress,
+            city: client.address.city,
+            county: client.address.county,
+            postTown: client.address.postTown,
+            postcode: client.address.postcode,
+            country: client.address.country,
           },
         },
       },

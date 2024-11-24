@@ -6,12 +6,12 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 
 export async function deleteProperty(
-  data: Pick<Property, 'id'>
+  property: Pick<Property, 'id'>
 ): Promise<void> {
   try {
     await prisma.property.delete({
       where: {
-        id: data.id,
+        id: property.id,
       },
     });
 

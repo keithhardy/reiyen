@@ -23,6 +23,7 @@ export default async function UserQualificationsPage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
+
   const qualifications = await prisma.qualification.findMany({
     where: {
       userId: decodeURIComponent(params.id),

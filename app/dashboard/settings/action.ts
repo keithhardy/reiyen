@@ -7,69 +7,69 @@ import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
 export async function updateSettings(
-  data: Settings & { address: Address }
+  settings: Settings & { address: Address }
 ): Promise<Settings> {
   try {
     const settingsResponse = await prisma.settings.findUnique({
-      where: { id: data.id },
+      where: { id: settings.id },
     });
     const currentLogoUrl = settingsResponse?.logoUrl;
 
     let logoUrl;
     try {
-      logoUrl = await updateFile(data.logoUrl, currentLogoUrl, 'logo');
+      logoUrl = await updateFile(settings.logoUrl, currentLogoUrl, 'logo');
     } catch {
       throw new Error('Failed to update settings: Error updating file.');
     }
 
     const updatedSettings = await prisma.settings.upsert({
       where: {
-        id: data.id,
+        id: settings.id,
       },
       update: {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
+        name: settings.name,
+        email: settings.email,
+        phone: settings.phone,
         logoUrl: logoUrl,
-        governingBody: data.governingBody,
-        governingBodyNumber: data.governingBodyNumber,
+        governingBody: settings.governingBody,
+        governingBodyNumber: settings.governingBodyNumber,
         address: {
           upsert: {
             update: {
-              streetAddress: data.address.streetAddress,
-              city: data.address.city,
-              county: data.address.county,
-              postTown: data.address.postTown,
-              postcode: data.address.postcode,
-              country: data.address.country,
+              streetAddress: settings.address.streetAddress,
+              city: settings.address.city,
+              county: settings.address.county,
+              postTown: settings.address.postTown,
+              postcode: settings.address.postcode,
+              country: settings.address.country,
             },
             create: {
-              streetAddress: data.address.streetAddress,
-              city: data.address.city,
-              county: data.address.county,
-              postTown: data.address.postTown,
-              postcode: data.address.postcode,
-              country: data.address.country,
+              streetAddress: settings.address.streetAddress,
+              city: settings.address.city,
+              county: settings.address.county,
+              postTown: settings.address.postTown,
+              postcode: settings.address.postcode,
+              country: settings.address.country,
             },
           },
         },
       },
       create: {
-        id: data.id,
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
+        id: settings.id,
+        name: settings.name,
+        email: settings.email,
+        phone: settings.phone,
         logoUrl: logoUrl || '',
-        governingBody: data.governingBody,
-        governingBodyNumber: data.governingBodyNumber,
+        governingBody: settings.governingBody,
+        governingBodyNumber: settings.governingBodyNumber,
         address: {
           create: {
-            streetAddress: data.address.streetAddress,
-            city: data.address.city,
-            county: data.address.county,
-            postTown: data.address.postTown,
-            postcode: data.address.postcode,
-            country: data.address.country,
+            streetAddress: settings.address.streetAddress,
+            city: settings.address.city,
+            county: settings.address.county,
+            postTown: settings.address.postTown,
+            postcode: settings.address.postcode,
+            country: settings.address.country,
           },
         },
       },

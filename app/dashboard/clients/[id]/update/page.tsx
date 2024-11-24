@@ -22,6 +22,7 @@ export default async function ClientUpdatePage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
+
   const client = await prisma.client.findUnique({
     where: {
       id: params.id,

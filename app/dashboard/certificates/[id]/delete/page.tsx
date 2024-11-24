@@ -1,7 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-import { PropertyUpdateForm } from '@/app/dashboard/properties/[id]/update/form';
+import { CertificateDeleteForm } from '@/app/dashboard/certificates/[id]/delete/form';
 import {
   PageActions,
   PageHeader,
@@ -18,51 +18,55 @@ import {
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
-export default async function PropertyUpdatePage(props: {
+export default async function CertificateDeletePage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
 
-  const clients = await prisma.client.findMany();
-
-  const property = await prisma.property.findUnique({
+  const certificate = await prisma.certificate.findUnique({
     where: {
       id: params.id,
     },
     include: {
-      client: true,
-      address: true,
+      property: {
+        include: {
+          address: true,
+          client: true,
+        },
+      },
     },
   });
 
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Update</PageHeaderHeading>
+        <PageHeaderHeading>Delete</PageHeaderHeading>
         <PageHeaderDescription>
-          Update the property&apos;s profile information, account details, and
-          associated data. Make adjustments to ensure the property&apos;s
-          information is accurate and up to date.
+          Are you sure you want to delete this certificate? This action is
+          permanent.
         </PageHeaderDescription>
         <PageActions>
           <Button asChild variant='outline' size='sm'>
-            <Link href={'/dashboard/properties'}>
+            <Link href={'/dashboard/certificates'}>
               <ArrowLeft />
-              Back to properties
+              Back to certificates
             </Link>
           </Button>
         </PageActions>
       </PageHeader>
 
-      <Card className='grid grid-cols-2'>
+      <Card>
         <CardHeader className='col-span-2 lg:col-span-1'>
-          <CardTitle>Property Details</CardTitle>
+          <CardTitle>Delete Certificate</CardTitle>
           <CardDescription>
-            Ensure each field is completed accurately.
+            Are you sure you want to delete{' '}
+            <span className='text-primary'>{certificate?.name}</span>? This
+            action is permanent, and all data associated with this certificate
+            will be lost and cannot be recovered.
           </CardDescription>
         </CardHeader>
-        <CardContent className='col-span-2 p-6 lg:col-span-1'>
-          <PropertyUpdateForm property={property!} clients={clients!} />
+        <CardContent>
+          <CertificateDeleteForm certificate={certificate!} />
         </CardContent>
       </Card>
     </>

@@ -6,35 +6,37 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 
 export async function updateProperty(
-  data: Property & {
+  property: Property & {
     address: Address;
     client: Client;
   }
 ): Promise<void> {
-  const { id, address, client, ...propertyData } = data;
-
-  await prisma.property.update({
-    where: {
-      id,
-    },
-    data: {
-      uprn: propertyData.uprn,
-      occupier: propertyData.occupier,
-      client: {
-        connect: { id: client.id },
+  try {
+    await prisma.property.update({
+      where: {
+        id: property.id,
       },
-      address: {
-        update: {
-          streetAddress: address.streetAddress,
-          city: address.city,
-          county: address.county,
-          postTown: address.postTown,
-          postcode: address.postcode,
-          country: address.country,
+      data: {
+        uprn: property.uprn,
+        occupier: property.occupier,
+        client: {
+          connect: { id: property.client.id },
+        },
+        address: {
+          update: {
+            streetAddress: property.address.streetAddress,
+            city: property.address.city,
+            county: property.address.county,
+            postTown: property.address.postTown,
+            postcode: property.address.postcode,
+            country: property.address.country,
+          },
         },
       },
-    },
-  });
+    });
 
-  revalidatePath('/properties');
+    revalidatePath('/properties');
+  } catch {
+    throw new Error('Failed to update property.');
+  }
 }

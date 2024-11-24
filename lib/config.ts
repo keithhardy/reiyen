@@ -23,11 +23,12 @@ export const menuLinks = [
     description:
       'Maintain records of properties requiring electrical certifications.',
   },
-  // {
-  //   label: 'Certificates',
-  //   href: '/dashboard/certificates',
-  //   description: 'Create, edit, and manage all types of electrical certificates.',
-  // },
+  {
+    label: 'Certificates',
+    href: '/dashboard/certificates',
+    description:
+      'Create, edit, and manage all types of electrical certificates.',
+  },
   {
     label: 'Settings',
     href: '/dashboard/settings',

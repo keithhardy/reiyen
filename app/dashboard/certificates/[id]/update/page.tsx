@@ -1,7 +1,7 @@
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-import { PropertyUpdateForm } from '@/app/dashboard/properties/[id]/update/form';
+import { CertificateUpdateForm } from '@/app/dashboard/certificates/[id]/update/form';
 import {
   PageActions,
   PageHeader,
@@ -18,20 +18,32 @@ import {
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
-export default async function PropertyUpdatePage(props: {
+export default async function CertificateUpdatePage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;
 
-  const clients = await prisma.client.findMany();
-
-  const property = await prisma.property.findUnique({
+  const certificate = await prisma.certificate.findUnique({
     where: {
       id: params.id,
     },
     include: {
-      client: true,
-      address: true,
+      property: {
+        include: {
+          address: true,
+          client: true,
+        },
+      },
+    },
+  });
+
+  const clients = await prisma.client.findMany({
+    include: {
+      Property: {
+        include: {
+          address: true,
+        },
+      },
     },
   });
 
@@ -40,15 +52,15 @@ export default async function PropertyUpdatePage(props: {
       <PageHeader>
         <PageHeaderHeading>Update</PageHeaderHeading>
         <PageHeaderDescription>
-          Update the property&apos;s profile information, account details, and
-          associated data. Make adjustments to ensure the property&apos;s
+          Update the certificate&apos;s profile information, account details,
+          and associated data. Make adjustments to ensure the certificate&apos;s
           information is accurate and up to date.
         </PageHeaderDescription>
         <PageActions>
           <Button asChild variant='outline' size='sm'>
-            <Link href={'/dashboard/properties'}>
+            <Link href={'/dashboard/certificates'}>
               <ArrowLeft />
-              Back to properties
+              Back to certificates
             </Link>
           </Button>
         </PageActions>
@@ -56,13 +68,16 @@ export default async function PropertyUpdatePage(props: {
 
       <Card className='grid grid-cols-2'>
         <CardHeader className='col-span-2 lg:col-span-1'>
-          <CardTitle>Property Details</CardTitle>
+          <CardTitle>Credentials</CardTitle>
           <CardDescription>
             Ensure each field is completed accurately.
           </CardDescription>
         </CardHeader>
         <CardContent className='col-span-2 p-6 lg:col-span-1'>
-          <PropertyUpdateForm property={property!} clients={clients!} />
+          <CertificateUpdateForm
+            certificate={certificate!}
+            clients={clients!}
+          />
         </CardContent>
       </Card>
     </>
