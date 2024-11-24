@@ -75,9 +75,9 @@ export function DataList({
             </div>
           ))
         ) : (
-          <div className='text-center text-muted-foreground'>
-            <p className='text-sm font-medium'>No qualifications added yet.</p>
-          </div>
+          <p className='py-4 text-center text-sm text-muted-foreground'>
+            No qualifications added yet.
+          </p>
         )}
       </div>
     </ScrollArea>

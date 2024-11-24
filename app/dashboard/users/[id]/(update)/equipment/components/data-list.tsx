@@ -66,9 +66,9 @@ export function DataList({ equipment }: { equipment: Equipment[] }) {
             </div>
           ))
         ) : (
-          <div className='text-center text-muted-foreground'>
-            <p className='text-sm font-medium'>No equipment added yet.</p>
-          </div>
+          <p className='py-4 text-center text-sm text-muted-foreground'>
+            No equipment added yet.
+          </p>
         )}
       </div>
     </ScrollArea>
