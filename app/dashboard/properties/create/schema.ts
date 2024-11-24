@@ -12,6 +12,6 @@ export const Schema = z.object({
     country: z.string().optional(),
   }),
   client: z.object({
-    id: z.string().min(1, { message: "Client ID cannot be empty" }),
+    id: z.string().min(1, { message: "Client cannot be empty" }),
   }),
 });
