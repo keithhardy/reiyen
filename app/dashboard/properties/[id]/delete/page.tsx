@@ -40,7 +40,7 @@ export default async function UserDeletePage(props: {
           <Button asChild variant='outline' size='sm'>
             <Link href={'/dashboard/properties'}>
               <ArrowLeft />
-              Back to {property!.uprn}
+              Back to properties
             </Link>
           </Button>
         </PageActions>
