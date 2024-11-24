@@ -50,7 +50,9 @@ export function SettingsUpdateForm({
     },
   });
 
-  const onSubmit = async (data: Settings & { address: Address }) => {
+  const onSubmit = async (
+    data: Omit<Settings, 'createdAt' | 'updatedAt'> & { address: Address }
+  ) => {
     try {
       await updateSettings(data);
       toast({

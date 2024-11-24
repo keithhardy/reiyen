@@ -7,7 +7,7 @@ import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
 export async function updateSettings(
-  settings: Settings & { address: Address }
+  settings: Omit<Settings, 'createdAt' | 'updatedAt'> & { address: Address }
 ): Promise<Settings> {
   try {
     const settingsResponse = await prisma.settings.findUnique({
