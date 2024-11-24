@@ -10,9 +10,7 @@ export async function updateSettings(
   settings: Omit<Settings, 'createdAt' | 'updatedAt'> & { address: Address }
 ): Promise<Settings> {
   try {
-    const settingsResponse = await prisma.settings.findUnique({
-      where: { id: settings.id },
-    });
+    const settingsResponse = await prisma.settings.findFirst();
     const currentLogoUrl = settingsResponse?.logoUrl;
 
     let logoUrl;
@@ -22,19 +20,17 @@ export async function updateSettings(
       throw new Error('Failed to update settings: Error updating file.');
     }
 
-    const updatedSettings = await prisma.settings.upsert({
-      where: {
-        id: settings.id,
-      },
-      update: {
-        name: settings.name,
-        email: settings.email,
-        phone: settings.phone,
-        logoUrl: logoUrl,
-        governingBody: settings.governingBody,
-        governingBodyNumber: settings.governingBodyNumber,
-        address: {
-          upsert: {
+    if (settingsResponse) {
+      const updatedSettings = await prisma.settings.update({
+        where: { id: settingsResponse.id },
+        data: {
+          name: settings.name,
+          email: settings.email,
+          phone: settings.phone,
+          logoUrl: logoUrl,
+          governingBody: settings.governingBody,
+          governingBodyNumber: settings.governingBodyNumber,
+          address: {
             update: {
               streetAddress: settings.address.streetAddress,
               city: settings.address.city,
@@ -43,6 +39,22 @@ export async function updateSettings(
               postcode: settings.address.postcode,
               country: settings.address.country,
             },
+          },
+        },
+      });
+
+      revalidatePath('/settings');
+      return updatedSettings;
+    } else {
+      const createdSettings = await prisma.settings.create({
+        data: {
+          name: settings.name,
+          email: settings.email,
+          phone: settings.phone,
+          logoUrl: logoUrl || '',
+          governingBody: settings.governingBody,
+          governingBodyNumber: settings.governingBodyNumber,
+          address: {
             create: {
               streetAddress: settings.address.streetAddress,
               city: settings.address.city,
@@ -53,31 +65,11 @@ export async function updateSettings(
             },
           },
         },
-      },
-      create: {
-        id: settings.id,
-        name: settings.name,
-        email: settings.email,
-        phone: settings.phone,
-        logoUrl: logoUrl || '',
-        governingBody: settings.governingBody,
-        governingBodyNumber: settings.governingBodyNumber,
-        address: {
-          create: {
-            streetAddress: settings.address.streetAddress,
-            city: settings.address.city,
-            county: settings.address.county,
-            postTown: settings.address.postTown,
-            postcode: settings.address.postcode,
-            country: settings.address.country,
-          },
-        },
-      },
-    });
+      });
 
-    revalidatePath('/settings');
-
-    return updatedSettings;
+      revalidatePath('/settings');
+      return createdSettings;
+    }
   } catch {
     throw new Error('Settings update failed');
   }

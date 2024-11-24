@@ -1,11 +1,13 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Address, Settings } from '@prisma/client';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { updateSettings } from '@/app/dashboard/settings/action';
+import { Schema } from '@/app/dashboard/settings/schema';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
 import {
@@ -29,6 +31,7 @@ export function SettingsUpdateForm({
   const [imagePreview, setImagePreview] = useState(settings?.logoUrl || '');
 
   const form = useForm({
+    resolver: zodResolver(Schema),
     defaultValues: {
       id: settings?.id,
       name: settings?.name || '',
