@@ -38,7 +38,7 @@ export default async function UserDeletePage(props: {
         </PageHeaderDescription>
         <PageActions>
           <Button asChild variant='outline' size='sm'>
-            <Link href={`/properties/${params.id}`}>
+            <Link href={'/dashboard/properties'}>
               <ArrowLeft />
               Back to {property!.uprn}
             </Link>
