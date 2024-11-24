@@ -9,7 +9,7 @@ export function DataList({
   permissions,
   clients,
 }: {
-  permissions: Omit<Permission, 'id'>[];
+  permissions: Omit<Permission, 'id' | 'createdAt' | 'updatedAt'>[];
   clients: Client[];
 }) {
   const clientOptions = [

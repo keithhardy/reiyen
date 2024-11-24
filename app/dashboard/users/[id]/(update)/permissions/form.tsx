@@ -38,7 +38,7 @@ export function UserPermissionsForm({
   });
 
   const [newPermissions, setNewPermissions] = useState<
-    Omit<Permission, 'id'>[]
+    Omit<Permission, 'id' | 'createdAt' | 'updatedAt'>[]
   >([]);
   const [selectedClient, setSelectedClient] = useState<string>('');
   const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
