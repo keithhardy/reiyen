@@ -1,30 +1,15 @@
 'use client';
 
+import { Address, Client } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
 
 import { RowActions } from '@/app/dashboard/clients/components/data-table/row-actions';
 
-type Address = {
-  id: string;
-  streetAddress: string;
-  city: string;
-  county: string | null;
-  postTown: string;
-  postcode: string;
-  country: string;
-};
-
-type Client = {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  logoUrl: string;
-  addressId: string;
-  address: Address;
-};
-
-export const columns: ColumnDef<Client>[] = [
+export const columns: ColumnDef<
+  Client & {
+    address: Address;
+  }
+>[] = [
   {
     accessorKey: 'name',
     header: 'Name',

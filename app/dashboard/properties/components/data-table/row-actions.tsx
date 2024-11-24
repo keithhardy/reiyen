@@ -1,3 +1,4 @@
+import { Property } from '@prisma/client';
 import { MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 
@@ -9,10 +10,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-type Property = {
-  id: string;
-};
 
 export function RowActions({ property }: { property: Property }) {
   return (
