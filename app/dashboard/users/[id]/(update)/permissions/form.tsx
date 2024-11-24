@@ -1,11 +1,13 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Client, Permission } from '@prisma/client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { addPermissions } from '@/app/dashboard/users/[id]/(update)/permissions/action';
 import { DataList } from '@/app/dashboard/users/[id]/(update)/permissions/components/data-list';
+import { Schema } from '@/app/dashboard/users/[id]/(update)/permissions/schema';
 import { MultiSelect } from '@/components/form/multiselect';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
@@ -31,6 +33,7 @@ export function UserPermissionsForm({
   const { toast } = useToast();
 
   const form = useForm<{ permissions: Permission[] }>({
+    resolver: zodResolver(Schema),
     defaultValues: { permissions },
   });
 

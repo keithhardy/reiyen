@@ -1,5 +1,6 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Preferences } from '@prisma/client';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
@@ -7,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import SignatureCanvas from 'react-signature-canvas';
 
 import { updatePreferences } from '@/app/dashboard/users/[id]/(update)/preferences/action';
+import { Schema } from '@/app/dashboard/users/[id]/(update)/preferences/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -31,6 +33,7 @@ export function UserPreferencesForm({
   const [isEditingSignature, setIsEditingSignature] = useState(false);
 
   const form = useForm<Preferences>({
+    resolver: zodResolver(Schema),
     defaultValues: {
       id: preferences?.id,
       position: preferences?.position || '',

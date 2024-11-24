@@ -1,9 +1,11 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import { deleteUser } from '@/app/dashboard/users/[id]/delete/action';
+import { Schema } from '@/app/dashboard/users/[id]/delete/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -23,6 +25,7 @@ export function UserDeleteForm({ user }: { user: User }) {
   const { toast } = useToast();
 
   const form = useForm<User>({
+    resolver: zodResolver(Schema),
     defaultValues: {
       user_id: user.user_id,
       name: '',

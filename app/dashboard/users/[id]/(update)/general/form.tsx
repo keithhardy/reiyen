@@ -1,10 +1,12 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { updateUser } from '@/app/dashboard/users/[id]/(update)/general/action';
+import { Schema } from '@/app/dashboard/users/[id]/(update)/general/schema';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,6 +27,7 @@ export function UserGeneralForm({ user }: { user: User }) {
   const [imagePreview, setImagePreview] = useState(user.picture || '');
 
   const form = useForm<User>({
+    resolver: zodResolver(Schema),
     defaultValues: user,
   });
 

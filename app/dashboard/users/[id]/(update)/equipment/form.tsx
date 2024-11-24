@@ -1,9 +1,11 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Equipment } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 
 import { createEquipment } from '@/app/dashboard/users/[id]/(update)/equipment/action';
+import { Schema } from '@/app/dashboard/users/[id]/(update)/equipment/schema';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
 import {
@@ -21,6 +23,7 @@ export function UserEquipmentForm({ user }: { user: { user_id: string } }) {
   const { toast } = useToast();
 
   const form = useForm<Equipment>({
+    resolver: zodResolver(Schema),
     defaultValues: {
       userId: user.user_id,
       make: '',

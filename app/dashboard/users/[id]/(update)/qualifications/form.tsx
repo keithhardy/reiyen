@@ -1,9 +1,11 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Qualification } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 
 import { createQualification } from '@/app/dashboard/users/[id]/(update)/qualifications/action';
+import { Schema } from '@/app/dashboard/users/[id]/(update)/qualifications/schema';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,6 +27,7 @@ export function UserQualificationsForm({
   const { toast } = useToast();
 
   const form = useForm<Qualification>({
+    resolver: zodResolver(Schema),
     defaultValues: {
       userId: user.user_id,
       awardingBody: '',
