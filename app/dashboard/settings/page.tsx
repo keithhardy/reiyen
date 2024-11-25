@@ -4,6 +4,7 @@ import { SettingsUpdateForm } from '@/app/dashboard/settings/form';
 import {
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
 import {
@@ -29,11 +30,13 @@ export default async function SettingsPage() {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Settings</PageHeaderHeading>
-        <PageHeaderDescription>
-          View and manage all your settings in one place. Download, share, or
-          verify your properties with ease.
-        </PageHeaderDescription>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Settings</PageHeaderHeading>
+          <PageHeaderDescription>
+            View and manage all your settings in one place. Download, share, or
+            verify your properties with ease.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
       </PageHeader>
 
       <Card className='grid grid-cols-2'>

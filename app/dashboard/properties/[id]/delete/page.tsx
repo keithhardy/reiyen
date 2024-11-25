@@ -1,15 +1,12 @@
-import { ArrowLeft } from 'lucide-react';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 import { PropertyDeleteForm } from '@/app/dashboard/properties/[id]/delete/form';
 import {
-  PageActions,
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -22,7 +19,6 @@ import { prisma } from '@/lib/prisma';
 export const metadata: Metadata = {
   title: 'Delete – Properties – Reiyen',
 };
-
 
 export default async function PropertyDeletePage(props: {
   params: Promise<{ id: string }>;
@@ -38,19 +34,13 @@ export default async function PropertyDeletePage(props: {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Delete</PageHeaderHeading>
-        <PageHeaderDescription>
-          Are you sure you want to delete this property? This action is
-          permanent.
-        </PageHeaderDescription>
-        <PageActions>
-          <Button asChild variant='outline' size='sm'>
-            <Link href={'/dashboard/properties'}>
-              <ArrowLeft />
-              Back to properties
-            </Link>
-          </Button>
-        </PageActions>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Delete</PageHeaderHeading>
+          <PageHeaderDescription>
+            Are you sure you want to delete this property? This action is
+            permanent.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
       </PageHeader>
 
       <Card>

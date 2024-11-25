@@ -1,15 +1,12 @@
-import { ArrowLeft } from 'lucide-react';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 import { UserCreateForm } from '@/app/dashboard/users/create/form';
 import {
-  PageActions,
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -26,20 +23,14 @@ export default function UserCreatePage() {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Create User</PageHeaderHeading>
-        <PageHeaderDescription>
-          Fill out the form below to create a new user account. Ensure the
-          information is accurate, and remember to assign roles on the user
-          update page.
-        </PageHeaderDescription>
-        <PageActions>
-          <Button asChild variant='outline'>
-            <Link href='/dashboard/users'>
-              <ArrowLeft />
-              Back to users
-            </Link>
-          </Button>
-        </PageActions>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Create User</PageHeaderHeading>
+          <PageHeaderDescription>
+            Fill out the form below to create a new user account. Ensure the
+            information is accurate, and remember to assign roles on the user
+            update page.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
       </PageHeader>
 
       <Card className='grid grid-cols-2'>

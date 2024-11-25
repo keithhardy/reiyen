@@ -1,15 +1,12 @@
-import { ArrowLeft } from 'lucide-react';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 import { ClientDeleteForm } from '@/app/dashboard/clients/[id]/delete/form';
 import {
-  PageActions,
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -40,18 +37,13 @@ export default async function ClientDeletePage(props: {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Delete</PageHeaderHeading>
-        <PageHeaderDescription>
-          Are you sure you want to delete this client? This action is permanent.
-        </PageHeaderDescription>
-        <PageActions>
-          <Button asChild variant='outline' size='sm'>
-            <Link href={'/dashboard/clients'}>
-              <ArrowLeft />
-              Back to clients
-            </Link>
-          </Button>
-        </PageActions>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Delete</PageHeaderHeading>
+          <PageHeaderDescription>
+            Are you sure you want to delete this client? This action is
+            permanent.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
       </PageHeader>
 
       <Card>

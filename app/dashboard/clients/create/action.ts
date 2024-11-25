@@ -50,8 +50,8 @@ export async function createClient(
     revalidatePath('/clients');
 
     return createdClient;
-  } catch(error) {
-    console.log(error)
+  } catch (error) {
+    console.log(error);
     throw new Error('Client update failed');
   }
 }

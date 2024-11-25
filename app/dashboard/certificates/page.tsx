@@ -8,6 +8,7 @@ import {
   PageActions,
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
@@ -32,13 +33,15 @@ export default async function CertificatesPage() {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Certificates</PageHeaderHeading>
-        <PageHeaderDescription>
-          View and manage all your certificates in one place. Download, share,
-          or verify your certificates with ease.
-        </PageHeaderDescription>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Certificates</PageHeaderHeading>
+          <PageHeaderDescription>
+            View and manage all your certificates in one place. Download, share,
+            or verify your certificates with ease.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
         <PageActions>
-          <Button asChild variant='outline' size='sm'>
+          <Button asChild className='w-full sm:w-auto'>
             <Link href='/dashboard/certificates/create'>
               <Plus />
               Create Certificate

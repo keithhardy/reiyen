@@ -8,6 +8,7 @@ import {
   PageActions,
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
@@ -26,13 +27,17 @@ export default async function UsersPage() {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Users</PageHeaderHeading>
-        <PageHeaderDescription>
-          Manage users with convenient links to view, update, or delete
-          accounts. Oversee all user activity and account statuses in one place.
-        </PageHeaderDescription>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Users</PageHeaderHeading>
+          <PageHeaderDescription>
+            Manage users with convenient links to view, update, or delete
+            accounts. Oversee all user activity and account statuses in one
+            place.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
+
         <PageActions>
-          <Button asChild variant='outline'>
+          <Button asChild className='w-full sm:w-auto'>
             <Link href='/dashboard/users/create'>
               <Plus />
               Create User

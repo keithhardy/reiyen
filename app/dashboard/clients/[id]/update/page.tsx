@@ -1,15 +1,12 @@
-import { ArrowLeft } from 'lucide-react';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 import { ClientUpdateForm } from '@/app/dashboard/clients/[id]/update/form';
 import {
-  PageActions,
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -40,20 +37,14 @@ export default async function ClientUpdatePage(props: {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Update</PageHeaderHeading>
-        <PageHeaderDescription>
-          Update the client&apos;s profile information, account details, and
-          associated data. Make adjustments to ensure the client&apos;s
-          information is accurate and up to date.
-        </PageHeaderDescription>
-        <PageActions>
-          <Button asChild variant='outline' size='sm'>
-            <Link href={'/dashboard/clients/'}>
-              <ArrowLeft />
-              Back to clients
-            </Link>
-          </Button>
-        </PageActions>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Update</PageHeaderHeading>
+          <PageHeaderDescription>
+            Update the client&apos;s profile information, account details, and
+            associated data. Make adjustments to ensure the client&apos;s
+            information is accurate and up to date.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
       </PageHeader>
 
       <Card className='grid grid-cols-2'>

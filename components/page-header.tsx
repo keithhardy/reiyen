@@ -7,10 +7,7 @@ function PageHeader({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <header
-      className={cn(
-        'mx-auto flex flex-col items-start gap-2 py-6 lg:py-10',
-        className
-      )}
+      className={cn('grid grid-cols-2 space-y-6 py-4', className)}
       {...props}
     >
       {children}
@@ -22,15 +19,7 @@ function PageHeaderHeading({
   className,
   ...props
 }: React.HTMLAttributes<HTMLHeadingElement>) {
-  return (
-    <h1
-      className={cn(
-        'text-xl font-bold leading-tight tracking-tighter md:text-2xl lg:leading-[1.1]',
-        className
-      )}
-      {...props}
-    />
-  );
+  return <h1 className={cn('text-3xl font-medium', className)} {...props} />;
 }
 
 function PageHeaderDescription({
@@ -40,9 +29,21 @@ function PageHeaderDescription({
   return (
     <p
       className={cn(
-        'max-w-2xl text-balance font-light text-foreground',
+        'text-balance text-sm font-light text-muted-foreground',
         className
       )}
+      {...props}
+    />
+  );
+}
+
+function PageHeaderGroup({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement>) {
+  return (
+    <div
+      className={cn('col-span-2 space-y-4 lg:col-span-1', className)}
       {...props}
     />
   );
@@ -54,13 +55,16 @@ function PageActions({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn(
-        'flex w-full items-center justify-start gap-2 py-2',
-        className
-      )}
+      className={cn('col-span-2 lg:col-span-1 lg:text-right', className)}
       {...props}
     />
   );
 }
 
-export { PageActions, PageHeader, PageHeaderDescription, PageHeaderHeading };
+export {
+  PageActions,
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderGroup,
+  PageHeaderHeading,
+};

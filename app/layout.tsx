@@ -2,22 +2,12 @@ import './globals.css';
 
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { GeistMono } from 'geist/font/mono';
+import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/providers/theme-provider';
-
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-});
 
 export const metadata: Metadata = {
   title: 'Reiyen',
@@ -34,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex min-h-dvh flex-col antialiased`}
+        className={`${GeistSans.className} ${GeistMono.className} flex min-h-dvh flex-col`}
       >
         <ThemeProvider
           attribute='class'

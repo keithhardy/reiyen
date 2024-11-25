@@ -1,15 +1,12 @@
-import { ArrowLeft } from 'lucide-react';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 import { CertificateCreateForm } from '@/app/dashboard/certificates/create/form';
 import {
-  PageActions,
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -37,19 +34,13 @@ export default async function CertificateCreatePage() {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Add Certificate</PageHeaderHeading>
-        <PageHeaderDescription>
-          Please fill out the form below to add a new certificate to the
-          database with accurate information for proper management.
-        </PageHeaderDescription>
-        <PageActions>
-          <Button asChild variant='outline' size='sm'>
-            <Link href='/dashboard/certificates'>
-              <ArrowLeft />
-              Back to certificates
-            </Link>
-          </Button>
-        </PageActions>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Add Certificate</PageHeaderHeading>
+          <PageHeaderDescription>
+            Please fill out the form below to add a new certificate to the
+            database with accurate information for proper management.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
       </PageHeader>
 
       <Card className='grid grid-cols-2'>

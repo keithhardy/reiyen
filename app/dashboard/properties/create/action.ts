@@ -6,19 +6,16 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 
 export async function createProperty(
-  property: Omit<
-    Property,
-    'id' | 'clientId' | 'createdAt' | 'updatedAt'
-  > & {
+  property: Omit<Property, 'id' | 'clientId' | 'createdAt' | 'updatedAt'> & {
     address: Omit<
-    Address,
-    | 'id'
-    | 'createdAt'
-    | 'updatedAt'
-    | 'settingsId'
-    | 'clientId'
-    | 'propertyId'
-  >;
+      Address,
+      | 'id'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'settingsId'
+      | 'clientId'
+      | 'propertyId'
+    >;
     client: Pick<Client, 'id'>;
   }
 ): Promise<Property> {

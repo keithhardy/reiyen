@@ -1,15 +1,12 @@
-import { ArrowLeft } from 'lucide-react';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 import { PropertyCreateForm } from '@/app/dashboard/properties/create/form';
 import {
-  PageActions,
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -29,19 +26,13 @@ export default async function PropertyCreatePage() {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Add Property</PageHeaderHeading>
-        <PageHeaderDescription>
-          Please fill out the form below to add a new property to the database
-          with accurate information for proper management.
-        </PageHeaderDescription>
-        <PageActions>
-          <Button asChild variant='outline' size='sm'>
-            <Link href='/dashboard/properties'>
-              <ArrowLeft />
-              Back to properties
-            </Link>
-          </Button>
-        </PageActions>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Add Property</PageHeaderHeading>
+          <PageHeaderDescription>
+            Please fill out the form below to add a new property to the database
+            with accurate information for proper management.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
       </PageHeader>
 
       <Card className='grid grid-cols-2'>

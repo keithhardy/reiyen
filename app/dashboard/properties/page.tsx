@@ -8,6 +8,7 @@ import {
   PageActions,
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
@@ -28,13 +29,15 @@ export default async function PropertiesPage() {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Properties</PageHeaderHeading>
-        <PageHeaderDescription>
-          View and manage all your properties in one place. Download, share, or
-          verify your properties with ease.
-        </PageHeaderDescription>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Properties</PageHeaderHeading>
+          <PageHeaderDescription>
+            View and manage all your properties in one place. Download, share,
+            or verify your properties with ease.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
         <PageActions>
-          <Button asChild variant='outline' size='sm'>
+          <Button asChild className='w-full sm:w-auto'>
             <Link href='/dashboard/properties/create'>
               <Plus />
               Create Property

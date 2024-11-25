@@ -1,15 +1,12 @@
-import { ArrowLeft } from 'lucide-react';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 import { ClientCreateForm } from '@/app/dashboard/clients/create/form';
 import {
-  PageActions,
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -26,19 +23,13 @@ export default function CreateClientPage() {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Add Client</PageHeaderHeading>
-        <PageHeaderDescription>
-          Please fill out the form below to add a new client to the database
-          with accurate information for proper management.
-        </PageHeaderDescription>
-        <PageActions>
-          <Button asChild variant='outline' size='sm'>
-            <Link href='/dashboard/clients'>
-              <ArrowLeft />
-              Back to clients
-            </Link>
-          </Button>
-        </PageActions>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Add Client</PageHeaderHeading>
+          <PageHeaderDescription>
+            Please fill out the form below to add a new client to the database
+            with accurate information for proper management.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
       </PageHeader>
 
       <Card className='grid grid-cols-2'>

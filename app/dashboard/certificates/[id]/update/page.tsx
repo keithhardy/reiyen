@@ -1,15 +1,12 @@
-import { ArrowLeft } from 'lucide-react';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 import { CertificateUpdateForm } from '@/app/dashboard/certificates/[id]/update/form';
 import {
-  PageActions,
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -55,20 +52,14 @@ export default async function CertificateUpdatePage(props: {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Update</PageHeaderHeading>
-        <PageHeaderDescription>
-          Update the certificate&apos;s profile information, account details,
-          and associated data. Make adjustments to ensure the certificate&apos;s
-          information is accurate and up to date.
-        </PageHeaderDescription>
-        <PageActions>
-          <Button asChild variant='outline' size='sm'>
-            <Link href={'/dashboard/certificates'}>
-              <ArrowLeft />
-              Back to certificates
-            </Link>
-          </Button>
-        </PageActions>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Update</PageHeaderHeading>
+          <PageHeaderDescription>
+            Update the certificate&apos;s profile information, account details,
+            and associated data. Make adjustments to ensure the
+            certificate&apos;s information is accurate and up to date.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
       </PageHeader>
 
       <Card className='grid grid-cols-2'>

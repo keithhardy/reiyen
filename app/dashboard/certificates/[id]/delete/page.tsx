@@ -1,15 +1,12 @@
-import { ArrowLeft } from 'lucide-react';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 import { CertificateDeleteForm } from '@/app/dashboard/certificates/[id]/delete/form';
 import {
-  PageActions,
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -45,19 +42,13 @@ export default async function CertificateDeletePage(props: {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Delete</PageHeaderHeading>
-        <PageHeaderDescription>
-          Are you sure you want to delete this certificate? This action is
-          permanent.
-        </PageHeaderDescription>
-        <PageActions>
-          <Button asChild variant='outline' size='sm'>
-            <Link href={'/dashboard/certificates'}>
-              <ArrowLeft />
-              Back to certificates
-            </Link>
-          </Button>
-        </PageActions>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Delete</PageHeaderHeading>
+          <PageHeaderDescription>
+            Are you sure you want to delete this certificate? This action is
+            permanent.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
       </PageHeader>
 
       <Card>

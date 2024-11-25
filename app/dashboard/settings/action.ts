@@ -7,10 +7,12 @@ import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
 export async function updateSettings(
-  settings: Omit<Settings, 'createdAt' | 'updatedAt'> & { address: Omit<
-    Address,
-    'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'
-  > | null }
+  settings: Omit<Settings, 'createdAt' | 'updatedAt'> & {
+    address: Omit<
+      Address,
+      'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'
+    > | null;
+  }
 ): Promise<Settings> {
   try {
     const settingsResponse = await prisma.settings.findFirst();

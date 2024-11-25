@@ -1,15 +1,12 @@
-import { ArrowLeft } from 'lucide-react';
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 import { UserDeleteForm } from '@/app/dashboard/users/[id]/delete/form';
 import {
-  PageActions,
   PageHeader,
   PageHeaderDescription,
+  PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -35,19 +32,13 @@ export default async function UserDeletePage(props: {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Delete</PageHeaderHeading>
-        <PageHeaderDescription>
-          Permanently delete a user account. Review the user&apos;s details
-          carefully before proceeding with this irreversible action.
-        </PageHeaderDescription>
-        <PageActions>
-          <Button asChild variant='outline'>
-            <Link href='/dashboard/users'>
-              <ArrowLeft />
-              Back to users
-            </Link>
-          </Button>
-        </PageActions>
+        <PageHeaderGroup>
+          <PageHeaderHeading>Delete</PageHeaderHeading>
+          <PageHeaderDescription>
+            Permanently delete a user account. Review the user&apos;s details
+            carefully before proceeding with this irreversible action.
+          </PageHeaderDescription>
+        </PageHeaderGroup>
       </PageHeader>
 
       <Card className='grid grid-cols-2'>
