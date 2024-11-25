@@ -55,7 +55,10 @@ function PageActions({
 }: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn('col-span-2 lg:col-span-1 lg:text-right', className)}
+      className={cn(
+        'col-span-2 space-x-0 space-y-2 sm:space-x-2 lg:col-span-1 lg:text-right',
+        className
+      )}
       {...props}
     />
   );

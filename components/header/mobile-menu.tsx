@@ -22,7 +22,7 @@ export default function MobileMenu() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger className='inline-flex lg:hidden' asChild>
         <Button variant='ghost' className='-ml-2 mr-2 h-8 px-2'>
-          <PanelLeftOpen className='h-5 w-5' />
+          <PanelLeftOpen className='min-h-4 min-w-4' />
         </Button>
       </SheetTrigger>
       <SheetContent side='left'>

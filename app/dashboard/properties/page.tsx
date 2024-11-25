@@ -37,6 +37,12 @@ export default async function PropertiesPage() {
           </PageHeaderDescription>
         </PageHeaderGroup>
         <PageActions>
+          <Button asChild variant='outline' className='w-full sm:w-auto'>
+            <Link href='/dashboard/properties/create'>
+              <Plus />
+              Import
+            </Link>
+          </Button>
           <Button asChild className='w-full sm:w-auto'>
             <Link href='/dashboard/properties/create'>
               <Plus />

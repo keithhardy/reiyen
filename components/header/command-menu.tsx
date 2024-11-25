@@ -52,7 +52,7 @@ export default function CommandMenu() {
         className='h-8 px-2'
         onClick={() => setOpen(true)}
       >
-        <Search className='h-5 w-5' /> Search
+        <Search className='min-h-4 min-w-4' /> Search
       </Button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
