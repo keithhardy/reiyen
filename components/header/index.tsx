@@ -9,7 +9,7 @@ import CommandMenu from '@/components/header/command-menu';
 import UserMenu from '@/components/header/user-menu';
 import Logo from '@/components/logo';
 import { menuLinks } from '@/lib/config';
-import { cn } from '@/lib/utils';
+import { cn, PathMatch } from '@/lib/utils';
 
 export default function Header() {
   const pathname = usePathname();
@@ -68,7 +68,7 @@ export default function Header() {
               <li
                 key={item.label}
                 className={`shrink-0 ${
-                  pathname === item.href
+                  PathMatch(item.href, pathname, '/dashboard')
                     ? 'text-primary'
                     : 'text-muted-foreground'
                 }`}
