@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Certificate } from '@prisma/client';
+import { $Enums, Certificate } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
@@ -32,17 +32,17 @@ export function CertificateDeleteForm({
     resolver: zodResolver(Schema),
     defaultValues: {
       id: certificate.id,
-      name: '',
+      type: $Enums.CertificateType.ELECTRICAL_INSTALLATION_CONDITION_REPORT,
     },
   });
 
-  const onSubmit = async (data: Pick<Certificate, 'id' | 'name'>) => {
+  const onSubmit = async (data: Pick<Certificate, 'id' | 'type'>) => {
     try {
       await deleteCertificate(data);
       router.push('/dashboard/certificates');
       toast({
         title: 'User Deleted',
-        description: `${data.name} was successfully removed.`,
+        description: `${data.type} was successfully removed.`,
       });
     } catch {
       toast({
@@ -59,12 +59,12 @@ export function CertificateDeleteForm({
         <div className='space-y-4'>
           <FormField
             control={form.control}
-            name='name'
+            name='type'
             render={({ field }) => (
               <FormItem>
                 <FormLabel className='text-muted-foreground'>
                   Enter{' '}
-                  <span className='text-foreground'>{certificate.name}</span>{' '}
+                  <span className='text-foreground'>{certificate.type}</span>{' '}
                   and press delete to remove.
                 </FormLabel>
                 <FormControl>
@@ -90,7 +90,7 @@ export function CertificateDeleteForm({
             <Button
               type='submit'
               disabled={
-                form.watch('name') !== certificate.name ||
+                form.watch('type') !== certificate.type ||
                 form.formState.isSubmitting
               }
               variant='outline'

@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 
 export async function deleteCertificate(
-  certificate: Pick<Certificate, 'id' | 'name'>
+  certificate: Pick<Certificate, 'id' | 'type'>
 ): Promise<void> {
   try {
     await prisma.certificate.delete({

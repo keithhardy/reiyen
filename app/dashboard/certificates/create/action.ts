@@ -18,19 +18,25 @@ export async function createCertificate(
   try {
     const createdCertificate = await prisma.certificate.create({
       data: {
-        name: certificate.name,
+        type: certificate.type,
         property: {
           connect: {
             id: certificate.property.id,
           },
         },
+        electricalInstallationConditionReport: {
+          create: {
+
+          }
+        }
       },
     });
 
     revalidatePath('/certificates');
 
     return createdCertificate;
-  } catch {
+  } catch(error) {
+    console.log(error)
     throw new Error('Certificate create failed');
   }
 }

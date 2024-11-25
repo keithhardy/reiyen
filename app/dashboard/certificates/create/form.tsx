@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Address, Certificate, Client, Property } from '@prisma/client';
+import { $Enums, Address, Certificate, Client, Property } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -17,7 +17,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -43,7 +42,7 @@ export function CertificateCreateForm({
   const form = useForm({
     resolver: zodResolver(Schema),
     defaultValues: {
-      name: '',
+      type: $Enums.CertificateType.ELECTRICAL_INSTALLATION_CONDITION_REPORT,
       property: {
         id: '',
         client: {
@@ -146,19 +145,6 @@ export function CertificateCreateForm({
             />
           )}
 
-          <FormField
-            control={form.control}
-            name='name'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input {...field} autoComplete='new-name' />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <div className='flex justify-end'>
             <Button
               type='submit'

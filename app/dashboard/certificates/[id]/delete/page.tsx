@@ -55,10 +55,9 @@ export default async function CertificateDeletePage(props: {
         <CardHeader className='col-span-2 lg:col-span-1'>
           <CardTitle>Delete Certificate</CardTitle>
           <CardDescription>
-            Are you sure you want to delete{' '}
-            <span className='text-primary'>{certificate?.name}</span>? This
-            action is permanent, and all data associated with this certificate
-            will be lost and cannot be recovered.
+            Are you sure you want to delete this certificate? This action is
+            permanent, and all data associated with this certificate will be
+            lost and cannot be recovered.
           </CardDescription>
         </CardHeader>
         <CardContent>
