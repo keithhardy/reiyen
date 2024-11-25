@@ -25,7 +25,7 @@ export function ClientUpdateForm({
   client,
 }: {
   client: Client & {
-    address: Address;
+    address: Address | null;
   };
 }) {
   const { toast } = useToast();
@@ -39,7 +39,7 @@ export function ClientUpdateForm({
 
   const onSubmit = async (
     data: Client & {
-      address: Address;
+      address: Address | null;
     }
   ) => {
     try {

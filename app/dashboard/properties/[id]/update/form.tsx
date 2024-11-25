@@ -30,7 +30,7 @@ export function PropertyUpdateForm({
   clients,
 }: {
   property: Property & {
-    address: Address;
+    address: Address | null;
     client: Client;
   };
   clients: Client[];
@@ -44,7 +44,7 @@ export function PropertyUpdateForm({
 
   const onSubmit = async (
     data: Property & {
-      address: Address;
+      address: Address | null;
       client: Client;
     }
   ) => {

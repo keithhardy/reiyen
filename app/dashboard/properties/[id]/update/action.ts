@@ -7,7 +7,7 @@ import { prisma } from '@/lib/prisma';
 
 export async function updateProperty(
   property: Property & {
-    address: Address;
+    address: Address | null;
     client: Client;
   }
 ): Promise<void> {
@@ -24,12 +24,12 @@ export async function updateProperty(
         },
         address: {
           update: {
-            streetAddress: property.address.streetAddress,
-            city: property.address.city,
-            county: property.address.county,
-            postTown: property.address.postTown,
-            postcode: property.address.postcode,
-            country: property.address.country,
+            streetAddress: property.address?.streetAddress,
+            city: property.address?.city,
+            county: property.address?.county,
+            postTown: property.address?.postTown,
+            postcode: property.address?.postcode,
+            country: property.address?.country,
           },
         },
       },
