@@ -31,9 +31,11 @@ export function CertificateUpdateForm({
   clients,
 }: {
   certificate: Certificate & {
-    property: Property & { client: Client; address: Address };
+    property: Property & { client: Client; address: Address | null };
   };
-  clients: (Client & { properties: (Property & { address: Address })[] })[];
+  clients: (Client & {
+    properties: (Property & { address: Address | null })[];
+  })[];
 }) {
   const { toast } = useToast();
 
@@ -120,8 +122,8 @@ export function CertificateUpdateForm({
                       <SelectContent>
                         {selectedClient.properties.map((property) => (
                           <SelectItem key={property.id} value={property.id}>
-                            {property.address.streetAddress},{' '}
-                            {property.address.postcode}
+                            {property.address?.streetAddress},{' '}
+                            {property.address?.postcode}
                           </SelectItem>
                         ))}
                       </SelectContent>
