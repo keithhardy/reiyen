@@ -6,7 +6,6 @@ export const Schema = z.object({
   email: z.string().email({ message: 'Must be an email' }),
   phone: z.string().min(1, { message: 'Phone cannot be empty' }),
   logoUrl: z.string().optional(),
-  addressId: z.string().min(1, { message: 'Address ID cannot be empty' }),
   address: z.object({
     streetAddress: z
       .string()

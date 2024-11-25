@@ -15,7 +15,6 @@ export async function createCertificate(
     };
   }
 ): Promise<Certificate> {
-  console.log(certificate);
   try {
     const createdCertificate = await prisma.certificate.create({
       data: {

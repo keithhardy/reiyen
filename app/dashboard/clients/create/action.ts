@@ -19,7 +19,6 @@ export async function createClient(
     >;
   }
 ): Promise<Client> {
-  console.log(client);
   try {
     let logoUrl;
     try {
@@ -50,8 +49,7 @@ export async function createClient(
     revalidatePath('/clients');
 
     return createdClient;
-  } catch (error) {
-    console.log(error);
+  } catch {
     throw new Error('Client update failed');
   }
 }

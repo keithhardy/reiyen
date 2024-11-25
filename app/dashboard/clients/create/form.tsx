@@ -60,7 +60,6 @@ export function ClientCreateForm() {
       >;
     }
   ) => {
-    console.log(data);
     try {
       const client = await createClient(data);
       router.push('/dashboard/clients');
