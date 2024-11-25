@@ -15,6 +15,7 @@ export type User = {
   email: string;
   picture?: string;
   password?: string;
+  blocked?: boolean;
   last_login?: string | { [key: string]: unknown };
   logins_count?: number;
 };

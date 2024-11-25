@@ -8,44 +8,28 @@ import { User } from '@/lib/auth0-management';
 
 export const columns: ColumnDef<User>[] = [
   {
-    accessorKey: 'picture',
-    header: 'Picture',
-    cell: ({ row }) => (
-      <Image
-        src={row.getValue('picture')}
-        width={30}
-        height={0}
-        alt='User picture'
-        className='rounded-full'
-      />
-    ),
-  },
-  {
     accessorKey: 'name',
     header: 'Name',
-  },
-  {
-    accessorKey: 'email',
-    header: 'Email',
-  },
-  {
-    accessorKey: 'logins_count',
-    header: 'Logins Count',
-    cell: ({ row }) =>
-      row.getValue('logins_count') ? row.getValue('logins_count') : '-',
-  },
-  {
-    accessorKey: 'last_login',
-    header: 'Last Login',
-    cell: ({ row }) =>
-      row.getValue('last_login')
-        ? new Date(row.getValue('last_login')).toLocaleDateString('en-GB')
-        : '-',
+    cell: ({ row }) => (
+      <div className='flex items-center space-x-4'>
+        <Image
+          src={row.original.picture || ''}
+          width='64'
+          height='64'
+          alt='User picture'
+          className='w-8 h-8 rounded-full'
+        />
+        <div>
+          <div className='font-medium'>{row.getValue('name')}</div>
+          <div className='font-light text-muted-foreground'>{row.original.email}</div>
+        </div>
+      </div>
+    )
   },
   {
     id: 'actions',
     cell: ({ row }) => {
-      return <RowActions user={row.original} />;
+      return <div className='text-right'><RowActions user={row.original} /></div>
     },
   },
 ];
