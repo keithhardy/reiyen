@@ -1,45 +1,13 @@
 'use client';
 
+import { Certificate, Client, Property } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
 
 import { RowActions } from './row-actions';
 
-type Client = {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  logoUrl: string;
-  addressId: string;
-};
-
-type Address = {
-  id: string;
-  streetAddress: string;
-  city: string;
-  county?: string | null;
-  postTown: string;
-  postcode: string;
-  country: string;
-};
-
-type Property = {
-  id: string;
-  uprn: string;
-  occupier: string;
-  addressId: string;
-  clientId: string;
-  address: Address;
-  client: Client;
-};
-
-type Certificate = {
-  id: string;
-  name: string;
-  property: Property;
-};
-
-export const columns: ColumnDef<Certificate>[] = [
+export const columns: ColumnDef<
+  Certificate & { property: Property & { client: Client } }
+>[] = [
   {
     accessorKey: 'name',
     header: 'Name',

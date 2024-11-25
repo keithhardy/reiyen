@@ -1,3 +1,4 @@
+import { Certificate } from '@prisma/client';
 import { MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 
@@ -9,10 +10,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-type Certificate = {
-  id: string;
-};
 
 export function RowActions({ certificate }: { certificate: Certificate }) {
   return (
