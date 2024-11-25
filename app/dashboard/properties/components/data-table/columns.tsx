@@ -17,7 +17,7 @@ export const columns: ColumnDef<
     header: 'UPRN',
     cell: ({ row }) => (
       <div className='flex items-center space-x-4'>
-        <House className='min-h-6 min-w-6 text-muted-foreground' />
+        <House className='min-h-6 min-w-6' />
         <div>
           <div className='font-medium'>
             {row.getValue('uprn')} – {row.original.client.name}

@@ -16,7 +16,7 @@ export const columns: ColumnDef<
     header: 'Name',
     cell: ({ row }) => (
       <div className='flex items-center space-x-4'>
-        <Building2 className='min-h-6 min-w-6 text-muted-foreground' />
+        <Building2 className='min-h-6 min-w-6' />
         <div>
           <div className='font-medium'>{row.getValue('name')}</div>
           <div className='font-light text-muted-foreground'>
