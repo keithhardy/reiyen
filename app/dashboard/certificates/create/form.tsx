@@ -30,7 +30,9 @@ import { useToast } from '@/hooks/use-toast';
 export function CertificateCreateForm({
   clients,
 }: {
-  clients: (Client & { properties: (Property & { address: Address })[] })[];
+  clients: (Client & {
+    properties: (Property & { address: Address | null })[];
+  })[];
 }) {
   const router = useRouter();
 
@@ -131,8 +133,8 @@ export function CertificateCreateForm({
                       <SelectContent>
                         {selectedClient.properties.map((property) => (
                           <SelectItem key={property.id} value={property.id}>
-                            {property.address.streetAddress},{' '}
-                            {property.address.postcode}
+                            {property.address?.streetAddress},{' '}
+                            {property.address?.postcode}
                           </SelectItem>
                         ))}
                       </SelectContent>
