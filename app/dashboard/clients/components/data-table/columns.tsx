@@ -7,7 +7,7 @@ import { RowActions } from '@/app/dashboard/clients/components/data-table/row-ac
 
 export const columns: ColumnDef<
   Client & {
-    address: Address;
+    address: Address | null;
   }
 >[] = [
   {

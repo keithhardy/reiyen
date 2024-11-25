@@ -7,7 +7,7 @@ import { RowActions } from '@/app/dashboard/properties/components/data-table/row
 
 export const columns: ColumnDef<
   Property & {
-    address: Address;
+    address: Address | null;
     client: Client;
   }
 >[] = [

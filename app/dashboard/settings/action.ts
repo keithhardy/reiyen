@@ -7,7 +7,10 @@ import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
 export async function updateSettings(
-  settings: Omit<Settings, 'createdAt' | 'updatedAt'> & { address: Address }
+  settings: Omit<Settings, 'createdAt' | 'updatedAt'> & { address: Omit<
+    Address,
+    'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'
+  > | null }
 ): Promise<Settings> {
   try {
     const settingsResponse = await prisma.settings.findFirst();
@@ -32,12 +35,12 @@ export async function updateSettings(
           governingBodyNumber: settings.governingBodyNumber,
           address: {
             update: {
-              streetAddress: settings.address.streetAddress,
-              city: settings.address.city,
-              county: settings.address.county,
-              postTown: settings.address.postTown,
-              postcode: settings.address.postcode,
-              country: settings.address.country,
+              streetAddress: settings.address?.streetAddress,
+              city: settings.address?.city,
+              county: settings.address?.county,
+              postTown: settings.address?.postTown,
+              postcode: settings.address?.postcode,
+              country: settings.address?.country,
             },
           },
         },
@@ -56,12 +59,12 @@ export async function updateSettings(
           governingBodyNumber: settings.governingBodyNumber,
           address: {
             create: {
-              streetAddress: settings.address.streetAddress,
-              city: settings.address.city,
-              county: settings.address.county,
-              postTown: settings.address.postTown,
-              postcode: settings.address.postcode,
-              country: settings.address.country,
+              streetAddress: settings.address?.streetAddress || '',
+              city: settings.address?.city || '',
+              county: settings.address?.county || '',
+              postTown: settings.address?.postTown || '',
+              postcode: settings.address?.postcode || '',
+              country: settings.address?.country || '',
             },
           },
         },

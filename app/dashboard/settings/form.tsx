@@ -24,7 +24,7 @@ import { useToast } from '@/hooks/use-toast';
 export function SettingsUpdateForm({
   settings,
 }: {
-  settings: Settings & { address: Address };
+  settings: Settings & { address: Address | null };
 }) {
   const { toast } = useToast();
 
@@ -40,21 +40,25 @@ export function SettingsUpdateForm({
       logoUrl: settings?.logoUrl || '',
       governingBody: settings?.governingBody || '',
       governingBodyNumber: settings?.governingBodyNumber || '',
-      addressId: settings?.addressId,
       address: settings?.address || {
-        id: settings?.address.id || '',
-        streetAddress: settings?.address.streetAddress || '',
-        city: settings?.address.city || '',
-        county: settings?.address.county || '',
-        postTown: settings?.address.postTown || '',
-        postcode: settings?.address.postcode || '',
-        country: settings?.address.country || '',
+        id: settings?.address?.id || '',
+        streetAddress: settings?.address?.streetAddress || '',
+        city: settings?.address?.city || '',
+        county: settings?.address?.county || '',
+        postTown: settings?.address?.postTown || '',
+        postcode: settings?.address?.postcode || '',
+        country: settings?.address?.country || '',
       },
     },
   });
 
   const onSubmit = async (
-    data: Omit<Settings, 'createdAt' | 'updatedAt'> & { address: Address }
+    data: Omit<Settings, 'createdAt' | 'updatedAt'> & {
+      address: Omit<
+        Address,
+        'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'
+      > | null;
+    }
   ) => {
     try {
       await updateSettings(data);
