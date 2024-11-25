@@ -7,10 +7,19 @@ import { prisma } from '@/lib/prisma';
 import { uploadFile } from '@/lib/vercel-blob';
 
 export async function createClient(
-  client: Omit<Client, 'id' | 'addressId' | 'createdAt' | 'updatedAt'> & {
-    address: Omit<Address, 'id' | 'createdAt' | 'updatedAt'>;
+  client: Omit<Client, 'id' | 'createdAt' | 'updatedAt'> & {
+    address: Omit<
+      Address,
+      | 'id'
+      | 'createdAt'
+      | 'updatedAt'
+      | 'settingsId'
+      | 'clientId'
+      | 'propertyId'
+    >;
   }
 ): Promise<Client> {
+  console.log(client);
   try {
     let logoUrl;
     try {
@@ -41,7 +50,8 @@ export async function createClient(
     revalidatePath('/clients');
 
     return createdClient;
-  } catch {
+  } catch(error) {
+    console.log(error)
     throw new Error('Client update failed');
   }
 }

@@ -48,10 +48,19 @@ export function ClientCreateForm() {
   });
 
   const onSubmit = async (
-    data: Omit<Client, 'id' | 'addressId' | 'createdAt' | 'updatedAt'> & {
-      address: Omit<Address, 'id' | 'createdAt' | 'updatedAt'>;
+    data: Omit<Client, 'id' | 'createdAt' | 'updatedAt'> & {
+      address: Omit<
+        Address,
+        | 'id'
+        | 'createdAt'
+        | 'updatedAt'
+        | 'settingsId'
+        | 'clientId'
+        | 'propertyId'
+      >;
     }
   ) => {
+    console.log(data);
     try {
       const client = await createClient(data);
       router.push('/dashboard/clients');

@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Address" ALTER COLUMN "clientId" DROP NOT NULL,
+ALTER COLUMN "propertyId" DROP NOT NULL,
+ALTER COLUMN "settingsId" DROP NOT NULL;

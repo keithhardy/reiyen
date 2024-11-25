@@ -62,31 +62,33 @@ model Permission {
 }
 
 model Address {
-  id            String    @id @default(uuid())
+  id            String  @id @default(uuid())
   streetAddress String
   city          String
   county        String?
   postTown      String
   postcode      String
-  country       String    @default("United Kingdom")
-  client        Client?
-  property      Property?
-  settings      Settings?
+  country       String  @default("United Kingdom")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  settingsId String?   @unique
+  Settings   Settings? @relation(fields: [settingsId], references: [id], onDelete: Cascade)
+  clientId   String?   @unique
+  Client     Client?   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  propertyId String?   @unique
+  Property   Property? @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }
 
 model Settings {
-  id                  String  @id @default(uuid())
+  id                  String   @id @default(uuid())
   name                String
   email               String
   phone               String
   logoUrl             String
   governingBody       String
   governingBodyNumber String
-  addressId           String  @unique
-  address             Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  address             Address?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -98,8 +100,7 @@ model Client {
   email       String
   phone       String
   logoUrl     String
-  addressId   String       @unique
-  address     Address      @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  address     Address?
   permissions Permission[]
   properties  Property[]
 
@@ -111,9 +112,8 @@ model Property {
   id           String        @id @default(uuid())
   uprn         String
   occupier     String
-  addressId    String        @unique
   clientId     String
-  address      Address       @relation(fields: [addressId], references: [id], onDelete: Cascade)
+  address      Address?
   client       Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
   certificates Certificate[]
 
