@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { CertificateDeleteForm } from '@/app/dashboard/certificates/[id]/delete/form';
@@ -17,6 +18,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
+
+export const metadata: Metadata = {
+  title: 'Delete – Certificates – Reiyen',
+};
 
 export default async function CertificateDeletePage(props: {
   params: Promise<{ id: string }>;

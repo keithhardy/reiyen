@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { PropertyUpdateForm } from '@/app/dashboard/properties/[id]/update/form';
@@ -17,6 +18,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
+
+export const metadata: Metadata = {
+  title: 'Update – Properties – Reiyen',
+};
 
 export default async function PropertyUpdatePage(props: {
   params: Promise<{ id: string }>;

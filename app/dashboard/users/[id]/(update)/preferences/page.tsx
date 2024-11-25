@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import { UserPreferencesForm } from '@/app/dashboard/users/[id]/(update)/preferences/form';
 import {
   Card,
@@ -7,6 +9,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
+
+export const metadata: Metadata = {
+  title: 'Preferences – Users – Reiyen',
+};
 
 export default async function UserPreferencesPage(props: {
   params: Promise<{ id: string }>;

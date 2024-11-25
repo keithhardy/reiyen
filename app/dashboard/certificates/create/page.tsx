@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { CertificateCreateForm } from '@/app/dashboard/certificates/create/form';
@@ -17,6 +18,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
+
+export const metadata: Metadata = {
+  title: 'Create – Certificates – Reiyen',
+};
 
 export default async function CertificateCreatePage() {
   const clients = await prisma.client.findMany({

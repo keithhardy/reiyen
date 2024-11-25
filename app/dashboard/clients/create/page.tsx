@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { ClientCreateForm } from '@/app/dashboard/clients/create/form';
@@ -16,6 +17,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+
+export const metadata: Metadata = {
+  title: 'Create – Clients – Reiyen',
+};
 
 export default function CreateClientPage() {
   return (

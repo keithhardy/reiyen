@@ -1,4 +1,5 @@
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+import { Metadata } from 'next';
 
 import { DataList } from '@/app/dashboard/users/[id]/(update)/equipment/components/data-list';
 import { UserEquipmentForm } from '@/app/dashboard/users/[id]/(update)/equipment/form';
@@ -18,6 +19,10 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { prisma } from '@/lib/prisma';
+
+export const metadata: Metadata = {
+  title: 'Equipment – Users – Reiyen',
+};
 
 export default async function UserEquipmentPage(props: {
   params: Promise<{ id: string }>;

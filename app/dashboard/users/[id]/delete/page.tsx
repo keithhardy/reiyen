@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { UserDeleteForm } from '@/app/dashboard/users/[id]/delete/form';
@@ -17,6 +18,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { auth0Management } from '@/lib/auth0-management';
+
+export const metadata: Metadata = {
+  title: 'Delete – Users – Reiyen',
+};
 
 export default async function UserDeletePage(props: {
   params: Promise<{ id: string }>;

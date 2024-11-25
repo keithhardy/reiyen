@@ -1,4 +1,5 @@
 import { Plus } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { columns } from '@/app/dashboard/users/components/data-table/columns';
@@ -13,6 +14,10 @@ import { Button } from '@/components/ui/button';
 import { auth0Management } from '@/lib/auth0-management';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Users – Reiyen',
+};
 
 export default async function UsersPage() {
   const response = await auth0Management.users.getAll();

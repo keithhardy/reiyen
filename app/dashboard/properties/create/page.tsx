@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { PropertyCreateForm } from '@/app/dashboard/properties/create/form';
@@ -17,6 +18,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
+
+export const metadata: Metadata = {
+  title: 'Create – Properties – Reiyen',
+};
 
 export default async function PropertyCreatePage() {
   const clients = await prisma.client.findMany();

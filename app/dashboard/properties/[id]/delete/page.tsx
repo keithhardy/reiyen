@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { PropertyDeleteForm } from '@/app/dashboard/properties/[id]/delete/form';
@@ -18,7 +19,12 @@ import {
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
-export default async function UserDeletePage(props: {
+export const metadata: Metadata = {
+  title: 'Delete – Properties – Reiyen',
+};
+
+
+export default async function PropertyDeletePage(props: {
   params: Promise<{ id: string }>;
 }) {
   const params = await props.params;

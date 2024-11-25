@@ -1,4 +1,5 @@
 import { Plus } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { columns } from '@/app/dashboard/clients/components/data-table/columns';
@@ -12,7 +13,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { prisma } from '@/lib/prisma';
 
-export default async function UsersPage() {
+export const metadata: Metadata = {
+  title: 'Clients – Reiyen',
+};
+
+export default async function ClientsPage() {
   const clients = await prisma.client.findMany({
     include: {
       address: true,

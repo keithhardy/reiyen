@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import { UserGeneralForm } from '@/app/dashboard/users/[id]/(update)/general/form';
 import {
   Card,
@@ -7,6 +9,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { auth0Management } from '@/lib/auth0-management';
+
+export const metadata: Metadata = {
+  title: 'General – Users – Reiyen',
+};
 
 export default async function UserGeneralPage(props: {
   params: Promise<{ id: string }>;

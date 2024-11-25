@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { ClientDeleteForm } from '@/app/dashboard/clients/[id]/delete/form';
@@ -17,6 +18,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
+
+export const metadata: Metadata = {
+  title: 'Delete – Clients – Reiyen',
+};
 
 export default async function ClientDeletePage(props: {
   params: Promise<{ id: string }>;

@@ -6,8 +6,7 @@ import Header from '@/components/header';
 import { auth0 } from '@/lib/auth0';
 
 export const metadata: Metadata = {
-  title: 'Reiyen | Dashboard',
-  description: 'Forms based of the BS7671 model forms.',
+  title: 'Dashboard – Reiyen',
 };
 
 export default async function RootLayout({

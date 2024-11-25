@@ -1,4 +1,5 @@
 import { ArrowLeft } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { CertificateUpdateForm } from '@/app/dashboard/certificates/[id]/update/form';
@@ -17,6 +18,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
+
+export const metadata: Metadata = {
+  title: 'Update – Certificates – Reiyen',
+};
 
 export default async function CertificateUpdatePage(props: {
   params: Promise<{ id: string }>;

@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import { SettingsUpdateForm } from '@/app/dashboard/settings/form';
 import {
   PageHeader,
@@ -13,7 +15,11 @@ import {
 } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
-export default async function UsersPage() {
+export const metadata: Metadata = {
+  title: 'Settings – Reiyen',
+};
+
+export default async function SettingsPage() {
   const settings = await prisma.settings.findFirst({
     include: {
       address: true,
