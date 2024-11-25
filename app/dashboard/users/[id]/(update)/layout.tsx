@@ -34,7 +34,7 @@ export default async function UserUpdateLayout(
       </PageHeader>
 
       <div className='grid grid-cols-4 space-y-4 lg:space-x-4 lg:space-y-0'>
-        <div className='col-span-4 flex flex-col lg:col-span-1'>
+        <div className='col-span-4 flex flex-col lg:col-span-1 mb-4'>
           <SidebarLinks userId={params.id} />
         </div>
 

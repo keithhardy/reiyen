@@ -21,7 +21,7 @@ export function SidebarLinks({ userId }: { userId: string }) {
     <div className='space-y-2'>
       <Button
         variant='outline'
-        className='w-full justify-start lg:hidden'
+        className='w-full lg:hidden'
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
         {isSidebarOpen ? 'Hide Menu' : 'Show Menu'}

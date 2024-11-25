@@ -17,19 +17,25 @@ export const columns: ColumnDef<User>[] = [
           width='64'
           height='64'
           alt='User picture'
-          className='w-8 h-8 rounded-full'
+          className='h-8 w-8 rounded-full'
         />
         <div>
           <div className='font-medium'>{row.getValue('name')}</div>
-          <div className='font-light text-muted-foreground'>{row.original.email}</div>
+          <div className='font-light text-muted-foreground'>
+            {row.original.email}
+          </div>
         </div>
       </div>
-    )
+    ),
   },
   {
     id: 'actions',
     cell: ({ row }) => {
-      return <div className='text-right'><RowActions user={row.original} /></div>
+      return (
+        <div className='text-right'>
+          <RowActions user={row.original} />
+        </div>
+      );
     },
   },
 ];
