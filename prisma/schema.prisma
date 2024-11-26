@@ -112,3 +112,51 @@ model Property {
 
   @@index([clientId])
 }
+
+model Certificate {
+  id                                    String                                 @id @default(cuid())
+  certificateType                       CertificateType
+  minorWorks                            MinorWorks?
+  electricalInstallationCertificate     ElectricalInstallationCertificate?
+  electricalInstallationConditionReport ElectricalInstallationConditionReport?
+  fireSafetyDesignSummary               FireSafetyDesignSummary?
+  domesticVentilationCommissioningSheet DomesticVentilationCommissioningSheet?
+}
+
+enum CertificateType {
+  MINOR_WORKS
+  ELECTRICAL_INSTALLATION_CERTIFICATE
+  ELECTRICAL_INSTALLATION_CONDITION_REPORT
+  FIRE_SAFETY_DESIGN_SUMMARY
+  DOMESTIC_VENTILATION_COMMISSIONING_SHEET
+}
+
+model MinorWorks {
+  id            String      @id @default(cuid())
+  certificate   Certificate @relation(fields: [certificateId], references: [id])
+  certificateId String      @unique
+}
+
+model ElectricalInstallationCertificate {
+  id            String      @id @default(cuid())
+  certificate   Certificate @relation(fields: [certificateId], references: [id])
+  certificateId String      @unique
+}
+
+model ElectricalInstallationConditionReport {
+  id            String      @id @default(cuid())
+  certificate   Certificate @relation(fields: [certificateId], references: [id])
+  certificateId String      @unique
+}
+
+model FireSafetyDesignSummary {
+  id            String      @id @default(cuid())
+  certificate   Certificate @relation(fields: [certificateId], references: [id])
+  certificateId String      @unique
+}
+
+model DomesticVentilationCommissioningSheet {
+  id            String      @id @default(cuid())
+  certificate   Certificate @relation(fields: [certificateId], references: [id])
+  certificateId String      @unique
+}

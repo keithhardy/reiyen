@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { ClientUpdateForm } from '@/app/(dashboard)/clients/[id]/update/form';
 import {
@@ -33,6 +34,10 @@ export default async function ClientUpdatePage(props: { params: Promise<{ id: st
       address: true,
     },
   });
+
+  if (!client) {
+    notFound();
+  }
 
   return (
     <>

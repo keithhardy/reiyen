@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { PropertyDeleteForm } from '@/app/(dashboard)/properties/[id]/delete/form';
 import {
@@ -30,6 +31,10 @@ export default async function PropertyDeletePage(props: { params: Promise<{ id: 
       id: params.id,
     },
   });
+
+  if (!property) {
+    notFound();
+  }
 
   return (
     <>

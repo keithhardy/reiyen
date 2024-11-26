@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { PropertyUpdateForm } from '@/app/(dashboard)/properties/[id]/update/form';
 import {
@@ -36,6 +37,10 @@ export default async function PropertyUpdatePage(props: { params: Promise<{ id: 
       address: true,
     },
   });
+
+  if (!property) {
+    notFound();
+  }
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { UserDeleteForm } from '@/app/(dashboard)/users/[id]/delete/form';
 import {
@@ -20,6 +21,10 @@ export default async function UserDeletePage(props: { params: Promise<{ id: stri
   const { data: user } = await auth0Management.users.get({
     id: 'auth0|' + params.id,
   });
+
+  if (!user) {
+    notFound();
+  }
 
   return (
     <>

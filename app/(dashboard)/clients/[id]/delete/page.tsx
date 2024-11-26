@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { ClientDeleteForm } from '@/app/(dashboard)/clients/[id]/delete/form';
 import {
@@ -33,6 +34,10 @@ export default async function ClientDeletePage(props: { params: Promise<{ id: st
       address: true,
     },
   });
+
+  if (!client) {
+    notFound();
+  }
 
   return (
     <>

@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation';
+
 import { SidebarLinks } from '@/app/(dashboard)/users/[id]/(update)/components/sidebar-links';
 import {
   PageHeader,
@@ -17,10 +19,15 @@ export default async function UserUpdateLayout(
 
   const { children } = props;
 
-  const { data: user } = await auth0Management.users.get({
-    id: 'auth0|' + params.id,
-  });
-
+  let user;
+  try {
+    const response = await auth0Management.users.get({
+      id: 'auth0|' + params.id,
+    });
+    user = response.data;
+  } catch {
+    notFound();
+  }
   return (
     <>
       <PageHeader>
