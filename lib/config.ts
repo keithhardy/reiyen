@@ -1,3 +1,5 @@
+import { $Enums } from "@prisma/client";
+
 export const menuLinks = [
   {
     label: 'Dashboard',
@@ -59,3 +61,17 @@ export const userLinks = (userId: string) => [
     href: `/dashboard/users/${userId}/permissions`,
   },
 ];
+
+export const certificateTypeOptions = Object.values($Enums.CertificateType).map((type) => {
+  const firstLettersHref = type
+    .toLowerCase()
+    .split('_')
+    .map(word => word.charAt(0))
+    .join('');
+
+  return {
+    label: type.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()),
+    value: type,
+    href: firstLettersHref,
+  };
+});

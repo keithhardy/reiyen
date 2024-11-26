@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 
 export async function updateCertificate(
-  certificate: Pick<Certificate, 'id' | 'name'> & {
+  certificate: Pick<Certificate, 'id'> & {
     property: Pick<Property, 'id'>;
   }
 ): Promise<void> {
@@ -16,7 +16,6 @@ export async function updateCertificate(
         id: certificate.id,
       },
       data: {
-        name: certificate.name,
         property: {
           connect: {
             id: certificate.property.id,

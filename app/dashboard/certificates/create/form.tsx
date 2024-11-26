@@ -25,6 +25,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import { certificateTypeOptions } from '@/lib/config';
 
 export function CertificateCreateForm({
   clients,
@@ -85,6 +86,33 @@ export function CertificateCreateForm({
         <div className='space-y-4'>
           <FormField
             control={form.control}
+            name='type'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Property</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder='Select a property' />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {certificateTypeOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
             name='property.client.id'
             render={({ field }) => (
               <FormItem>
@@ -113,7 +141,6 @@ export function CertificateCreateForm({
               </FormItem>
             )}
           />
-
           {selectedClient && selectedClient.properties.length > 0 && (
             <FormField
               control={form.control}
@@ -144,7 +171,6 @@ export function CertificateCreateForm({
               )}
             />
           )}
-
           <div className='flex justify-end'>
             <Button
               type='submit'

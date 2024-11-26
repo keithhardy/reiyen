@@ -16,6 +16,28 @@ export async function createCertificate(
   }
 ): Promise<Certificate> {
   try {
+    const typeData: Record<string, unknown> = {};
+
+    switch (certificate.type) {
+      case 'ELECTRICAL_INSTALLATION_CONDITION_REPORT':
+        typeData.electricalInstallationConditionReport = { create: {} };
+        break;
+      case 'ELECTRICAL_INSTALLATION_CERTIFICATE':
+        typeData.electricalInstallationCertificate = { create: {} };
+        break;
+      case 'MINOR_WORKS':
+        typeData.minorWorks = { create: {} };
+        break;
+      case 'FIRE_SAFETY_DESIGN_SUMMARY':
+        typeData.fireSafetyDesignSummary = { create: {} };
+        break;
+      case 'DOMESTIC_VENTILATION_COMMISSIONING_SHEET':
+        typeData.domesticVentilationCommissioningSheet = { create: {} };
+        break;
+      default:
+        throw new Error(`Unsupported certificate type: ${certificate.type}`);
+    }
+
     const createdCertificate = await prisma.certificate.create({
       data: {
         type: certificate.type,
@@ -24,19 +46,15 @@ export async function createCertificate(
             id: certificate.property.id,
           },
         },
-        electricalInstallationConditionReport: {
-          create: {
-
-          }
-        }
+        ...typeData,
       },
     });
 
     revalidatePath('/certificates');
 
     return createdCertificate;
-  } catch(error) {
-    console.log(error)
-    throw new Error('Certificate create failed');
+  } catch (error) {
+    console.error('Certificate creation failed:', error);
+    throw new Error('Certificate creation failed');
   }
 }

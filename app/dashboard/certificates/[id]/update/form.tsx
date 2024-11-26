@@ -16,7 +16,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -48,7 +47,7 @@ export function CertificateUpdateForm({
   });
 
   const onSubmit = async (
-    data: Pick<Certificate, 'id' | 'name'> & { property: Pick<Property, 'id'> }
+    data: Pick<Certificate, 'id'> & { property: Pick<Property, 'id'> }
   ) => {
     try {
       await updateCertificate(data);
@@ -134,20 +133,6 @@ export function CertificateUpdateForm({
               )}
             />
           )}
-
-          <FormField
-            control={form.control}
-            name='name'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <div className='flex justify-end'>
             <Button
               type='submit'

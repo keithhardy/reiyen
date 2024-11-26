@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Preferences {
-  id        String @id @default(uuid())
+  id        String @id @default(cuid())
   userId    String @unique
   position  String
   signature String
@@ -19,7 +19,7 @@ model Preferences {
 }
 
 model Equipment {
-  id             String @id @default(uuid())
+  id             String @id @default(cuid())
   userId         String
   type           String
   make           String
@@ -35,7 +35,7 @@ model Equipment {
 }
 
 model Qualification {
-  id                  String @id @default(uuid())
+  id                  String @id @default(cuid())
   userId              String
   awardingBody        String
   qualification       String
@@ -48,7 +48,7 @@ model Qualification {
 }
 
 model Permission {
-  id         String  @id @default(uuid())
+  id         String  @id @default(cuid())
   userId     String
   permission String
   clientId   String?
@@ -62,7 +62,7 @@ model Permission {
 }
 
 model Address {
-  id            String  @id @default(uuid())
+  id            String  @id @default(cuid())
   streetAddress String
   city          String
   county        String?
@@ -81,7 +81,7 @@ model Address {
 }
 
 model Settings {
-  id                  String   @id @default(uuid())
+  id                  String   @id @default(cuid())
   name                String
   email               String
   phone               String
@@ -95,7 +95,7 @@ model Settings {
 }
 
 model Client {
-  id          String       @id @default(uuid())
+  id          String       @id @default(cuid())
   name        String
   email       String
   phone       String
@@ -109,7 +109,7 @@ model Client {
 }
 
 model Property {
-  id           String        @id @default(uuid())
+  id           String        @id @default(cuid())
   uprn         String
   occupier     String
   clientId     String
@@ -132,7 +132,7 @@ enum CertificateType {
 }
 
 model Certificate {
-  id         String   @id @default(uuid())
+  id         String   @id @default(cuid())
   propertyId String
   property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 
@@ -151,7 +151,7 @@ model Certificate {
 }
 
 model ElectricalInstallationConditionReport {
-  id String @id @default(uuid())
+  id String @id @default(cuid())
 
   certificateId String      @unique
   certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
@@ -160,28 +160,28 @@ model ElectricalInstallationConditionReport {
 }
 
 model ElectricalInstallationCertificate {
-  id String @id @default(uuid())
+  id String @id @default(cuid())
 
   certificateId String      @unique
   certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
 }
 
 model MinorWorks {
-  id String @id @default(uuid())
+  id String @id @default(cuid())
 
   certificateId String      @unique
   certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
 }
 
 model FireSafetyDesignSummary {
-  id String @id @default(uuid())
+  id String @id @default(cuid())
 
   certificateId String      @unique
   certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
 }
 
 model DomesticVentilationCommissioningSheet {
-  id String @id @default(uuid())
+  id String @id @default(cuid())
 
   certificateId String      @unique
   certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
