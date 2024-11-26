@@ -23,8 +23,7 @@ export const menuLinks = [
   {
     label: 'Certificates',
     href: '/certificates',
-    description:
-      'Create, edit, and manage all types of electrical certificates.',
+    description: 'Create, edit, and manage all types of electrical certificates.',
   },
   {
     label: 'Settings',
@@ -71,4 +70,3 @@ export const certificateTypeUrlMapping = {
   FIRE_SAFETY_DESIGN_SUMMARY: 'fire-safety-design-summary',
   DOMESTIC_VENTILATION_COMMISSIONING_SHEET: 'domestic-ventilation-commissioning-sheet',
 };
-

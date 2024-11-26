@@ -9,7 +9,6 @@ export async function createCertificate(
   certificate: Omit<Certificate, 'id' | 'createdAt' | 'updatedAt'>
 ): Promise<Certificate> {
   try {
-
     const createdCertificate = await prisma.certificate.create({
       data: {
         certificateType: certificate.certificateType,
