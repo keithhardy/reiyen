@@ -1,5 +1,3 @@
-import { $Enums } from "@prisma/client";
-
 export const menuLinks = [
   {
     label: 'Dashboard',
@@ -9,31 +7,31 @@ export const menuLinks = [
   },
   {
     label: 'Users',
-    href: '/dashboard/users',
+    href: '/users',
     description:
       'Manage user accounts and permissions within the electrical certification system.',
   },
   {
     label: 'Clients',
-    href: '/dashboard/clients',
+    href: '/clients',
     description:
       'Handle client information and scheduling for electrical services.',
   },
   {
     label: 'Properties',
-    href: '/dashboard/properties',
+    href: '/properties',
     description:
       'Maintain records of properties requiring electrical certifications.',
   },
-  {
-    label: 'Certificates',
-    href: '/dashboard/certificates',
-    description:
-      'Create, edit, and manage all types of electrical certificates.',
-  },
+  // {
+  //   label: 'Certificates',
+  //   href: '/certificates',
+  //   description:
+  //     'Create, edit, and manage all types of electrical certificates.',
+  // },
   {
     label: 'Settings',
-    href: '/dashboard/settings',
+    href: '/settings',
     description:
       'Configure system-wide settings for electrical certificate management.',
   },
@@ -42,36 +40,22 @@ export const menuLinks = [
 export const userLinks = (userId: string) => [
   {
     label: 'General',
-    href: `/dashboard/users/${userId}/general`,
+    href: `/users/${userId}/general`,
   },
   {
     label: 'Preferences',
-    href: `/dashboard/users/${userId}/preferences`,
+    href: `/users/${userId}/preferences`,
   },
   {
     label: 'Equipment',
-    href: `/dashboard/users/${userId}/equipment`,
+    href: `/users/${userId}/equipment`,
   },
   {
     label: 'Qualifications',
-    href: `/dashboard/users/${userId}/qualifications`,
+    href: `/users/${userId}/qualifications`,
   },
   {
     label: 'Permissions',
-    href: `/dashboard/users/${userId}/permissions`,
+    href: `/users/${userId}/permissions`,
   },
 ];
-
-export const certificateTypeOptions = Object.values($Enums.CertificateType).map((type) => {
-  const firstLettersHref = type
-    .toLowerCase()
-    .split('_')
-    .map(word => word.charAt(0))
-    .join('');
-
-  return {
-    label: type.replace(/_/g, ' ').toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase()),
-    value: type,
-    href: firstLettersHref,
-  };
-});

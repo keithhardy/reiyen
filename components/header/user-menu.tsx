@@ -52,9 +52,7 @@ export default function UserMenu() {
         <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link
-            href={`/dashboard/users/${encodeURIComponent(user.sub)}/general`}
-          >
+          <Link href={`/users/${encodeURIComponent(user.sub)}/general`}>
             Profile
           </Link>
         </DropdownMenuItem>

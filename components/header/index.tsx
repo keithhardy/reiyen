@@ -68,7 +68,7 @@ export default function Header() {
               <li
                 key={item.label}
                 className={`shrink-0 ${
-                  PathMatch(item.href, pathname, '/dashboard')
+                  PathMatch(item.href, pathname, '')
                     ? 'text-primary'
                     : 'text-muted-foreground'
                 }`}

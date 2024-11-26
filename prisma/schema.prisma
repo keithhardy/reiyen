@@ -109,80 +109,15 @@ model Client {
 }
 
 model Property {
-  id           String        @id @default(cuid())
-  uprn         String
-  occupier     String
-  clientId     String
-  address      Address?
-  client       Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  certificates Certificate[]
+  id       String   @id @default(cuid())
+  uprn     String
+  occupier String
+  clientId String
+  address  Address?
+  client   Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([clientId])
-}
-
-enum CertificateType {
-  ELECTRICAL_INSTALLATION_CONDITION_REPORT
-  ELECTRICAL_INSTALLATION_CERTIFICATE
-  MINOR_WORKS
-  FIRE_SAFETY_DESIGN_SUMMARY
-  DOMESTIC_VENTILATION_COMMISSIONING_SHEET
-}
-
-model Certificate {
-  id         String   @id @default(cuid())
-  propertyId String
-  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  type CertificateType
-
-  electricalInstallationConditionReport ElectricalInstallationConditionReport?
-  electricalInstallationCertificate     ElectricalInstallationCertificate?
-  minorWorks                            MinorWorks?
-  fireSafetyDesignSummary               FireSafetyDesignSummary?
-  domesticVentilationCommissioningSheet DomesticVentilationCommissioningSheet?
-
-  @@index([propertyId])
-}
-
-model ElectricalInstallationConditionReport {
-  id String @id @default(cuid())
-
-  certificateId String      @unique
-  certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
-
-  @@index([certificateId])
-}
-
-model ElectricalInstallationCertificate {
-  id String @id @default(cuid())
-
-  certificateId String      @unique
-  certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
-}
-
-model MinorWorks {
-  id String @id @default(cuid())
-
-  certificateId String      @unique
-  certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
-}
-
-model FireSafetyDesignSummary {
-  id String @id @default(cuid())
-
-  certificateId String      @unique
-  certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
-}
-
-model DomesticVentilationCommissioningSheet {
-  id String @id @default(cuid())
-
-  certificateId String      @unique
-  certificate   Certificate @relation(fields: [certificateId], references: [id], onDelete: Cascade)
 }
