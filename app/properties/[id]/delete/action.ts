@@ -5,9 +5,7 @@ import { revalidatePath } from 'next/cache';
 
 import { prisma } from '@/lib/prisma';
 
-export async function deleteProperty(
-  property: Pick<Property, 'id'>
-): Promise<void> {
+export async function deleteProperty(property: Pick<Property, 'id'>): Promise<void> {
   try {
     await prisma.property.delete({
       where: {

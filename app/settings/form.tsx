@@ -128,14 +128,7 @@ export function SettingsUpdateForm({
                   <Input
                     type='file'
                     accept='image/*'
-                    onChange={(e) =>
-                      handleFileChange(
-                        e,
-                        form.setValue,
-                        'logoUrl',
-                        setImagePreview
-                      )
-                    }
+                    onChange={(e) => handleFileChange(e, form.setValue, 'logoUrl', setImagePreview)}
                   />
                 </FormControl>
                 <FormMessage />
@@ -258,11 +251,7 @@ export function SettingsUpdateForm({
             )}
           />
           <div className='flex justify-end'>
-            <Button
-              type='submit'
-              disabled={form.formState.isSubmitting}
-              variant='outline'
-            >
+            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Saving' : 'Save'}
             </Button>
           </div>

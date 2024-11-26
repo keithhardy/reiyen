@@ -27,9 +27,7 @@ export default function CommandMenu() {
     const handleShortcut = (e: KeyboardEvent) => {
       if (
         ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') &&
-        !['INPUT', 'TEXTAREA', 'SELECT'].includes(
-          (e.target as HTMLElement).tagName
-        )
+        !['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement).tagName)
       ) {
         e.preventDefault();
         setOpen((prev) => !prev);
@@ -47,11 +45,7 @@ export default function CommandMenu() {
 
   return (
     <>
-      <Button
-        variant='ghost'
-        className='h-8 px-2'
-        onClick={() => setOpen(true)}
-      >
+      <Button variant='ghost' className='h-8 px-2' onClick={() => setOpen(true)}>
         <Search className='min-h-4 min-w-4' /> Search
       </Button>
 
@@ -65,10 +59,7 @@ export default function CommandMenu() {
 
           <CommandGroup heading='Reiyen'>
             {menuLinks.map(({ href, label }) => (
-              <CommandItem
-                key={href}
-                onSelect={() => runCommand(() => router.push(href))}
-              >
+              <CommandItem key={href} onSelect={() => runCommand(() => router.push(href))}>
                 {label}
               </CommandItem>
             ))}
@@ -76,10 +67,7 @@ export default function CommandMenu() {
 
           <CommandGroup heading='Theme'>
             {['light', 'dark', 'system'].map((theme) => (
-              <CommandItem
-                key={theme}
-                onSelect={() => runCommand(() => setTheme(theme))}
-              >
+              <CommandItem key={theme} onSelect={() => runCommand(() => setTheme(theme))}>
                 {theme.charAt(0).toUpperCase() + theme.slice(1)}
               </CommandItem>
             ))}

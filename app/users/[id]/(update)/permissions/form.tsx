@@ -55,9 +55,7 @@ export function UserPermissionsForm({
       ).filter(
         (perm) =>
           !permissions.some(
-            (p) =>
-              p.permission === perm &&
-              (p.clientId || 'global') === selectedClient
+            (p) => p.permission === perm && (p.clientId || 'global') === selectedClient
           )
       )
     : [];
@@ -67,10 +65,7 @@ export function UserPermissionsForm({
 
     const permissionsToAdd = selected
       .filter(
-        (perm) =>
-          !newPermissions.some(
-            (p) => p.permission === perm && p.clientId === clientId
-          )
+        (perm) => !newPermissions.some((p) => p.permission === perm && p.clientId === clientId)
       )
       .map((permission) => ({
         permission,
@@ -82,10 +77,7 @@ export function UserPermissionsForm({
       const permissionsToRemove = prev.filter(
         (p) => p.clientId === clientId && !selected.includes(p.permission)
       );
-      return [
-        ...prev.filter((p) => !permissionsToRemove.includes(p)),
-        ...permissionsToAdd,
-      ];
+      return [...prev.filter((p) => !permissionsToRemove.includes(p)), ...permissionsToAdd];
     });
 
     setSelectedPermissions(selected);
@@ -105,8 +97,7 @@ export function UserPermissionsForm({
       } catch {
         toast({
           title: 'Adding Failed',
-          description:
-            'An error occurred while adding the permissions. Please try again later.',
+          description: 'An error occurred while adding the permissions. Please try again later.',
           variant: 'destructive',
         });
       }
@@ -155,17 +146,11 @@ export function UserPermissionsForm({
                     : 'No permissions available'
                   : 'Select client'
               }
-              disabled={
-                !selectedClient || !availablePermissionsForClient.length
-              }
+              disabled={!selectedClient || !availablePermissionsForClient.length}
             />
           </div>
           <div className='flex justify-end'>
-            <Button
-              type='submit'
-              disabled={form.formState.isSubmitting}
-              variant='outline'
-            >
+            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Adding' : 'Add'}
             </Button>
           </div>

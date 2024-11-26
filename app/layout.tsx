@@ -25,9 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body
-        className={`${GeistSans.className} ${GeistMono.className} flex min-h-dvh flex-col`}
-      >
+      <body className={`${GeistSans.className} ${GeistMono.className} flex min-h-dvh flex-col`}>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'

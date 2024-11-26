@@ -6,9 +6,7 @@ export const Schema = z.object({
   phone: z.string().min(1, { message: 'Phone cannot be empty' }),
   logoUrl: z.string().optional(),
   address: z.object({
-    streetAddress: z
-      .string()
-      .min(1, { message: 'Street Address cannot be empty' }),
+    streetAddress: z.string().min(1, { message: 'Street Address cannot be empty' }),
     city: z.string().min(1, { message: 'City cannot be empty' }),
     county: z.string().min(1, { message: 'County cannot be empty' }),
     postTown: z.string().min(1, { message: 'Post Town cannot be empty' }),

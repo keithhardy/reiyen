@@ -33,9 +33,7 @@ export function SignatureInput({ name }: SignatureInputProps) {
 
   const saveSignature = (onChange: (value: string) => void) => {
     if (sigCanvas.current) {
-      const signatureData = sigCanvas.current
-        .getTrimmedCanvas()
-        .toDataURL('image/png');
+      const signatureData = sigCanvas.current.getTrimmedCanvas().toDataURL('image/png');
       onChange(signatureData);
     }
   };
@@ -59,18 +57,11 @@ export function SignatureInput({ name }: SignatureInputProps) {
             onEnd={() => saveSignature(onChange)}
           />
           <div className='mt-4 flex gap-2'>
-            <Button
-              type='button'
-              variant='outline'
-              size='sm'
-              onClick={clearSignature}
-            >
+            <Button type='button' variant='outline' size='sm' onClick={clearSignature}>
               Clear
             </Button>
           </div>
-          {error && (
-            <p className='mt-1 text-sm text-red-500'>{error.message}</p>
-          )}
+          {error && <p className='mt-1 text-sm text-red-500'>{error.message}</p>}
         </div>
       )}
     />

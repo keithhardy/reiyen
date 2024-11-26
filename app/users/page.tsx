@@ -30,9 +30,8 @@ export default async function UsersPage() {
         <PageHeaderGroup>
           <PageHeaderHeading>Users</PageHeaderHeading>
           <PageHeaderDescription>
-            Manage users with convenient links to view, update, or delete
-            accounts. Oversee all user activity and account statuses in one
-            place.
+            Manage users with convenient links to view, update, or delete accounts. Oversee all user
+            activity and account statuses in one place.
           </PageHeaderDescription>
         </PageHeaderGroup>
 

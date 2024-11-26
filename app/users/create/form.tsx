@@ -87,22 +87,14 @@ export function UserCreateForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input
-                    type='password'
-                    {...field}
-                    autoComplete='new-password'
-                  />
+                  <Input type='password' {...field} autoComplete='new-password' />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           <div className='flex justify-end'>
-            <Button
-              type='submit'
-              disabled={form.formState.isSubmitting}
-              variant='outline'
-            >
+            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Creating' : 'Create'}
             </Button>
           </div>

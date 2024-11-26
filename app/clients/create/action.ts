@@ -10,12 +10,7 @@ export async function createClient(
   client: Omit<Client, 'id' | 'createdAt' | 'updatedAt'> & {
     address: Omit<
       Address,
-      | 'id'
-      | 'createdAt'
-      | 'updatedAt'
-      | 'settingsId'
-      | 'clientId'
-      | 'propertyId'
+      'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'
     >;
   }
 ): Promise<Client> {

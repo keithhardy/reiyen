@@ -2,11 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
-import {
-  auth0Management,
-  User,
-  waitForOperationInLogs,
-} from '@/lib/auth0-management';
+import { auth0Management, User, waitForOperationInLogs } from '@/lib/auth0-management';
 import { deleteFile } from '@/lib/vercel-blob';
 
 export async function deleteUser(user: User): Promise<void> {

@@ -54,12 +54,7 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
     data: Omit<Property, 'id' | 'clientId' | 'createdAt' | 'updatedAt'> & {
       address: Omit<
         Address,
-        | 'id'
-        | 'createdAt'
-        | 'updatedAt'
-        | 'settingsId'
-        | 'clientId'
-        | 'propertyId'
+        'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'
       >;
       client: Pick<Client, 'id'>;
     }
@@ -216,11 +211,7 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
             )}
           />
           <div className='flex justify-end'>
-            <Button
-              type='submit'
-              disabled={form.formState.isSubmitting}
-              variant='outline'
-            >
+            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Creating' : 'Create'}
             </Button>
           </div>

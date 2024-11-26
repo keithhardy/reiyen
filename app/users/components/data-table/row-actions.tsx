@@ -25,19 +25,13 @@ export function RowActions({ user }: { user: User }) {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href={`/users/${user.user_id.replace('auth0|', '')}/general`}>
-            Update
-          </Link>
+          <Link href={`/users/${user.user_id.replace('auth0|', '')}/general`}>Update</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild disabled>
-          <Link href={`/users/${user.user_id.replace('auth0|', '')}/block`}>
-            Block
-          </Link>
+          <Link href={`/users/${user.user_id.replace('auth0|', '')}/block`}>Block</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={`/users/${user.user_id.replace('auth0|', '')}/delete`}>
-            Delete
-          </Link>
+          <Link href={`/users/${user.user_id.replace('auth0|', '')}/delete`}>Delete</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

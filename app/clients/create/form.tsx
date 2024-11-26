@@ -51,12 +51,7 @@ export function ClientCreateForm() {
     data: Omit<Client, 'id' | 'createdAt' | 'updatedAt'> & {
       address: Omit<
         Address,
-        | 'id'
-        | 'createdAt'
-        | 'updatedAt'
-        | 'settingsId'
-        | 'clientId'
-        | 'propertyId'
+        'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'
       >;
     }
   ) => {
@@ -129,14 +124,7 @@ export function ClientCreateForm() {
                   <Input
                     type='file'
                     accept='image/*'
-                    onChange={(e) =>
-                      handleFileChange(
-                        e,
-                        form.setValue,
-                        'logoUrl',
-                        setImagePreview
-                      )
-                    }
+                    onChange={(e) => handleFileChange(e, form.setValue, 'logoUrl', setImagePreview)}
                   />
                 </FormControl>
                 <FormMessage />
@@ -233,11 +221,7 @@ export function ClientCreateForm() {
             )}
           />
           <div className='flex justify-end'>
-            <Button
-              type='submit'
-              disabled={form.formState.isSubmitting}
-              variant='outline'
-            >
+            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Creating' : 'Create'}
             </Button>
           </div>

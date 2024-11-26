@@ -18,9 +18,7 @@ export function DataList({
   ];
 
   const groupedPermissions = clientOptions.map(({ value, label }) => {
-    const clientPermissions = permissions.filter(
-      (perm) => (perm.clientId || 'global') === value
-    );
+    const clientPermissions = permissions.filter((perm) => (perm.clientId || 'global') === value);
     return {
       client: label,
       permissions: clientPermissions.map((p) => p.permission),
@@ -30,9 +28,7 @@ export function DataList({
   return (
     <ScrollArea className='h-[310px]'>
       <div className='space-y-6 pr-4'>
-        {groupedPermissions.every(
-          ({ permissions }) => permissions.length === 0
-        ) ? (
+        {groupedPermissions.every(({ permissions }) => permissions.length === 0) ? (
           <p className='py-4 text-center text-sm text-muted-foreground'>
             No permissions added yet.
           </p>

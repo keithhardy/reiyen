@@ -31,8 +31,7 @@ export function MultiSelect({
   placeholder = 'Select options',
   disabled = false,
 }: MultiSelectProps) {
-  const allSelected =
-    options.length > 0 && selectedValues.length === options.length;
+  const allSelected = options.length > 0 && selectedValues.length === options.length;
 
   const displayText = (() => {
     if (selectedValues.length === 0) {
@@ -40,9 +39,7 @@ export function MultiSelect({
     } else if (allSelected) {
       return `All options selected`;
     } else if (selectedValues.length === 1) {
-      const selectedOption = options.find(
-        (option) => option.value === selectedValues[0]
-      );
+      const selectedOption = options.find((option) => option.value === selectedValues[0]);
       return selectedOption ? selectedOption.label : placeholder;
     } else {
       return `${selectedValues.length} options selected`;
@@ -71,10 +68,7 @@ export function MultiSelect({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='max-h-60 w-full overflow-auto'>
-        <DropdownMenuCheckboxItem
-          checked={allSelected}
-          onCheckedChange={handleSelectAll}
-        >
+        <DropdownMenuCheckboxItem checked={allSelected} onCheckedChange={handleSelectAll}>
           Select All
         </DropdownMenuCheckboxItem>
         <DropdownMenuSeparator />

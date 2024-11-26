@@ -12,21 +12,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Equipment – Users – Reiyen',
 };
 
-export default async function UserEquipmentPage(props: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function UserEquipmentPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
 
   const equipment = await prisma.equipment.findMany({
@@ -40,9 +33,8 @@ export default async function UserEquipmentPage(props: {
       <CardHeader className='col-span-2 lg:col-span-1'>
         <CardTitle>Equipment</CardTitle>
         <CardDescription>
-          This equipment is used by the user for work purposes. The information
-          provided will be displayed on test certificates and other relevant
-          documents.
+          This equipment is used by the user for work purposes. The information provided will be
+          displayed on test certificates and other relevant documents.
         </CardDescription>
       </CardHeader>
       <CardContent className='col-span-2 p-6 lg:col-span-1'>
@@ -63,9 +55,8 @@ export default async function UserEquipmentPage(props: {
               <CardHeader>
                 <CardTitle>Add Equipment</CardTitle>
                 <CardDescription>
-                  This equipment is used by the user for work purposes. The
-                  information provided will be displayed on test certificates
-                  and other relevant documents.
+                  This equipment is used by the user for work purposes. The information provided
+                  will be displayed on test certificates and other relevant documents.
                 </CardDescription>
               </CardHeader>
               <CardContent>

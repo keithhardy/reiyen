@@ -46,8 +46,7 @@ export function UserEquipmentForm({ user }: { user: { user_id: string } }) {
     } catch {
       toast({
         title: 'Create Failed',
-        description:
-          'An error occurred while creating the equipment. Please try again later.',
+        description: 'An error occurred while creating the equipment. Please try again later.',
         variant: 'destructive',
       });
     }
@@ -132,9 +131,7 @@ export function UserEquipmentForm({ user }: { user: { user_id: string } }) {
                   <Input
                     type='file'
                     accept='image/*'
-                    onChange={(e) =>
-                      handleFileChange(e, form.setValue, 'certificateUrl')
-                    }
+                    onChange={(e) => handleFileChange(e, form.setValue, 'certificateUrl')}
                   />
                 </FormControl>
                 <FormMessage />
@@ -142,11 +139,7 @@ export function UserEquipmentForm({ user }: { user: { user_id: string } }) {
             )}
           />
           <div className='flex justify-end'>
-            <Button
-              type='submit'
-              disabled={form.formState.isSubmitting}
-              variant='outline'
-            >
+            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Adding' : 'Add'}
             </Button>
           </div>

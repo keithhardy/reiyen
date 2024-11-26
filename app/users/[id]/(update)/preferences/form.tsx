@@ -65,8 +65,7 @@ export function UserPreferencesForm({
     } catch {
       toast({
         title: 'Update Failed',
-        description:
-          'An error occurred while updating the preferences. Please try again later.',
+        description: 'An error occurred while updating the preferences. Please try again later.',
         variant: 'destructive',
       });
     }
@@ -100,8 +99,7 @@ export function UserPreferencesForm({
                     <SignatureCanvas
                       ref={signaturePad}
                       canvasProps={{
-                        className:
-                          'signature-canvas border rounded-md w-full h-56 bg-white',
+                        className: 'signature-canvas border rounded-md w-full h-56 bg-white',
                       }}
                     />
                   ) : (
@@ -127,11 +125,7 @@ export function UserPreferencesForm({
           />
         </div>
         <div className='flex justify-end'>
-          <Button
-            type='submit'
-            disabled={form.formState.isSubmitting}
-            variant='outline'
-          >
+          <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
             {form.formState.isSubmitting ? 'Saving' : 'Save'}
           </Button>
         </div>

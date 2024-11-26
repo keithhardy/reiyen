@@ -1,16 +1,6 @@
-const userPermissions = [
-  'create:user',
-  'read:user',
-  'update:user',
-  'delete:user',
-];
+const userPermissions = ['create:user', 'read:user', 'update:user', 'delete:user'];
 
-const clientPermissions = [
-  'create:client',
-  'read:client',
-  'update:client',
-  'delete:client',
-];
+const clientPermissions = ['create:client', 'read:client', 'update:client', 'delete:client'];
 
 const propertyPermissions = [
   'create:property',

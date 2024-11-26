@@ -31,9 +31,8 @@ export default async function ClientsPage() {
         <PageHeaderGroup>
           <PageHeaderHeading>Clients</PageHeaderHeading>
           <PageHeaderDescription>
-            View, manage, and organize all your clients effortlessly in one
-            centralized platform. Download, share, or verify your clients with
-            ease.
+            View, manage, and organize all your clients effortlessly in one centralized platform.
+            Download, share, or verify your clients with ease.
           </PageHeaderDescription>
         </PageHeaderGroup>
         <PageActions>

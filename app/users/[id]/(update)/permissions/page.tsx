@@ -12,21 +12,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Permissions – Users – Reiyen',
 };
 
-export default async function UserPermissionsPage(props: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function UserPermissionsPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
 
   const permissions = await prisma.permission.findMany({
@@ -61,8 +54,7 @@ export default async function UserPermissionsPage(props: {
               <CardHeader>
                 <CardTitle>Add Permissions</CardTitle>
                 <CardDescription>
-                  Assign specific permissions to the user for global or
-                  client-specific access.
+                  Assign specific permissions to the user for global or client-specific access.
                 </CardDescription>
               </CardHeader>
               <CardContent>

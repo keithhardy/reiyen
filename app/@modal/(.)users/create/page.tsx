@@ -2,13 +2,7 @@ import { Metadata } from 'next';
 
 import { Modal } from '@/app/@modal/components/modal';
 import { UserCreateForm } from '@/app/users/create/form';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const metadata: Metadata = {
   title: 'Create – Users – Reiyen',
@@ -20,9 +14,7 @@ export default function UserCreatePage() {
       <Card className='border-none shadow-none'>
         <CardHeader>
           <CardTitle>Create User</CardTitle>
-          <CardDescription>
-            Please complete all fields with accurate information.
-          </CardDescription>
+          <CardDescription>Please complete all fields with accurate information.</CardDescription>
         </CardHeader>
         <CardContent>
           <UserCreateForm />

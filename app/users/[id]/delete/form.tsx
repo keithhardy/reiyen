@@ -59,8 +59,8 @@ export function UserDeleteForm({ user }: { user: User }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className='text-muted-foreground'>
-                  Enter <span className='text-foreground'>{user.name}</span> and
-                  press delete to remove.
+                  Enter <span className='text-foreground'>{user.name}</span> and press delete to
+                  remove.
                 </FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -85,9 +85,7 @@ export function UserDeleteForm({ user }: { user: User }) {
         <div className='flex justify-end'>
           <Button
             type='submit'
-            disabled={
-              form.watch('name') !== user.name || form.formState.isSubmitting
-            }
+            disabled={form.watch('name') !== user.name || form.formState.isSubmitting}
             variant='destructive'
           >
             {form.formState.isSubmitting ? 'Deleting' : 'Delete'}

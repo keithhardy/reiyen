@@ -7,22 +7,14 @@ import {
   PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Delete – Properties – Reiyen',
 };
 
-export default async function PropertyDeletePage(props: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function PropertyDeletePage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
 
   const property = await prisma.property.findUnique({
@@ -37,8 +29,7 @@ export default async function PropertyDeletePage(props: {
         <PageHeaderGroup>
           <PageHeaderHeading>Delete</PageHeaderHeading>
           <PageHeaderDescription>
-            Are you sure you want to delete this property? This action is
-            permanent.
+            Are you sure you want to delete this property? This action is permanent.
           </PageHeaderDescription>
         </PageHeaderGroup>
       </PageHeader>
@@ -47,10 +38,9 @@ export default async function PropertyDeletePage(props: {
         <CardHeader className='col-span-2 lg:col-span-1'>
           <CardTitle>Delete Property</CardTitle>
           <CardDescription>
-            Are you sure you want to delete{' '}
-            <span className='text-primary'>{property?.uprn}</span>? This action
-            is permanent, and all data associated with this property will be
-            lost and cannot be recovered.
+            Are you sure you want to delete <span className='text-primary'>{property?.uprn}</span>?
+            This action is permanent, and all data associated with this property will be lost and
+            cannot be recovered.
           </CardDescription>
         </CardHeader>
         <CardContent>

@@ -72,12 +72,7 @@ export function UserGeneralForm({ user }: { user: User }) {
                       type='file'
                       accept='image/*'
                       onChange={(e) =>
-                        handleFileChange(
-                          e,
-                          form.setValue,
-                          'picture',
-                          setImagePreview
-                        )
+                        handleFileChange(e, form.setValue, 'picture', setImagePreview)
                       }
                     />
                   </FormControl>
@@ -113,11 +108,7 @@ export function UserGeneralForm({ user }: { user: User }) {
             )}
           />
           <div className='flex justify-end'>
-            <Button
-              type='submit'
-              disabled={form.formState.isSubmitting}
-              variant='outline'
-            >
+            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Saving' : 'Save'}
             </Button>
           </div>

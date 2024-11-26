@@ -12,21 +12,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Qualifications – Users – Reiyen',
 };
 
-export default async function UserQualificationsPage(props: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function UserQualificationsPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
 
   const qualifications = await prisma.qualification.findMany({
@@ -40,8 +33,7 @@ export default async function UserQualificationsPage(props: {
       <CardHeader className='col-span-2 lg:col-span-1'>
         <CardTitle>Qualifications</CardTitle>
         <CardDescription>
-          Set your qualifications for the application to ensure a personalized
-          user experience.
+          Set your qualifications for the application to ensure a personalized user experience.
         </CardDescription>
       </CardHeader>
       <CardContent className='col-span-2 p-6 lg:col-span-1'>
@@ -62,14 +54,12 @@ export default async function UserQualificationsPage(props: {
               <CardHeader>
                 <CardTitle>Add Qualification</CardTitle>
                 <CardDescription>
-                  Set your qualifications for the application to ensure a
-                  personalized user experience.
+                  Set your qualifications for the application to ensure a personalized user
+                  experience.
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <UserQualificationsForm
-                  user={{ user_id: 'auth0|' + params.id }}
-                />
+                <UserQualificationsForm user={{ user_id: 'auth0|' + params.id }} />
               </CardContent>
             </Card>
           </DialogContent>

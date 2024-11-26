@@ -19,15 +19,13 @@ export function DataList({ equipment }: { equipment: Equipment[] }) {
           equipment.map((equipmentItem, index) => (
             <div
               key={equipmentItem.id}
-              className={`grid grid-cols-5 items-center pb-4 ${
-                index !== equipment.length - 1 ? 'border-b border-dashed' : ''
-              }`}
+              className={`grid grid-cols-5 items-center pb-4 ${index !== equipment.length - 1 ? 'border-b border-dashed' : ''}`}
             >
               <div className='col-span-4 space-y-1'>
                 <p className='text-sm font-medium'>{equipmentItem.type}</p>
                 <p className='text-sm text-muted-foreground'>
-                  {equipmentItem.make}, {equipmentItem.model} -{' '}
-                  {equipmentItem.serialNumber} - {equipmentItem.testDate}
+                  {equipmentItem.make}, {equipmentItem.model} - {equipmentItem.serialNumber} -{' '}
+                  {equipmentItem.testDate}
                 </p>
               </div>
               <div className='col-span-1'>
@@ -46,8 +44,7 @@ export function DataList({ equipment }: { equipment: Equipment[] }) {
 
                         toast({
                           title: 'Equipment Deleted',
-                          description:
-                            'The equipment has been successfully deleted.',
+                          description: 'The equipment has been successfully deleted.',
                         });
                       } catch {
                         toast({
@@ -66,9 +63,7 @@ export function DataList({ equipment }: { equipment: Equipment[] }) {
             </div>
           ))
         ) : (
-          <p className='py-4 text-center text-sm text-muted-foreground'>
-            No equipment added yet.
-          </p>
+          <p className='py-4 text-center text-sm text-muted-foreground'>No equipment added yet.</p>
         )}
       </div>
     </ScrollArea>

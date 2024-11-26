@@ -9,12 +9,7 @@ export async function createProperty(
   property: Omit<Property, 'id' | 'clientId' | 'createdAt' | 'updatedAt'> & {
     address: Omit<
       Address,
-      | 'id'
-      | 'createdAt'
-      | 'updatedAt'
-      | 'settingsId'
-      | 'clientId'
-      | 'propertyId'
+      'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'
     >;
     client: Pick<Client, 'id'>;
   }

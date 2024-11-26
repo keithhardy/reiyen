@@ -21,9 +21,7 @@ export const columns: ColumnDef<User>[] = [
         />
         <div>
           <div className='font-medium'>{row.getValue('name')}</div>
-          <div className='font-light text-muted-foreground'>
-            {row.original.email}
-          </div>
+          <div className='font-light text-muted-foreground'>{row.original.email}</div>
         </div>
       </div>
     ),

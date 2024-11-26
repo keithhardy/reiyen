@@ -6,9 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
-export async function updatePreferences(
-  preferences: Preferences
-): Promise<Preferences> {
+export async function updatePreferences(preferences: Preferences): Promise<Preferences> {
   try {
     const preferencesResponse = await prisma.preferences.findUnique({
       where: { userId: preferences.userId },
@@ -17,11 +15,7 @@ export async function updatePreferences(
 
     let signatureUrl;
     try {
-      signatureUrl = await updateFile(
-        preferences.signature,
-        currentSignature,
-        'signature'
-      );
+      signatureUrl = await updateFile(preferences.signature, currentSignature, 'signature');
     } catch {
       throw new Error('Failed to update preferences: Error updating file.');
     }

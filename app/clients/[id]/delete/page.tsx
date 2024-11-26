@@ -7,22 +7,14 @@ import {
   PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Delete – Clients – Reiyen',
 };
 
-export default async function ClientDeletePage(props: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function ClientDeletePage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
 
   const client = await prisma.client.findUnique({
@@ -40,8 +32,7 @@ export default async function ClientDeletePage(props: {
         <PageHeaderGroup>
           <PageHeaderHeading>Delete</PageHeaderHeading>
           <PageHeaderDescription>
-            Are you sure you want to delete this client? This action is
-            permanent.
+            Are you sure you want to delete this client? This action is permanent.
           </PageHeaderDescription>
         </PageHeaderGroup>
       </PageHeader>
@@ -50,9 +41,8 @@ export default async function ClientDeletePage(props: {
         <CardHeader className='col-span-2 lg:col-span-1'>
           <CardTitle>Delete Client</CardTitle>
           <CardDescription>
-            Are you sure you want to delete{' '}
-            <span className='text-primary'>{client?.name}</span>? This action is
-            permanent, and all data associated with this client will be lost and
+            Are you sure you want to delete <span className='text-primary'>{client?.name}</span>?
+            This action is permanent, and all data associated with this client will be lost and
             cannot be recovered.
           </CardDescription>
         </CardHeader>

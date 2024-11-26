@@ -59,8 +59,8 @@ export function PropertyDeleteForm({ property }: { property: Property }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className='text-muted-foreground'>
-                  Enter <span className='text-foreground'>{property.uprn}</span>{' '}
-                  and press delete to remove.
+                  Enter <span className='text-foreground'>{property.uprn}</span> and press delete to
+                  remove.
                 </FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -84,10 +84,7 @@ export function PropertyDeleteForm({ property }: { property: Property }) {
           <div className='flex justify-end'>
             <Button
               type='submit'
-              disabled={
-                form.watch('uprn') !== property.uprn ||
-                form.formState.isSubmitting
-              }
+              disabled={form.watch('uprn') !== property.uprn || form.formState.isSubmitting}
               variant='outline'
             >
               {form.formState.isSubmitting ? 'Deleting' : 'Delete'}

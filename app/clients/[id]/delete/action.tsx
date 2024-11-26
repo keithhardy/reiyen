@@ -6,9 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { deleteFile } from '@/lib/vercel-blob';
 
-export async function deleteClient(
-  client: Pick<Client, 'id' | 'logoUrl'>
-): Promise<void> {
+export async function deleteClient(client: Pick<Client, 'id' | 'logoUrl'>): Promise<void> {
   try {
     await prisma.client.delete({
       where: {

@@ -1,9 +1,6 @@
 import { del, put } from '@vercel/blob';
 
-async function saveFile(
-  fileData: string | Buffer,
-  fileName: string
-): Promise<string> {
+async function saveFile(fileData: string | Buffer, fileName: string): Promise<string> {
   try {
     const binaryData =
       typeof fileData === 'string'
@@ -39,8 +36,7 @@ export async function uploadFile(
   }
 
   try {
-    const fileExtension =
-      newFile.match(/data:(.*?);base64/)?.[1]?.split('/')[1] || 'unknown';
+    const fileExtension = newFile.match(/data:(.*?);base64/)?.[1]?.split('/')[1] || 'unknown';
 
     const fileName = `${filePrefix}-${Date.now()}.${fileExtension}`;
 
@@ -73,8 +69,7 @@ export async function updateFile(
   }
 
   try {
-    const fileExtension =
-      newFile.match(/data:(.*?);base64/)?.[1]?.split('/')[1] || 'unknown';
+    const fileExtension = newFile.match(/data:(.*?);base64/)?.[1]?.split('/')[1] || 'unknown';
 
     const fileName = `${filePrefix}-${Date.now()}.${fileExtension}`;
 

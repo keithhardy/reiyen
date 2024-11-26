@@ -27,8 +27,8 @@ export default async function UserUpdateLayout(
         <PageHeaderGroup>
           <PageHeaderHeading>{user.name}</PageHeaderHeading>
           <PageHeaderDescription>
-            Edit user details, account status, and role. Update general info,
-            preferences, equipment, qualifications, and permissions as needed.
+            Edit user details, account status, and role. Update general info, preferences,
+            equipment, qualifications, and permissions as needed.
           </PageHeaderDescription>
         </PageHeaderGroup>
       </PageHeader>

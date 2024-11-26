@@ -8,20 +8,17 @@ export const menuLinks = [
   {
     label: 'Users',
     href: '/users',
-    description:
-      'Manage user accounts and permissions within the electrical certification system.',
+    description: 'Manage user accounts and permissions within the electrical certification system.',
   },
   {
     label: 'Clients',
     href: '/clients',
-    description:
-      'Handle client information and scheduling for electrical services.',
+    description: 'Handle client information and scheduling for electrical services.',
   },
   {
     label: 'Properties',
     href: '/properties',
-    description:
-      'Maintain records of properties requiring electrical certifications.',
+    description: 'Maintain records of properties requiring electrical certifications.',
   },
   // {
   //   label: 'Certificates',
@@ -32,8 +29,7 @@ export const menuLinks = [
   {
     label: 'Settings',
     href: '/settings',
-    description:
-      'Configure system-wide settings for electrical certificate management.',
+    description: 'Configure system-wide settings for electrical certificate management.',
   },
 ];
 

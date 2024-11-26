@@ -6,16 +6,11 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { deleteFile, uploadFile } from '@/lib/vercel-blob';
 
-export async function createEquipment(
-  equipment: Omit<Equipment, 'id'>
-): Promise<void> {
+export async function createEquipment(equipment: Omit<Equipment, 'id'>): Promise<void> {
   try {
     let certificateUrl;
     try {
-      certificateUrl = await uploadFile(
-        equipment.certificateUrl,
-        'certifictate'
-      );
+      certificateUrl = await uploadFile(equipment.certificateUrl, 'certifictate');
     } catch {
       throw new Error('Failed to create qualification: Error updating file.');
     }

@@ -32,8 +32,8 @@ export default async function PropertiesPage() {
         <PageHeaderGroup>
           <PageHeaderHeading>Properties</PageHeaderHeading>
           <PageHeaderDescription>
-            View and manage all your properties in one place. Download, share,
-            or verify your properties with ease.
+            View and manage all your properties in one place. Download, share, or verify your
+            properties with ease.
           </PageHeaderDescription>
         </PageHeaderGroup>
         <PageActions>
