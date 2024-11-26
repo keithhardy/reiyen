@@ -47,12 +47,14 @@ export default function UserMenu() {
           <AvatarImage src={user.picture} alt='Profile picture' />
           <AvatarFallback>{user.name!.charAt(0)}</AvatarFallback>
         </Avatar>
+
+        {/* <Image src={user.picture!} width={100} height={100} alt='Pic' /> */}
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
         <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href={`/users/${user.sub}/general`}>Profile</Link>
+          <Link href={`/users/${user.sub.replace('auth0|', '')}/general`}>Profile</Link>
         </DropdownMenuItem>
         <DropdownMenuGroup>
           <DropdownMenuSub>

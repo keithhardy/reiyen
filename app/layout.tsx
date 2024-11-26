@@ -6,8 +6,6 @@ import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
 
-import Footer from '@/components/footer';
-import Header from '@/components/header';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/providers/theme-provider';
 
@@ -32,11 +30,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main className='container mx-auto max-w-screen-xl flex-grow space-y-4 p-6'>
-            {children}
-          </main>
-          <Footer />
+          {children}
           {modal}
           <Analytics />
           <SpeedInsights />

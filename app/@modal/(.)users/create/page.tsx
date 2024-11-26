@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
+import { UserCreateForm } from '@/app/(dashboard)/users/create/form';
 import { Modal } from '@/app/@modal/components/modal';
-import { UserCreateForm } from '@/app/users/create/form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const metadata: Metadata = {
