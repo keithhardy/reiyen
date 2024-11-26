@@ -33,15 +33,15 @@ export default async function UserDeletePage(props: { params: Promise<{ id: stri
         </PageHeaderGroup>
       </PageHeader>
 
-      <Card className='grid grid-cols-2'>
-        <CardHeader className='col-span-2 lg:col-span-1'>
+      <Card>
+        <CardHeader>
           <CardTitle>Delete User</CardTitle>
           <CardDescription>
             Are you sure you want to delete <span className='text-primary'>{user.name}</span>? This
             action is permanent and the user will not be recoverable.
           </CardDescription>
         </CardHeader>
-        <CardContent className='col-span-2 p-6 lg:col-span-1'>
+        <CardContent>
           <UserDeleteForm user={user} />
         </CardContent>
       </Card>
