@@ -4,8 +4,6 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import CommandMenu from '@/components/header/command-menu';
-// import DesktopMenu from '@/components/header/desktop-menu';
-// import MobileMenu from '@/components/header/mobile-menu';
 import UserMenu from '@/components/header/user-menu';
 import Logo from '@/components/logo';
 import { menuLinks } from '@/lib/config';
@@ -36,9 +34,7 @@ export default function Header() {
       >
         <div className='flex justify-between px-6 pt-4'>
           <nav className='flex items-center'>
-            {/* <MobileMenu /> */}
             <Logo className='mr-2 min-h-5 min-w-5' />
-            {/* <DesktopMenu /> */}
           </nav>
           <div className='flex items-center'>
             <CommandMenu />
@@ -68,7 +64,7 @@ export default function Header() {
               <li
                 key={item.label}
                 className={`shrink-0 ${
-                  PathMatch(item.href, pathname, '')
+                  PathMatch(item.href, pathname)
                     ? 'text-primary'
                     : 'text-muted-foreground'
                 }`}

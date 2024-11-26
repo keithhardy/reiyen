@@ -8,114 +8,105 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+model Settings {
+  id                  String   @id @default(cuid())
+  address             Address?
+  email               String
+  governingBody       String
+  governingBodyNumber String
+  logoUrl             String
+  name                String
+  phone               String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+model Address {
+  id            String    @id @default(cuid())
+  city          String
+  clientId      String?   @unique
+  country       String    @default("United Kingdom")
+  county        String?
+  postTown      String
+  postcode      String
+  propertyId    String?   @unique
+  settingsId    String?   @unique
+  streetAddress String
+  client        Client?   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  property      Property? @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  settings      Settings? @relation(fields: [settingsId], references: [id], onDelete: Cascade)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
 model Preferences {
-  id        String @id @default(cuid())
-  userId    String @unique
+  id        String   @id @default(cuid())
   position  String
   signature String
-
+  userId    String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Equipment {
-  id             String @id @default(cuid())
-  userId         String
-  type           String
+  id             String   @id @default(cuid())
+  certificateUrl String
   make           String
   model          String
   serialNumber   String
   testDate       String
-  certificateUrl String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  type           String
+  userId         String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   @@unique([userId, type])
 }
 
 model Qualification {
-  id                  String @id @default(cuid())
-  userId              String
+  id                  String   @id @default(cuid())
   awardingBody        String
-  qualification       String
-  qualificationNumber String
   awardDate           String
   certificateUrl      String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  qualification       String
+  qualificationNumber String
+  userId              String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
 }
 
 model Permission {
-  id         String  @id @default(cuid())
-  userId     String
-  permission String
+  id         String   @id @default(cuid())
   clientId   String?
-
-  client Client? @relation(fields: [clientId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  permission String
+  userId     String
+  client     Client?  @relation(fields: [clientId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   @@unique([userId, permission, clientId])
 }
 
-model Address {
-  id            String  @id @default(cuid())
-  streetAddress String
-  city          String
-  county        String?
-  postTown      String
-  postcode      String
-  country       String  @default("United Kingdom")
-
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  settingsId String?   @unique
-  Settings   Settings? @relation(fields: [settingsId], references: [id], onDelete: Cascade)
-  clientId   String?   @unique
-  Client     Client?   @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  propertyId String?   @unique
-  Property   Property? @relation(fields: [propertyId], references: [id], onDelete: Cascade)
-}
-
-model Settings {
-  id                  String   @id @default(cuid())
-  name                String
-  email               String
-  phone               String
-  logoUrl             String
-  governingBody       String
-  governingBodyNumber String
-  address             Address?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 model Client {
   id          String       @id @default(cuid())
-  name        String
-  email       String
-  phone       String
-  logoUrl     String
   address     Address?
+  email       String
+  logoUrl     String
+  name        String
   permissions Permission[]
+  phone       String
   properties  Property[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 model Property {
-  id       String   @id @default(cuid())
-  uprn     String
-  occupier String
-  clientId String
-  address  Address?
-  client   Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
-
+  id        String   @id @default(cuid())
+  address   Address?
+  clientId  String
+  occupier  String
+  uprn      String
+  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

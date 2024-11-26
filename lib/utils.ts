@@ -5,10 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function PathMatch(basePath: string, targetPath: string, excludeFirstChild?: string) {
-  if (excludeFirstChild && basePath === excludeFirstChild) {
-    return basePath === targetPath;
-  }
-
+export function PathMatch(basePath: string, targetPath: string) {
   return targetPath.startsWith(basePath) && (basePath === targetPath || targetPath[basePath.length] === '/');
 }
