@@ -14,6 +14,14 @@ export const metadata: Metadata = {
   title: 'Update – Clients – Reiyen',
 };
 
+export async function generateStaticParams() {
+  const clients = await prisma.client.findMany({
+    select: { id: true },
+  });
+
+  return clients.map((client) => ({ id: client.id }));
+}
+
 export default async function ClientUpdatePage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
 

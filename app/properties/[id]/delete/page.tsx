@@ -14,6 +14,14 @@ export const metadata: Metadata = {
   title: 'Delete – Properties – Reiyen',
 };
 
+export async function generateStaticParams() {
+  const properties = await prisma.property.findMany({
+    select: { id: true },
+  });
+
+  return properties.map((property) => ({ id: property.id }));
+}
+
 export default async function PropertyDeletePage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
 
