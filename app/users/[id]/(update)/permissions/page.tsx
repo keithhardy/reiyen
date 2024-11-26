@@ -30,7 +30,7 @@ export default async function UserPermissionsPage(props: {
   const params = await props.params;
 
   const permissions = await prisma.permission.findMany({
-    where: { userId: decodeURIComponent(params.id) },
+    where: { userId: 'auth0|' + params.id },
   });
 
   const clients = await prisma.client.findMany();
@@ -69,7 +69,7 @@ export default async function UserPermissionsPage(props: {
                 <UserPermissionsForm
                   permissions={permissions}
                   clients={clients}
-                  user={{ user_id: decodeURIComponent(params.id) }}
+                  user={{ user_id: 'auth0|' + params.id }}
                 />
               </CardContent>
             </Card>

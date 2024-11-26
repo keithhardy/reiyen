@@ -41,13 +41,11 @@ export async function waitForOperationInLogs({
         per_page: 5,
       });
 
-      const encodedUserId = encodeURIComponent(userId);
-
       if (
         logs?.some((log) => {
           if (operationType === 'Delete a User') {
             return log?.details?.request?.path?.includes(
-              `/api/v2/users/${encodedUserId}`
+              `/api/v2/users/${userId}`
             );
           } else {
             return log?.details?.response?.body?.user_id === userId;

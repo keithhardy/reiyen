@@ -31,7 +31,7 @@ export default async function UserEquipmentPage(props: {
 
   const equipment = await prisma.equipment.findMany({
     where: {
-      userId: decodeURIComponent(params.id),
+      userId: 'auth0|' + params.id,
     },
   });
 
@@ -69,9 +69,7 @@ export default async function UserEquipmentPage(props: {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <UserEquipmentForm
-                  user={{ user_id: decodeURIComponent(params.id) }}
-                />
+                <UserEquipmentForm user={{ user_id: 'auth0|' + params.id }} />
               </CardContent>
             </Card>
           </DialogContent>

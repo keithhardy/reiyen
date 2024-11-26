@@ -23,14 +23,10 @@ export function RowActions({ property }: { property: Property }) {
       <DropdownMenuContent align='end'>
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
-          <Link href={`/properties/${encodeURIComponent(property.id)}/update`}>
-            Update
-          </Link>
+          <Link href={`/properties/${property.id}/update`}>Update</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={`/properties/${encodeURIComponent(property.id)}/delete`}>
-            Delete
-          </Link>
+          <Link href={`/properties/${property.id}/delete`}>Delete</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

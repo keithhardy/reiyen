@@ -21,7 +21,7 @@ export default async function UserPreferencesPage(props: {
 
   const preferences = await prisma.preferences.findUnique({
     where: {
-      userId: decodeURIComponent(params.id),
+      userId: 'auth0|' + params.id,
     },
   });
 
@@ -37,7 +37,7 @@ export default async function UserPreferencesPage(props: {
       <CardContent className='col-span-2 p-6 lg:col-span-1'>
         <UserPreferencesForm
           preferences={preferences!}
-          user={{ user_id: decodeURIComponent(params.id) }}
+          user={{ user_id: 'auth0|' + params.id }}
         />
       </CardContent>
     </Card>

@@ -31,7 +31,7 @@ export default async function UserQualificationsPage(props: {
 
   const qualifications = await prisma.qualification.findMany({
     where: {
-      userId: decodeURIComponent(params.id),
+      userId: 'auth0|' + params.id,
     },
   });
 
@@ -68,7 +68,7 @@ export default async function UserQualificationsPage(props: {
               </CardHeader>
               <CardContent>
                 <UserQualificationsForm
-                  user={{ user_id: decodeURIComponent(params.id) }}
+                  user={{ user_id: 'auth0|' + params.id }}
                 />
               </CardContent>
             </Card>

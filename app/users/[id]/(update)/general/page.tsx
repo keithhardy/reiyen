@@ -20,7 +20,7 @@ export default async function UserGeneralPage(props: {
   const params = await props.params;
 
   const { data: user } = await auth0Management.users.get({
-    id: decodeURIComponent(params.id),
+    id: 'auth0|' + params.id,
   });
 
   return (

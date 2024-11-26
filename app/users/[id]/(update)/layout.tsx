@@ -18,7 +18,7 @@ export default async function UserUpdateLayout(
   const { children } = props;
 
   const { data: user } = await auth0Management.users.get({
-    id: decodeURIComponent(params.id),
+    id: 'auth0|' + params.id,
   });
 
   return (
