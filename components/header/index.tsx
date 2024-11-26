@@ -56,7 +56,7 @@ export default function Header() {
                 key={item.label}
                 className={`shrink-0 ${PathMatch(item.href, pathname) ? 'text-primary' : 'text-muted-foreground'}`}
               >
-                <a href={item.href} className={cn('block text-sm font-medium hover:text-primary')}>
+                <a href={item.href} className={cn('block text-sm hover:text-primary')}>
                   {item.label}
                 </a>
               </li>
