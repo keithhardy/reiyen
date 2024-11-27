@@ -19,7 +19,16 @@ export const metadata: Metadata = {
 };
 
 export default async function CertificatesPage() {
-  const certificates = await prisma.certificate.findMany();
+  const certificates = await prisma.certificate.findMany({
+    include: {
+      property: {
+        include: {
+          client: true,
+          address: true,
+        },
+      },
+    },
+  });
 
   return (
     <>

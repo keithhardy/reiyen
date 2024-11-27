@@ -8,6 +8,14 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+model User {
+  id      String @id @default(cuid())
+  auth0Id String @unique
+  email   String
+  name    String
+  picture String
+}
+
 model Settings {
   id                  String   @id @default(cuid())
   address             Address?
@@ -101,14 +109,15 @@ model Client {
 }
 
 model Property {
-  id        String   @id @default(cuid())
-  address   Address?
-  clientId  String
-  occupier  String
-  uprn      String
-  client    Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String        @id @default(cuid())
+  address      Address?
+  certificates Certificate[]
+  clientId     String
+  occupier     String
+  uprn         String
+  client       Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 
   @@index([clientId])
 }
@@ -116,11 +125,23 @@ model Property {
 model Certificate {
   id                                    String                                 @id @default(cuid())
   certificateType                       CertificateType
+  propertyId                            String
+  date                                  String
+  technicianId                          String
+  technicianSignature                   String?
+  technicianSignatureDate               String?
+  supervisorId                          String?
+  supervisorSignature                   String?
+  supervisorSignatureDate               String?
+  status                                String
   minorWorks                            MinorWorks?
   electricalInstallationCertificate     ElectricalInstallationCertificate?
   electricalInstallationConditionReport ElectricalInstallationConditionReport?
   fireSafetyDesignSummary               FireSafetyDesignSummary?
   domesticVentilationCommissioningSheet DomesticVentilationCommissioningSheet?
+  property                              Property                               @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([propertyId])
 }
 
 enum CertificateType {

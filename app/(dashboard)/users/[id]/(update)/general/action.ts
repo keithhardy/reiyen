@@ -1,13 +1,17 @@
 'use server';
 
+import { User } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 
-import { auth0Management, User, waitForOperationInLogs } from '@/lib/auth0-management';
+import { auth0Management, waitForOperationInLogs } from '@/lib/auth0-management';
+import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
 export async function updateUser(user: User): Promise<User> {
+  console.log(user)
+
   try {
-    const userResponse = await auth0Management.users.get({ id: user.user_id });
+    const userResponse = await auth0Management.users.get({ id: user.auth0Id });
     const currentPicture = userResponse.data.picture;
 
     let pictureUrl;
@@ -17,9 +21,9 @@ export async function updateUser(user: User): Promise<User> {
       throw new Error('Failed to update user: Error updating file.');
     }
 
-    const { data: updatedUser } = await auth0Management.users.update(
+    await auth0Management.users.update(
       {
-        id: user.user_id,
+        id: user.auth0Id,
       },
       {
         name: user.name,
@@ -29,14 +33,26 @@ export async function updateUser(user: User): Promise<User> {
     );
 
     await waitForOperationInLogs({
-      userId: user.user_id,
+      userId: user.auth0Id,
       operationType: 'Update a User',
     });
 
+    const prismaUser = await prisma.user.update({
+      where: {
+        id: user.id
+      },
+      data: {
+        email: user.email,
+        name: user.name,
+        picture: user.picture,
+      }
+    })
+
     revalidatePath('/users');
 
-    return updatedUser;
-  } catch {
+    return prismaUser;
+  } catch(error) {
+    console.log(error)
     throw new Error('Failed to update user.');
   }
 }

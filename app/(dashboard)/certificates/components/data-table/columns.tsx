@@ -9,8 +9,8 @@ import { RowActions } from './row-actions';
 
 export const columns: ColumnDef<Certificate>[] = [
   {
-    accessorKey: 'id',
-    header: 'ID',
+    accessorKey: 'property.client.name',
+    header: 'Client',
   },
   {
     accessorKey: 'certificateType',
@@ -18,6 +18,26 @@ export const columns: ColumnDef<Certificate>[] = [
     cell: ({ row }) => {
       return certificateTypeNameMapping[row.original.certificateType];
     },
+  },
+  {
+    accessorKey: 'property.address.streetAddress',
+    header: 'Address',
+  },
+  {
+    accessorKey: 'property.address.postcode',
+    header: 'Postcode',
+  },
+  {
+    accessorKey: 'technicianId',
+    header: 'Technician',
+  },
+  {
+    accessorKey: 'date',
+    header: 'Date',
+  },
+  {
+    accessorKey: 'status',
+    header: 'Status',
   },
   {
     id: 'actions',

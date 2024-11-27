@@ -12,7 +12,7 @@ import {
   PageHeaderHeading,
 } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
-import { auth0Management } from '@/lib/auth0-management';
+import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,8 +21,7 @@ export const metadata: Metadata = {
 };
 
 export default async function UsersPage() {
-  const response = await auth0Management.users.getAll();
-  const users = response.data;
+  const users = await prisma.user.findMany();
 
   return (
     <>

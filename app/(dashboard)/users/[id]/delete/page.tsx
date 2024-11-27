@@ -9,7 +9,7 @@ import {
   PageHeaderHeading,
 } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { auth0Management } from '@/lib/auth0-management';
+import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Delete – Users – Reiyen',
@@ -18,8 +18,10 @@ export const metadata: Metadata = {
 export default async function UserDeletePage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
 
-  const { data: user } = await auth0Management.users.get({
-    id: 'auth0|' + params.id,
+  const user = await prisma.user.findFirst({
+    where: {
+      id: params.id,
+    },
   });
 
   if (!user) {

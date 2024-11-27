@@ -56,7 +56,7 @@ export const userLinks = (userId: string) => [
 ];
 
 export const certificateTypeNameMapping = {
-  MINOR_WORKS: 'Minor Works',
+  MINOR_WORKS: 'Minor Works Certificate',
   ELECTRICAL_INSTALLATION_CERTIFICATE: 'Electrical Installation Certificate',
   ELECTRICAL_INSTALLATION_CONDITION_REPORT: 'Electrical Installation Condition Report',
   FIRE_SAFETY_DESIGN_SUMMARY: 'Fire Safety Design Summary',

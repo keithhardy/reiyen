@@ -30,12 +30,15 @@ export function RowActions({ certificate }: { certificate: Certificate }) {
             Update
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem asChild disabled>
           <Link
-            href={`/certificates/${certificate.id}/${certificateTypeUrlMapping[certificate.certificateType]}/delete`}
+            href={`/certificates/${certificate.id}/${certificateTypeUrlMapping[certificate.certificateType]}`}
           >
-            Delete
+            Download
           </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={`/certificates/${certificate.id}/delete`}>Delete</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

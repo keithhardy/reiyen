@@ -7,7 +7,7 @@ import {
   PageHeaderGroup,
   PageHeaderHeading,
 } from '@/components/page-header';
-import { auth0Management } from '@/lib/auth0-management';
+import { prisma } from '@/lib/prisma';
 
 export default async function UserUpdateLayout(
   props: Readonly<{
@@ -19,15 +19,16 @@ export default async function UserUpdateLayout(
 
   const { children } = props;
 
-  let user;
-  try {
-    const response = await auth0Management.users.get({
-      id: 'auth0|' + params.id,
-    });
-    user = response.data;
-  } catch {
+  const user = await prisma.user.findFirst({
+    where: {
+      id: params.id,
+    },
+  });
+
+  if (!user) {
     notFound();
   }
+
   return (
     <>
       <PageHeader>

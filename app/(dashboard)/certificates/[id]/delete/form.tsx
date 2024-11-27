@@ -1,12 +1,12 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { User } from '@prisma/client';
+import { Certificate } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
-import { deleteUser } from '@/app/(dashboard)/users/[id]/delete/action';
-import { Schema } from '@/app/(dashboard)/users/[id]/delete/schema';
+import { deleteCertificate } from '@/app/(dashboard)/certificates/[id]/delete/action';
+import { Schema } from '@/app/(dashboard)/certificates/[id]/delete/schema';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -18,28 +18,28 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { certificateTypeNameMapping } from '@/lib/config';
 
-export function UserDeleteForm({ user }: { user: User }) {
+export function CertificateDeleteForm({ certificate }: { certificate: Certificate }) {
   const router = useRouter();
 
   const { toast } = useToast();
 
-  const form = useForm<User>({
+  const form = useForm({
     resolver: zodResolver(Schema),
     defaultValues: {
-      id: user.id,
-      auth0Id: user.auth0Id,
-      name: '',
+      id: certificate.id,
+      certificateType: '' as string,
     },
   });
 
-  const onSubmit = async (data: User) => {
+  const onSubmit = async (data: Pick<Certificate, 'id'> & { certificateType: string }) => {
     try {
-      await deleteUser(data);
-      router.back();
+      await deleteCertificate(data);
+      router.push('/certificates');
       toast({
         title: 'User Deleted',
-        description: `${data.name} was successfully removed.`,
+        description: `${data.certificateType} was successfully removed.`,
       });
     } catch {
       toast({
@@ -56,12 +56,15 @@ export function UserDeleteForm({ user }: { user: User }) {
         <div className='space-y-4'>
           <FormField
             control={form.control}
-            name='name'
+            name='certificateType'
             render={({ field }) => (
               <FormItem>
                 <FormLabel className='text-muted-foreground'>
-                  Enter <span className='text-foreground'>{user.name}</span> and press delete to
-                  remove.
+                  Enter{' '}
+                  <span className='text-foreground'>
+                    {certificateTypeNameMapping[certificate.certificateType]}
+                  </span>{' '}
+                  and press delete to remove.
                 </FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -70,11 +73,27 @@ export function UserDeleteForm({ user }: { user: User }) {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name='id'
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input {...field} type='hidden' />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <div className='flex justify-end'>
             <Button
               type='submit'
-              disabled={form.watch('name') !== user.name || form.formState.isSubmitting}
-              variant='destructive'
+              disabled={
+                form.watch('certificateType') !==
+                  certificateTypeNameMapping[certificate.certificateType] ||
+                form.formState.isSubmitting
+              }
+              variant='outline'
             >
               {form.formState.isSubmitting ? 'Deleting' : 'Delete'}
             </Button>

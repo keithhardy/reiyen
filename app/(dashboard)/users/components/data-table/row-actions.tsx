@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import { MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 
@@ -10,7 +11,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { User } from '@/lib/auth0-management';
 
 export function RowActions({ user }: { user: User }) {
   return (
@@ -25,13 +25,13 @@ export function RowActions({ user }: { user: User }) {
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href={`/users/${user.user_id.replace('auth0|', '')}/general`}>Update</Link>
+          <Link href={`/users/${user.id}/general`}>Update</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild disabled>
-          <Link href={`/users/${user.user_id.replace('auth0|', '')}/block`}>Block</Link>
+          <Link href={`/users/${user.id}/block`}>Block</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={`/users/${user.user_id.replace('auth0|', '')}/delete`}>Delete</Link>
+          <Link href={`/users/${user.id}/delete`}>Delete</Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

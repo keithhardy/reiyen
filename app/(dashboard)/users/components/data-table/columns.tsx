@@ -1,10 +1,10 @@
 'use client';
 
+import { User } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
 
 import { RowActions } from '@/app/(dashboard)/users/components/data-table/row-actions';
-import { User } from '@/lib/auth0-management';
 
 export const columns: ColumnDef<User>[] = [
   {
