@@ -38,8 +38,7 @@ export async function createUser(user: Omit<Auth0User, 'user_id'>): Promise<User
     revalidatePath('/users');
 
     return prismaUser;
-  } catch(error) {
-    console.log(error)
+  } catch {
     throw new Error('Failed to create user.');
   }
 }

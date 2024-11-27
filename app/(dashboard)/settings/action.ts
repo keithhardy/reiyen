@@ -6,7 +6,11 @@ import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
-export async function updateSettings( settings: Settings & { address: Address }): Promise<Settings> {
+export async function updateSettings(
+  settings: Omit<Settings, 'createdAt' | 'updatedAt'> & {
+    address: Omit<Address, 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'> | null;
+  }
+): Promise<Settings> {
   try {
     const settingsResponse = await prisma.settings.findFirst();
 
@@ -18,8 +22,8 @@ export async function updateSettings( settings: Settings & { address: Address })
     }
 
     const updatedSettings = await prisma.settings.update({
-      where: { 
-        id: settings.id 
+      where: {
+        id: settings.id,
       },
       data: {
         name: settings.name,
@@ -43,8 +47,8 @@ export async function updateSettings( settings: Settings & { address: Address })
 
     revalidatePath('/settings');
     return updatedSettings;
-  } catch(error) {
-    console.log(error)
+  } catch (error) {
+    console.log(error);
     throw new Error('Settings update failed');
   }
 }
