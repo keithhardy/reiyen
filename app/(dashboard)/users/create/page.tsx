@@ -1,12 +1,7 @@
 import { Metadata } from 'next';
 
 import { UserCreateForm } from '@/app/(dashboard)/users/create/form';
-import {
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderGroup,
-  PageHeaderHeading,
-} from '@/components/page-header';
+import { PageHeader, PageHeaderDescription, PageHeaderGroup, PageHeaderHeading } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const metadata: Metadata = {
@@ -19,10 +14,7 @@ export default function UserCreatePage() {
       <PageHeader>
         <PageHeaderGroup>
           <PageHeaderHeading>Create User</PageHeaderHeading>
-          <PageHeaderDescription>
-            Fill out the form below to create a new user account. Ensure the information is
-            accurate, and remember to assign roles on the user update page.
-          </PageHeaderDescription>
+          <PageHeaderDescription>Fill out the form below to create a new user account. Ensure the information is accurate, and remember to assign roles on the user update page.</PageHeaderDescription>
         </PageHeaderGroup>
       </PageHeader>
 

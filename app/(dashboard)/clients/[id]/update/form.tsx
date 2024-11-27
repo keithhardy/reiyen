@@ -10,14 +10,7 @@ import { updateClient } from '@/app/(dashboard)/clients/[id]/update/action';
 import { Schema } from '@/app/(dashboard)/clients/[id]/update/schema';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
@@ -107,22 +100,12 @@ export function ClientUpdateForm({
               <FormItem>
                 <FormLabel>Company Logo</FormLabel>
                 <FormControl>
-                  <Input
-                    type='file'
-                    accept='image/*'
-                    onChange={(e) => handleFileChange(e, form.setValue, 'logoUrl', setImagePreview)}
-                  />
+                  <Input type='file' accept='image/*' onChange={(e) => handleFileChange(e, form.setValue, 'logoUrl', setImagePreview)} />
                 </FormControl>
                 <FormMessage />
                 {imagePreview && (
                   <div className='mt-2'>
-                    <Image
-                      src={imagePreview}
-                      alt='Logo Preview'
-                      width={200}
-                      height={200}
-                      className='rounded border'
-                    />
+                    <Image src={imagePreview} alt='Logo Preview' width={200} height={200} className='rounded border' />
                   </div>
                 )}
               </FormItem>

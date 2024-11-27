@@ -7,22 +7,9 @@ import { useForm } from 'react-hook-form';
 import { updateProperty } from '@/app/(dashboard)/properties/[id]/update/action';
 import { Schema } from '@/app/(dashboard)/properties/[id]/update/schema';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 
 export function PropertyUpdateForm({
@@ -74,10 +61,7 @@ export function PropertyUpdateForm({
               <FormItem>
                 <FormLabel>Client</FormLabel>
                 <FormControl>
-                  <Select
-                    onValueChange={(value) => field.onChange(value)}
-                    defaultValue={field.value}
-                  >
+                  <Select onValueChange={(value) => field.onChange(value)} defaultValue={field.value}>
                     <SelectTrigger>
                       <SelectValue placeholder='Select a client' />
                     </SelectTrigger>

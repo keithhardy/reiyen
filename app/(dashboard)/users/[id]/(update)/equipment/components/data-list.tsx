@@ -17,15 +17,11 @@ export function DataList({ equipment }: { equipment: Equipment[] }) {
       <div className='space-y-4 pr-4'>
         {equipment.length > 0 ? (
           equipment.map((equipmentItem, index) => (
-            <div
-              key={equipmentItem.id}
-              className={`grid grid-cols-5 items-center pb-4 ${index !== equipment.length - 1 ? 'border-b border-dashed' : ''}`}
-            >
+            <div key={equipmentItem.id} className={`grid grid-cols-5 items-center pb-4 ${index !== equipment.length - 1 ? 'border-b border-dashed' : ''}`}>
               <div className='col-span-4 space-y-1'>
                 <p className='text-sm font-medium'>{equipmentItem.type}</p>
                 <p className='text-sm text-muted-foreground'>
-                  {equipmentItem.make}, {equipmentItem.model} - {equipmentItem.serialNumber} -{' '}
-                  {equipmentItem.testDate}
+                  {equipmentItem.make}, {equipmentItem.model} - {equipmentItem.serialNumber} - {equipmentItem.testDate}
                 </p>
               </div>
               <div className='col-span-1'>
@@ -49,8 +45,7 @@ export function DataList({ equipment }: { equipment: Equipment[] }) {
                       } catch {
                         toast({
                           title: 'Deletion Failed',
-                          description:
-                            'An error occurred while deleting the equipment. Please try again later.',
+                          description: 'An error occurred while deleting the equipment. Please try again later.',
                           variant: 'destructive',
                         });
                       }

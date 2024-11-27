@@ -8,24 +8,17 @@ import { createQualification } from '@/app/(dashboard)/users/[id]/(update)/quali
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/qualifications/schema';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
-export function UserQualificationsForm({ user }: { user: { user_id: string } }) {
+export function UserQualificationsForm({ userId }: { userId: string }) {
   const { toast } = useToast();
 
   const form = useForm<Qualification>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      userId: user.user_id,
+      userId,
       awardingBody: '',
       qualification: '',
       qualificationNumber: '',
@@ -114,11 +107,7 @@ export function UserQualificationsForm({ user }: { user: { user_id: string } }) 
               <FormItem>
                 <FormLabel>Certificate</FormLabel>
                 <FormControl>
-                  <Input
-                    type='file'
-                    accept='image/*'
-                    onChange={(e) => handleFileChange(e, form.setValue, 'certificateUrl')}
-                  />
+                  <Input type='file' accept='image/*' onChange={(e) => handleFileChange(e, form.setValue, 'certificateUrl')} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

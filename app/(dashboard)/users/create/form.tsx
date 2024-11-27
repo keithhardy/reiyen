@@ -7,14 +7,7 @@ import { useForm } from 'react-hook-form';
 import { createUser } from '@/app/(dashboard)/users/create/action';
 import { Schema } from '@/app/(dashboard)/users/create/schema';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { User } from '@/lib/auth0-management';

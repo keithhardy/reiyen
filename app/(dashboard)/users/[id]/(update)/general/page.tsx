@@ -9,12 +9,10 @@ export const metadata: Metadata = {
   title: 'General – Users – Reiyen',
 };
 
-export default async function UserGeneralPage(props: { params: Promise<{ id: string }> }) {
-  const params = await props.params;
-
+export default async function UserGeneralPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await prisma.user.findFirst({
     where: {
-      id: params.id,
+      id: (await params).id,
     },
   });
 
@@ -26,10 +24,7 @@ export default async function UserGeneralPage(props: { params: Promise<{ id: str
     <Card className='grid grid-cols-2'>
       <CardHeader className='col-span-2 lg:col-span-1'>
         <CardTitle>General</CardTitle>
-        <CardDescription>
-          Update your general settings, including profile picture, name, and email, to keep your
-          account information current.
-        </CardDescription>
+        <CardDescription>Update your general settings, including profile picture, name, and email, to keep your account information current.</CardDescription>
       </CardHeader>
       <CardContent className='col-span-2 p-6 lg:col-span-1'>
         <UserGeneralForm user={user} />

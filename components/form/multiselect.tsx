@@ -3,13 +3,7 @@
 import { ChevronsUpDown } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 
 interface Option {
   value: string;
@@ -24,13 +18,7 @@ interface MultiSelectProps {
   disabled?: boolean;
 }
 
-export function MultiSelect({
-  options = [],
-  selectedValues = [],
-  onChange,
-  placeholder = 'Select options',
-  disabled = false,
-}: MultiSelectProps) {
+export function MultiSelect({ options = [], selectedValues = [], onChange, placeholder = 'Select options', disabled = false }: MultiSelectProps) {
   const allSelected = options.length > 0 && selectedValues.length === options.length;
 
   const displayText = (() => {
@@ -58,11 +46,7 @@ export function MultiSelect({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant='outline'
-          disabled={disabled || options.length === 0}
-          className='w-full justify-between truncate'
-        >
+        <Button variant='outline' disabled={disabled || options.length === 0} className='w-full justify-between truncate'>
           <span className='truncate'>{displayText}</span>
           <ChevronsUpDown className='ml-2 h-4 w-4 flex-shrink-0 opacity-50' />
         </Button>
@@ -77,9 +61,7 @@ export function MultiSelect({
             key={option.value}
             checked={selectedValues.includes(option.value)}
             onCheckedChange={(checked) => {
-              const newValues = checked
-                ? [...selectedValues, option.value]
-                : selectedValues.filter((v) => v !== option.value);
+              const newValues = checked ? [...selectedValues, option.value] : selectedValues.filter((v) => v !== option.value);
               onChange(newValues);
             }}
             onSelect={(e) => e.preventDefault()}

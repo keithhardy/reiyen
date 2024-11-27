@@ -12,16 +12,8 @@ function PageHeaderHeading({ className, ...props }: React.HTMLAttributes<HTMLHea
   return <h1 className={cn('text-3xl font-medium', className)} {...props} />;
 }
 
-function PageHeaderDescription({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLParagraphElement>) {
-  return (
-    <p
-      className={cn('text-balance text-sm font-light text-muted-foreground', className)}
-      {...props}
-    />
-  );
+function PageHeaderDescription({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
+  return <p className={cn('text-balance text-sm font-light text-muted-foreground', className)} {...props} />;
 }
 
 function PageHeaderGroup({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
@@ -29,15 +21,7 @@ function PageHeaderGroup({ className, ...props }: React.HTMLAttributes<HTMLParag
 }
 
 function PageActions({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div
-      className={cn(
-        'col-span-2 space-x-0 space-y-2 sm:space-x-2 sm:space-y-0 lg:col-span-1 lg:text-right',
-        className
-      )}
-      {...props}
-    />
-  );
+  return <div className={cn('col-span-2 space-x-0 space-y-2 sm:space-x-2 sm:space-y-0 lg:col-span-1 lg:text-right', className)} {...props} />;
 }
 
 export { PageActions, PageHeader, PageHeaderDescription, PageHeaderGroup, PageHeaderHeading };

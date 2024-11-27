@@ -12,13 +12,7 @@ export const columns: ColumnDef<User>[] = [
     header: 'Name',
     cell: ({ row }) => (
       <div className='flex items-center space-x-4'>
-        <Image
-          src={row.original.picture || ''}
-          width='64'
-          height='64'
-          alt='User picture'
-          className='h-8 w-8 rounded-full'
-        />
+        <Image src={row.original.picture || ''} width='64' height='64' alt='User picture' className='h-8 w-8 rounded-full' />
         <div>
           <div className='font-medium'>{row.getValue('name')}</div>
           <div className='font-light text-muted-foreground'>{row.original.email}</div>

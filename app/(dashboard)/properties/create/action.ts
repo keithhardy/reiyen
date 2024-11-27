@@ -7,10 +7,7 @@ import { prisma } from '@/lib/prisma';
 
 export async function createProperty(
   property: Omit<Property, 'id' | 'clientId' | 'createdAt' | 'updatedAt'> & {
-    address: Omit<
-      Address,
-      'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'
-    >;
+    address: Omit<Address, 'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'>;
     client: Pick<Client, 'id'>;
   }
 ): Promise<Property> {

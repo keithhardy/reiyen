@@ -10,7 +10,7 @@ export async function createCertificate(
   certificate: Omit<Certificate, 'id' | 'propertyId' | 'createdAt' | 'updatedAt'> & {
     property: Pick<Property, 'id'> & {
       client: Pick<Client, 'id'>;
-    }
+    };
   }
 ): Promise<Certificate> {
   const session = await auth0.getSession();
@@ -37,8 +37,7 @@ export async function createCertificate(
     revalidatePath('/certificates');
 
     return createdCertificate;
-  } catch (error) {
-    console.error('Certificate creation failed:', error);
+  } catch {
     throw new Error('Certificate creation failed');
   }
 }

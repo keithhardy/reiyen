@@ -1,12 +1,7 @@
 import { Metadata } from 'next';
 
 import { SettingsUpdateForm } from '@/app/(dashboard)/settings/form';
-import {
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderGroup,
-  PageHeaderHeading,
-} from '@/components/page-header';
+import { PageHeader, PageHeaderDescription, PageHeaderGroup, PageHeaderHeading } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
@@ -26,10 +21,7 @@ export default async function SettingsPage() {
       <PageHeader>
         <PageHeaderGroup>
           <PageHeaderHeading>Settings</PageHeaderHeading>
-          <PageHeaderDescription>
-            View and manage all your settings in one place. Download, share, or verify your
-            properties with ease.
-          </PageHeaderDescription>
+          <PageHeaderDescription>View and manage all your settings in one place. Download, share, or verify your properties with ease.</PageHeaderDescription>
         </PageHeaderGroup>
       </PageHeader>
 

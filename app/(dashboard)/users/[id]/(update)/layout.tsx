@@ -1,12 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { SidebarLinks } from '@/app/(dashboard)/users/[id]/(update)/components/sidebar-links';
-import {
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderGroup,
-  PageHeaderHeading,
-} from '@/components/page-header';
+import { PageHeader, PageHeaderDescription, PageHeaderGroup, PageHeaderHeading } from '@/components/page-header';
 import { prisma } from '@/lib/prisma';
 
 export default async function UserUpdateLayout(
@@ -34,10 +29,7 @@ export default async function UserUpdateLayout(
       <PageHeader>
         <PageHeaderGroup>
           <PageHeaderHeading>{user.name}</PageHeaderHeading>
-          <PageHeaderDescription>
-            Edit user details, account status, and role. Update general info, preferences,
-            equipment, qualifications, and permissions as needed.
-          </PageHeaderDescription>
+          <PageHeaderDescription>Edit user details, account status, and role. Update general info, preferences, equipment, qualifications, and permissions as needed.</PageHeaderDescription>
         </PageHeaderGroup>
       </PageHeader>
 

@@ -1,12 +1,7 @@
 import { Metadata } from 'next';
 
 import { ClientCreateForm } from '@/app/(dashboard)/clients/create/form';
-import {
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderGroup,
-  PageHeaderHeading,
-} from '@/components/page-header';
+import { PageHeader, PageHeaderDescription, PageHeaderGroup, PageHeaderHeading } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export const metadata: Metadata = {
@@ -19,10 +14,7 @@ export default function CreateClientPage() {
       <PageHeader>
         <PageHeaderGroup>
           <PageHeaderHeading>Add Client</PageHeaderHeading>
-          <PageHeaderDescription>
-            Please fill out the form below to add a new client to the database with accurate
-            information for proper management.
-          </PageHeaderDescription>
+          <PageHeaderDescription>Please fill out the form below to add a new client to the database with accurate information for proper management.</PageHeaderDescription>
         </PageHeaderGroup>
       </PageHeader>
 

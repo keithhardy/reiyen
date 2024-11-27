@@ -8,14 +8,7 @@ import { useForm } from 'react-hook-form';
 import { deleteClient } from '@/app/(dashboard)/clients/[id]/delete/action';
 import { Schema } from '@/app/(dashboard)/clients/[id]/delete/schema';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
@@ -60,8 +53,7 @@ export function ClientDeleteForm({ client }: { client: Client }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className='text-muted-foreground'>
-                  Enter <span className='text-foreground'>{client.name}</span> and press delete to
-                  remove.
+                  Enter <span className='text-foreground'>{client.name}</span> and press delete to remove.
                 </FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -83,11 +75,7 @@ export function ClientDeleteForm({ client }: { client: Client }) {
             )}
           />
           <div className='flex justify-end'>
-            <Button
-              type='submit'
-              disabled={form.watch('name') !== client.name || form.formState.isSubmitting}
-              variant='outline'
-            >
+            <Button type='submit' disabled={form.watch('name') !== client.name || form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Deleting' : 'Delete'}
             </Button>
           </div>

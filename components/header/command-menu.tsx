@@ -7,14 +7,7 @@ import { useTheme } from 'next-themes';
 import { useCallback, useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command';
+import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { DialogTitle } from '@/components/ui/dialog';
 import { menuLinks } from '@/lib/config';
 
@@ -25,10 +18,7 @@ export default function CommandMenu() {
 
   useEffect(() => {
     const handleShortcut = (e: KeyboardEvent) => {
-      if (
-        ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') &&
-        !['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement).tagName)
-      ) {
+      if (((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') && !['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement).tagName)) {
         e.preventDefault();
         setOpen((prev) => !prev);
       }

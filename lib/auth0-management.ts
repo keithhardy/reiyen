@@ -20,19 +20,7 @@ export type User = {
   logins_count?: number;
 };
 
-export async function waitForOperationInLogs({
-  userId,
-  operationType,
-  startTime = new Date(Date.now() - 5000).toISOString(),
-  retries = 5,
-  delayMs = 2000,
-}: {
-  userId: string;
-  operationType: 'Create a User' | 'Delete a User' | 'Update a User';
-  startTime?: string;
-  retries?: number;
-  delayMs?: number;
-}): Promise<void> {
+export async function waitForOperationInLogs({ userId, operationType, startTime = new Date(Date.now() - 5000).toISOString(), retries = 5, delayMs = 2000 }: { userId: string; operationType: 'Create a User' | 'Delete a User' | 'Update a User'; startTime?: string; retries?: number; delayMs?: number }): Promise<void> {
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       const { data: logs } = await auth0Management.logs.getAll({
@@ -56,9 +44,7 @@ export async function waitForOperationInLogs({
       await new Promise((resolve) => setTimeout(resolve, delayMs));
       delayMs *= 2;
     } catch {
-      throw new Error(
-        `${operationType} operation for user ${userId} not found in logs after ${retries} retries starting from time: ${startTime}.`
-      );
+      throw new Error(`${operationType} operation for user ${userId} not found in logs after ${retries} retries starting from time: ${startTime}.`);
     }
   }
 }

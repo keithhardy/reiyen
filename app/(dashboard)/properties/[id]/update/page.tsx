@@ -2,12 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { PropertyUpdateForm } from '@/app/(dashboard)/properties/[id]/update/form';
-import {
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderGroup,
-  PageHeaderHeading,
-} from '@/components/page-header';
+import { PageHeader, PageHeaderDescription, PageHeaderGroup, PageHeaderHeading } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
@@ -20,7 +15,9 @@ export async function generateStaticParams() {
     select: { id: true },
   });
 
-  return properties.map((property) => ({ id: property.id }));
+  return properties.map((property) => ({
+    id: property.id,
+  }));
 }
 
 export default async function PropertyUpdatePage(props: { params: Promise<{ id: string }> }) {
@@ -47,10 +44,7 @@ export default async function PropertyUpdatePage(props: { params: Promise<{ id: 
       <PageHeader>
         <PageHeaderGroup>
           <PageHeaderHeading>Update</PageHeaderHeading>
-          <PageHeaderDescription>
-            Update the property&apos;s profile information, account details, and associated data.
-            Make adjustments to ensure the property&apos;s information is accurate and up to date.
-          </PageHeaderDescription>
+          <PageHeaderDescription>Update the property&apos;s profile information, account details, and associated data. Make adjustments to ensure the property&apos;s information is accurate and up to date.</PageHeaderDescription>
         </PageHeaderGroup>
       </PageHeader>
 

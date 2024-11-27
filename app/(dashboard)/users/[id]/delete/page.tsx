@@ -2,12 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { UserDeleteForm } from '@/app/(dashboard)/users/[id]/delete/form';
-import {
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderGroup,
-  PageHeaderHeading,
-} from '@/components/page-header';
+import { PageHeader, PageHeaderDescription, PageHeaderGroup, PageHeaderHeading } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
@@ -33,10 +28,7 @@ export default async function UserDeletePage(props: { params: Promise<{ id: stri
       <PageHeader>
         <PageHeaderGroup>
           <PageHeaderHeading>Delete</PageHeaderHeading>
-          <PageHeaderDescription>
-            Permanently delete a user account. Review the user&apos;s details carefully before
-            proceeding with this irreversible action.
-          </PageHeaderDescription>
+          <PageHeaderDescription>Permanently delete a user account. Review the user&apos;s details carefully before proceeding with this irreversible action.</PageHeaderDescription>
         </PageHeaderGroup>
       </PageHeader>
 
@@ -44,8 +36,7 @@ export default async function UserDeletePage(props: { params: Promise<{ id: stri
         <CardHeader>
           <CardTitle>Delete User</CardTitle>
           <CardDescription>
-            Are you sure you want to delete <span className='text-primary'>{user.name}</span>? This
-            action is permanent and the user will not be recoverable.
+            Are you sure you want to delete <span className='text-primary'>{user.name}</span>? This action is permanent and the user will not be recoverable.
           </CardDescription>
         </CardHeader>
         <CardContent>

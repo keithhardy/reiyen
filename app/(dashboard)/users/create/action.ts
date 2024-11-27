@@ -29,11 +29,11 @@ export async function createUser(user: Omit<Auth0User, 'user_id'>): Promise<User
         preferences: {
           create: {
             position: '',
-            signature: ''
-          }
-        }
-      }
-    })
+            signature: '',
+          },
+        },
+      },
+    });
 
     revalidatePath('/users');
 

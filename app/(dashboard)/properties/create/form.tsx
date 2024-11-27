@@ -8,22 +8,9 @@ import { useForm } from 'react-hook-form';
 import { createProperty } from '@/app/(dashboard)/properties/create/action';
 import { Schema } from '@/app/(dashboard)/properties/create/schema';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 
 export function PropertyCreateForm({ clients }: { clients: Client[] }) {
@@ -52,10 +39,7 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
 
   const onSubmit = async (
     data: Omit<Property, 'id' | 'clientId' | 'createdAt' | 'updatedAt'> & {
-      address: Omit<
-        Address,
-        'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'
-      >;
+      address: Omit<Address, 'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'>;
       client: Pick<Client, 'id'>;
     }
   ) => {
@@ -86,10 +70,7 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
               <FormItem>
                 <FormLabel>Client</FormLabel>
                 <FormControl>
-                  <Select
-                    onValueChange={(value) => field.onChange(value)}
-                    defaultValue={field.value}
-                  >
+                  <Select onValueChange={(value) => field.onChange(value)} defaultValue={field.value}>
                     <SelectTrigger>
                       <SelectValue placeholder='Select a client' />
                     </SelectTrigger>

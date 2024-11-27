@@ -2,12 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { ClientUpdateForm } from '@/app/(dashboard)/clients/[id]/update/form';
-import {
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderGroup,
-  PageHeaderHeading,
-} from '@/components/page-header';
+import { PageHeader, PageHeaderDescription, PageHeaderGroup, PageHeaderHeading } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
@@ -44,10 +39,7 @@ export default async function ClientUpdatePage(props: { params: Promise<{ id: st
       <PageHeader>
         <PageHeaderGroup>
           <PageHeaderHeading>Update</PageHeaderHeading>
-          <PageHeaderDescription>
-            Update the client&apos;s profile information, account details, and associated data. Make
-            adjustments to ensure the client&apos;s information is accurate and up to date.
-          </PageHeaderDescription>
+          <PageHeaderDescription>Update the client&apos;s profile information, account details, and associated data. Make adjustments to ensure the client&apos;s information is accurate and up to date.</PageHeaderDescription>
         </PageHeaderGroup>
       </PageHeader>
 

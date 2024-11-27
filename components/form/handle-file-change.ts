@@ -1,11 +1,6 @@
 import { FieldValues, Path, PathValue, UseFormSetValue } from 'react-hook-form';
 
-export async function handleFileChange<T extends FieldValues>(
-  e: React.ChangeEvent<HTMLInputElement>,
-  setValue: UseFormSetValue<T>,
-  fieldName: Path<T>,
-  setImagePreview?: (value: string) => void
-) {
+export async function handleFileChange<T extends FieldValues>(e: React.ChangeEvent<HTMLInputElement>, setValue: UseFormSetValue<T>, fieldName: Path<T>, setImagePreview?: (value: string) => void) {
   const file = e.target.files?.[0];
   if (file) {
     const reader = new FileReader();

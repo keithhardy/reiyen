@@ -8,10 +8,7 @@ import { uploadFile } from '@/lib/vercel-blob';
 
 export async function createClient(
   client: Omit<Client, 'id' | 'createdAt' | 'updatedAt'> & {
-    address: Omit<
-      Address,
-      'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'
-    >;
+    address: Omit<Address, 'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'>;
   }
 ): Promise<Client> {
   try {

@@ -10,14 +10,7 @@ import { updateUser } from '@/app/(dashboard)/users/[id]/(update)/general/action
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/general/schema';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
@@ -58,23 +51,9 @@ export function UserGeneralForm({ user }: { user: User }) {
               <FormItem>
                 <FormLabel>Profile Picture</FormLabel>
                 <div className='flex items-center space-x-4'>
-                  {imagePreview && (
-                    <Image
-                      src={imagePreview}
-                      alt='Profile Picture Preview'
-                      width={50}
-                      height={50}
-                      className='rounded-full'
-                    />
-                  )}
+                  {imagePreview && <Image src={imagePreview} alt='Profile Picture Preview' width={50} height={50} className='rounded-full' />}
                   <FormControl>
-                    <Input
-                      type='file'
-                      accept='image/*'
-                      onChange={(e) =>
-                        handleFileChange(e, form.setValue, 'picture', setImagePreview)
-                      }
-                    />
+                    <Input type='file' accept='image/*' onChange={(e) => handleFileChange(e, form.setValue, 'picture', setImagePreview)} />
                   </FormControl>
                 </div>
                 <FormMessage />

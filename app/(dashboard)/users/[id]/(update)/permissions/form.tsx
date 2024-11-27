@@ -11,25 +11,11 @@ import { Schema } from '@/app/(dashboard)/users/[id]/(update)/permissions/schema
 import { MultiSelect } from '@/components/form/multiselect';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { availablePermissions } from '@/lib/permissions';
 
-export function UserPermissionsForm({
-  permissions,
-  clients,
-  user,
-}: {
-  permissions: Permission[];
-  clients: Client[];
-  user: { user_id: string };
-}) {
+export function UserPermissionsForm({ permissions, clients, userId }: { permissions: Permission[]; clients: Client[]; userId: string }) {
   const { toast } = useToast();
 
   const form = useForm<{ permissions: Permission[] }>({
@@ -37,46 +23,33 @@ export function UserPermissionsForm({
     defaultValues: { permissions },
   });
 
-  const [newPermissions, setNewPermissions] = useState<
-    Omit<Permission, 'id' | 'createdAt' | 'updatedAt'>[]
-  >([]);
+  const [newPermissions, setNewPermissions] = useState<Omit<Permission, 'id' | 'createdAt' | 'updatedAt'>[]>([]);
   const [selectedClient, setSelectedClient] = useState<string>('');
   const [selectedPermissions, setSelectedPermissions] = useState<string[]>([]);
 
   const clientOptions = [
     { value: 'global', label: 'Global' },
-    ...clients.map((client) => ({ value: client.id, label: client.name })),
+    ...clients.map((client) => ({
+      value: client.id,
+      label: client.name,
+    })),
   ];
 
-  const availablePermissionsForClient = selectedClient
-    ? (selectedClient === 'global'
-        ? availablePermissions.global
-        : availablePermissions.client
-      ).filter(
-        (perm) =>
-          !permissions.some(
-            (p) => p.permission === perm && (p.clientId || 'global') === selectedClient
-          )
-      )
-    : [];
+  const availablePermissionsForClient = selectedClient ? (selectedClient === 'global' ? availablePermissions.global : availablePermissions.client).filter((perm) => !permissions.some((p) => p.permission === perm && (p.clientId || 'global') === selectedClient)) : [];
 
   const handlePermissionToggle = (selected: string[]) => {
     const clientId = selectedClient === 'global' ? null : selectedClient;
 
     const permissionsToAdd = selected
-      .filter(
-        (perm) => !newPermissions.some((p) => p.permission === perm && p.clientId === clientId)
-      )
+      .filter((perm) => !newPermissions.some((p) => p.permission === perm && p.clientId === clientId))
       .map((permission) => ({
         permission,
-        userId: user.user_id,
+        userId,
         clientId,
       }));
 
     setNewPermissions((prev) => {
-      const permissionsToRemove = prev.filter(
-        (p) => p.clientId === clientId && !selected.includes(p.permission)
-      );
+      const permissionsToRemove = prev.filter((p) => p.clientId === clientId && !selected.includes(p.permission));
       return [...prev.filter((p) => !permissionsToRemove.includes(p)), ...permissionsToAdd];
     });
 
@@ -139,13 +112,7 @@ export function UserPermissionsForm({
               }))}
               selectedValues={selectedPermissions}
               onChange={handlePermissionToggle}
-              placeholder={
-                selectedClient
-                  ? availablePermissionsForClient.length
-                    ? 'Select permissions'
-                    : 'No permissions available'
-                  : 'Select client'
-              }
+              placeholder={selectedClient ? (availablePermissionsForClient.length ? 'Select permissions' : 'No permissions available') : 'Select client'}
               disabled={!selectedClient || !availablePermissionsForClient.length}
             />
           </div>

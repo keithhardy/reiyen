@@ -33,9 +33,7 @@ export async function createEquipment(equipment: Omit<Equipment, 'id'>): Promise
   }
 }
 
-export async function deleteEquipment(
-  equipment: Pick<Equipment, 'id' | 'certificateUrl'>
-): Promise<void> {
+export async function deleteEquipment(equipment: Pick<Equipment, 'id' | 'certificateUrl'>): Promise<void> {
   try {
     await prisma.equipment.delete({
       where: { id: equipment.id },

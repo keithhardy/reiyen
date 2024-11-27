@@ -4,13 +4,7 @@ import Link from 'next/link';
 
 import { columns } from '@/app/(dashboard)/certificates/components/data-table/columns';
 import { DataTable } from '@/app/(dashboard)/certificates/components/data-table/data-table';
-import {
-  PageActions,
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderGroup,
-  PageHeaderHeading,
-} from '@/components/page-header';
+import { PageActions, PageHeader, PageHeaderDescription, PageHeaderGroup, PageHeaderHeading } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
 import { prisma } from '@/lib/prisma';
 
@@ -35,10 +29,7 @@ export default async function CertificatesPage() {
       <PageHeader>
         <PageHeaderGroup>
           <PageHeaderHeading>Certificates</PageHeaderHeading>
-          <PageHeaderDescription>
-            View and manage all your certificates in one place. Download, share, or verify your
-            certificates with ease.
-          </PageHeaderDescription>
+          <PageHeaderDescription>View and manage all your certificates in one place. Download, share, or verify your certificates with ease.</PageHeaderDescription>
         </PageHeaderGroup>
         <PageActions>
           <Button asChild className='w-full sm:w-auto'>

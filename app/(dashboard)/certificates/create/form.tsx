@@ -9,21 +9,8 @@ import { useForm } from 'react-hook-form';
 import { createCertificate } from '@/app/(dashboard)/certificates/create/action';
 import { Schema } from '@/app/(dashboard)/certificates/create/schema';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { certificateTypeNameMapping } from '@/lib/config';
 

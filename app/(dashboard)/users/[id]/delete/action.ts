@@ -24,14 +24,12 @@ export async function deleteUser(user: User): Promise<void> {
 
     await prisma.user.delete({
       where: {
-        id: user.id
-      }
-    })
+        id: user.id,
+      },
+    });
 
     revalidatePath('/users');
-  } catch(error) {
-console.log(user)
-console.log(error)
+  } catch {
     throw new Error('Failed to delete user.');
   }
 }

@@ -29,8 +29,7 @@ export default async function UserDeletePage(props: { params: Promise<{ id: stri
         <CardHeader className='col-span-2 lg:col-span-1'>
           <CardTitle>Delete User</CardTitle>
           <CardDescription>
-            Are you sure you want to delete <span className='text-primary'>{user.name}</span>? This
-            action is permanent and the user will not be recoverable.
+            Are you sure you want to delete <span className='text-primary'>{user.name}</span>? This action is permanent and the user will not be recoverable.
           </CardDescription>
         </CardHeader>
         <CardContent>

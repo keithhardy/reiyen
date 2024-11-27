@@ -8,24 +8,17 @@ import { createEquipment } from '@/app/(dashboard)/users/[id]/(update)/equipment
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/equipment/schema';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
-export function UserEquipmentForm({ user }: { user: { user_id: string } }) {
+export function UserEquipmentForm({ userId }: { userId: string }) {
   const { toast } = useToast();
 
   const form = useForm<Equipment>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      userId: user.user_id,
+      userId,
       make: '',
       model: '',
       serialNumber: '',
@@ -128,11 +121,7 @@ export function UserEquipmentForm({ user }: { user: { user_id: string } }) {
               <FormItem>
                 <FormLabel>Certificate</FormLabel>
                 <FormControl>
-                  <Input
-                    type='file'
-                    accept='image/*'
-                    onChange={(e) => handleFileChange(e, form.setValue, 'certificateUrl')}
-                  />
+                  <Input type='file' accept='image/*' onChange={(e) => handleFileChange(e, form.setValue, 'certificateUrl')} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

@@ -8,10 +8,7 @@ import { updateFile } from '@/lib/vercel-blob';
 
 export async function updateSettings(
   settings: Omit<Settings, 'createdAt' | 'updatedAt'> & {
-    address: Omit<
-      Address,
-      'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'
-    > | null;
+    address: Omit<Address, 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'> | null;
   }
 ): Promise<Settings> {
   try {

@@ -4,13 +4,7 @@ import Link from 'next/link';
 
 import { columns } from '@/app/(dashboard)/properties/components/data-table/columns';
 import { DataTable } from '@/app/(dashboard)/properties/components/data-table/data-table';
-import {
-  PageActions,
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderGroup,
-  PageHeaderHeading,
-} from '@/components/page-header';
+import { PageActions, PageHeader, PageHeaderDescription, PageHeaderGroup, PageHeaderHeading } from '@/components/page-header';
 import { Button } from '@/components/ui/button';
 import { prisma } from '@/lib/prisma';
 
@@ -31,10 +25,7 @@ export default async function PropertiesPage() {
       <PageHeader>
         <PageHeaderGroup>
           <PageHeaderHeading>Properties</PageHeaderHeading>
-          <PageHeaderDescription>
-            View and manage all your properties in one place. Download, share, or verify your
-            properties with ease.
-          </PageHeaderDescription>
+          <PageHeaderDescription>View and manage all your properties in one place. Download, share, or verify your properties with ease.</PageHeaderDescription>
         </PageHeaderGroup>
         <PageActions>
           <Button asChild variant='outline' className='w-full sm:w-auto'>

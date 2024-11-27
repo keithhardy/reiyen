@@ -4,14 +4,7 @@ import { Metadata } from 'next';
 import { DataList } from '@/app/(dashboard)/users/[id]/(update)/permissions/components/data-list';
 import { UserPermissionsForm } from '@/app/(dashboard)/users/[id]/(update)/permissions/form';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { prisma } from '@/lib/prisma';
 
@@ -19,11 +12,11 @@ export const metadata: Metadata = {
   title: 'Permissions – Users – Reiyen',
 };
 
-export default async function UserPermissionsPage(props: { params: Promise<{ id: string }> }) {
-  const params = await props.params;
-
+export default async function UserPermissionsPage({ params }: { params: Promise<{ id: string }> }) {
   const permissions = await prisma.permission.findMany({
-    where: { userId: params.id },
+    where: {
+      userId: (await params).id,
+    },
   });
 
   const clients = await prisma.client.findMany();
@@ -32,9 +25,7 @@ export default async function UserPermissionsPage(props: { params: Promise<{ id:
     <Card className='grid grid-cols-2'>
       <CardHeader className='col-span-2 lg:col-span-1'>
         <CardTitle>Permissions</CardTitle>
-        <CardDescription>
-          Manage user permissions globally and for specific clients.
-        </CardDescription>
+        <CardDescription>Manage user permissions globally and for specific clients.</CardDescription>
       </CardHeader>
       <CardContent className='col-span-2 p-6 lg:col-span-1'>
         <DataList permissions={permissions} clients={clients} />
@@ -53,16 +44,10 @@ export default async function UserPermissionsPage(props: { params: Promise<{ id:
             <Card className='border-none shadow-none'>
               <CardHeader>
                 <CardTitle>Add Permissions</CardTitle>
-                <CardDescription>
-                  Assign specific permissions to the user for global or client-specific access.
-                </CardDescription>
+                <CardDescription>Assign specific permissions to the user for global or client-specific access.</CardDescription>
               </CardHeader>
               <CardContent>
-                <UserPermissionsForm
-                  permissions={permissions}
-                  clients={clients}
-                  user={{ user_id: params.id }}
-                />
+                <UserPermissionsForm permissions={permissions} clients={clients} userId={(await params).id} />
               </CardContent>
             </Card>
           </DialogContent>

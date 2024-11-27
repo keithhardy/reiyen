@@ -8,14 +8,7 @@ import { useForm } from 'react-hook-form';
 import { deleteCertificate } from '@/app/(dashboard)/certificates/[id]/delete/action';
 import { Schema } from '@/app/(dashboard)/certificates/[id]/delete/schema';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { certificateTypeNameMapping } from '@/lib/config';
@@ -33,7 +26,11 @@ export function CertificateDeleteForm({ certificate }: { certificate: Certificat
     },
   });
 
-  const onSubmit = async (data: Pick<Certificate, 'id'> & { certificateType: string }) => {
+  const onSubmit = async (
+    data: Pick<Certificate, 'id'> & {
+      certificateType: string;
+    }
+  ) => {
     try {
       await deleteCertificate(data);
       router.push('/certificates');
@@ -60,11 +57,7 @@ export function CertificateDeleteForm({ certificate }: { certificate: Certificat
             render={({ field }) => (
               <FormItem>
                 <FormLabel className='text-muted-foreground'>
-                  Enter{' '}
-                  <span className='text-foreground'>
-                    {certificateTypeNameMapping[certificate.certificateType]}
-                  </span>{' '}
-                  and press delete to remove.
+                  Enter <span className='text-foreground'>{certificateTypeNameMapping[certificate.certificateType]}</span> and press delete to remove.
                 </FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -86,15 +79,7 @@ export function CertificateDeleteForm({ certificate }: { certificate: Certificat
             )}
           />
           <div className='flex justify-end'>
-            <Button
-              type='submit'
-              disabled={
-                form.watch('certificateType') !==
-                  certificateTypeNameMapping[certificate.certificateType] ||
-                form.formState.isSubmitting
-              }
-              variant='outline'
-            >
+            <Button type='submit' disabled={form.watch('certificateType') !== certificateTypeNameMapping[certificate.certificateType] || form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Deleting' : 'Delete'}
             </Button>
           </div>

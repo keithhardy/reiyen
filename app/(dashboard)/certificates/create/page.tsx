@@ -1,12 +1,7 @@
 import { Metadata } from 'next';
 
 import { CertificateCreateForm } from '@/app/(dashboard)/certificates/create/form';
-import {
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderGroup,
-  PageHeaderHeading,
-} from '@/components/page-header';
+import { PageHeader, PageHeaderDescription, PageHeaderGroup, PageHeaderHeading } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
 
@@ -30,10 +25,7 @@ export default async function CertificateCreatePage() {
       <PageHeader>
         <PageHeaderGroup>
           <PageHeaderHeading>Add Certificate</PageHeaderHeading>
-          <PageHeaderDescription>
-            Please fill out the form below to add a new certificate to the database with accurate
-            information for proper management.
-          </PageHeaderDescription>
+          <PageHeaderDescription>Please fill out the form below to add a new certificate to the database with accurate information for proper management.</PageHeaderDescription>
         </PageHeaderGroup>
       </PageHeader>
 

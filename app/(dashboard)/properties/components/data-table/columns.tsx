@@ -23,8 +23,7 @@ export const columns: ColumnDef<
             {row.getValue('uprn')} – {row.original.client.name}
           </div>
           <div className='font-light text-muted-foreground'>
-            {row.original.address?.streetAddress}, {row.original.address?.postTown},{' '}
-            {row.original.address?.postcode}
+            {row.original.address?.streetAddress}, {row.original.address?.postTown}, {row.original.address?.postcode}
           </div>
         </div>
       </div>

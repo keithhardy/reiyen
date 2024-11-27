@@ -10,26 +10,14 @@ import SignatureCanvas from 'react-signature-canvas';
 import { updatePreferences } from '@/app/(dashboard)/users/[id]/(update)/preferences/action';
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/preferences/schema';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
-export function UserPreferencesForm({ preferences }: { preferences?: Preferences }) {
+export function UserPreferencesForm({ preferences }: { preferences: Preferences }) {
   const { toast } = useToast();
 
   const [isEditingSignature, setIsEditingSignature] = useState(false);
-
-  const form = useForm<Preferences>({
-    resolver: zodResolver(Schema),
-    defaultValues: preferences,
-  });
 
   const signaturePad = useRef<SignatureCanvas>(null);
 
@@ -38,6 +26,11 @@ export function UserPreferencesForm({ preferences }: { preferences?: Preferences
     form.setValue('signature', '');
     setIsEditingSignature(true);
   };
+
+  const form = useForm<Preferences>({
+    resolver: zodResolver(Schema),
+    defaultValues: preferences,
+  });
 
   const onSubmit = async (data: Preferences) => {
     if (signaturePad.current && !signaturePad.current.isEmpty()) {
@@ -92,20 +85,10 @@ export function UserPreferencesForm({ preferences }: { preferences?: Preferences
                       }}
                     />
                   ) : (
-                    <Image
-                      src={preferences.signature}
-                      alt='Saved signature'
-                      width='1000'
-                      height='1000'
-                      className='h-56 w-full rounded-md border bg-white'
-                    />
+                    <Image src={preferences.signature} alt='Saved signature' width='1000' height='1000' className='h-56 w-full rounded-md border bg-white' />
                   )}
                 </FormControl>
-                <button
-                  type='button'
-                  onClick={handleClearSignature}
-                  className='mt-2 bg-background text-sm'
-                >
+                <button type='button' onClick={handleClearSignature} className='mt-2 bg-background text-sm'>
                   Clear Signature
                 </button>
                 <FormMessage />

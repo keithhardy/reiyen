@@ -8,15 +8,16 @@ import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
 export async function updateUser(user: User): Promise<User> {
-  console.log(user)
-
   try {
-    const userResponse = await auth0Management.users.get({ id: user.auth0Id });
-    const currentPicture = userResponse.data.picture;
+    const currentUser = await prisma.user.findFirst({
+      where: {
+        id: user.id,
+      },
+    });
 
     let pictureUrl;
     try {
-      pictureUrl = await updateFile(user.picture, currentPicture, 'profile-picture');
+      pictureUrl = await updateFile(user.picture, currentUser?.picture, 'profile-picture');
     } catch {
       throw new Error('Failed to update user: Error updating file.');
     }
@@ -39,20 +40,19 @@ export async function updateUser(user: User): Promise<User> {
 
     const prismaUser = await prisma.user.update({
       where: {
-        id: user.id
+        id: user.id,
       },
       data: {
         email: user.email,
         name: user.name,
-        picture: user.picture,
-      }
-    })
+        picture: pictureUrl,
+      },
+    });
 
     revalidatePath('/users');
 
     return prismaUser;
-  } catch(error) {
-    console.log(error)
+  } catch {
     throw new Error('Failed to update user.');
   }
 }

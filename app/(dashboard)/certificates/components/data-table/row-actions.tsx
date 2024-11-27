@@ -3,13 +3,7 @@ import { MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { certificateTypeUrlMapping } from '@/lib/config';
 
 export function RowActions({ certificate }: { certificate: Certificate }) {
@@ -24,18 +18,10 @@ export function RowActions({ certificate }: { certificate: Certificate }) {
       <DropdownMenuContent align='end'>
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuItem asChild>
-          <Link
-            href={`/certificates/${certificate.id}/${certificateTypeUrlMapping[certificate.certificateType]}`}
-          >
-            Update
-          </Link>
+          <Link href={`/certificates/${certificate.id}/${certificateTypeUrlMapping[certificate.certificateType]}`}>Update</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild disabled>
-          <Link
-            href={`/certificates/${certificate.id}/${certificateTypeUrlMapping[certificate.certificateType]}`}
-          >
-            Download
-          </Link>
+          <Link href={`/certificates/${certificate.id}/${certificateTypeUrlMapping[certificate.certificateType]}`}>Download</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href={`/certificates/${certificate.id}/delete`}>Delete</Link>

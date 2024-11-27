@@ -2,8 +2,7 @@ export const menuLinks = [
   {
     label: 'Dashboard',
     href: '/',
-    description:
-      'View an overview of system activities and key metrics in electrical certification.',
+    description: 'View an overview of system activities and key metrics in electrical certification.',
   },
   {
     label: 'Users',
