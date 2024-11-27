@@ -1,3 +1,3 @@
 export default function ElectricalInstallationCertificatePage() {
-  return;
+  return null;
 }

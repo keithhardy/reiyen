@@ -20,14 +20,10 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function PropertyUpdatePage(props: { params: Promise<{ id: string }> }) {
-  const params = await props.params;
-
-  const clients = await prisma.client.findMany();
-
+export default async function PropertyUpdatePage({ params }: { params: Promise<{ id: string }> }) {
   const property = await prisma.property.findUnique({
     where: {
-      id: params.id,
+      id: (await params).id,
     },
     include: {
       client: true,
@@ -38,6 +34,8 @@ export default async function PropertyUpdatePage(props: { params: Promise<{ id: 
   if (!property) {
     notFound();
   }
+
+  const clients = await prisma.client.findMany();
 
   return (
     <>
@@ -54,7 +52,7 @@ export default async function PropertyUpdatePage(props: { params: Promise<{ id: 
           <CardDescription>Ensure each field is completed accurately.</CardDescription>
         </CardHeader>
         <CardContent className='col-span-2 p-6 lg:col-span-1'>
-          <PropertyUpdateForm property={property!} clients={clients!} />
+          <PropertyUpdateForm property={property} clients={clients} />
         </CardContent>
       </Card>
     </>

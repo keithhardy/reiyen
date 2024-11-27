@@ -20,12 +20,10 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function PropertyDeletePage(props: { params: Promise<{ id: string }> }) {
-  const params = await props.params;
-
+export default async function PropertyDeletePage({ params }: { params: Promise<{ id: string }> }) {
   const property = await prisma.property.findUnique({
     where: {
-      id: params.id,
+      id: (await params).id,
     },
   });
 

@@ -18,12 +18,10 @@ export async function generateStaticParams() {
   return clients.map((client) => ({ id: client.id }));
 }
 
-export default async function ClientDeletePage(props: { params: Promise<{ id: string }> }) {
-  const params = await props.params;
-
+export default async function ClientDeletePage({ params }: { params: Promise<{ id: string }> }) {
   const client = await prisma.client.findUnique({
     where: {
-      id: params.id,
+      id: (await params).id,
     },
     include: {
       address: true,

@@ -1,3 +1,3 @@
 export default function FireSafetyDesignSummaryPage() {
-  return;
+  return null;
 }

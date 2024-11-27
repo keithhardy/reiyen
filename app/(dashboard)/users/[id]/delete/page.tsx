@@ -10,12 +10,10 @@ export const metadata: Metadata = {
   title: 'Delete – Users – Reiyen',
 };
 
-export default async function UserDeletePage(props: { params: Promise<{ id: string }> }) {
-  const params = await props.params;
-
+export default async function UserDeletePage({ params }: { params: Promise<{ id: string }> }) {
   const user = await prisma.user.findFirst({
     where: {
-      id: params.id,
+      id: (await params).id,
     },
   });
 

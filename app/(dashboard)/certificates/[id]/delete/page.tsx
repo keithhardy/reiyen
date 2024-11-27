@@ -9,12 +9,10 @@ export const metadata: Metadata = {
   title: 'Delete – Certificates – Reiyen',
 };
 
-export default async function CertificateDeletePage(props: { params: Promise<{ id: string }> }) {
-  const params = await props.params;
-
+export default async function CertificateDeletePage({ params }: { params: Promise<{ id: string }> }) {
   const certificate = await prisma.certificate.findUnique({
     where: {
-      id: params.id,
+      id: (await params).id,
     },
     include: {
       property: {

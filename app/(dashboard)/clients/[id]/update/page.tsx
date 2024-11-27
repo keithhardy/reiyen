@@ -18,12 +18,10 @@ export async function generateStaticParams() {
   return clients.map((client) => ({ id: client.id }));
 }
 
-export default async function ClientUpdatePage(props: { params: Promise<{ id: string }> }) {
-  const params = await props.params;
-
+export default async function ClientUpdatePage({ params }: { params: Promise<{ id: string }> }) {
   const client = await prisma.client.findUnique({
     where: {
-      id: params.id,
+      id: (await params).id,
     },
     include: {
       address: true,
@@ -49,7 +47,7 @@ export default async function ClientUpdatePage(props: { params: Promise<{ id: st
           <CardDescription>Ensure each field is completed accurately.</CardDescription>
         </CardHeader>
         <CardContent className='col-span-2 p-6 lg:col-span-1'>
-          <ClientUpdateForm client={client!} />
+          <ClientUpdateForm client={client} />
         </CardContent>
       </Card>
     </>

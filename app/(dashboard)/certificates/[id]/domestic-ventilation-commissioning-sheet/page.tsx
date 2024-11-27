@@ -1,3 +1,3 @@
 export default function DomesticVentilationCommissioningSheetPage() {
-  return;
+  return null;
 }
