@@ -17,15 +17,15 @@ export async function deleteUser(user: User): Promise<void> {
       await deleteFile(user.picture);
     }
 
-    await waitForOperationInLogs({
-      userId: user.auth0Id,
-      operationType: 'Delete a User',
-    });
-
     await prisma.user.delete({
       where: {
         id: user.id,
       },
+    });
+
+    await waitForOperationInLogs({
+      userId: user.auth0Id,
+      operationType: 'Delete a User',
     });
 
     revalidatePath('/users');

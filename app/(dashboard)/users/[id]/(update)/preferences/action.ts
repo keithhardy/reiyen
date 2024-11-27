@@ -8,14 +8,11 @@ import { updateFile } from '@/lib/vercel-blob';
 
 export async function updatePreferences(preferences: Preferences): Promise<Preferences> {
   try {
-    const preferencesResponse = await prisma.preferences.findFirst({
-      where: { id: preferences.id },
-    });
-    const currentSignature = preferencesResponse?.signature;
+    const preferencesResponse = await prisma.preferences.findFirst({ where: { id: preferences.id } });
 
     let signatureUrl;
     try {
-      signatureUrl = await updateFile(preferences.signature, currentSignature, 'signature');
+      signatureUrl = await updateFile(preferences.signature, preferencesResponse?.signature, 'signature');
     } catch {
       throw new Error('Failed to update preferences: Error updating file.');
     }
@@ -31,7 +28,6 @@ export async function updatePreferences(preferences: Preferences): Promise<Prefe
     });
 
     revalidatePath('/users');
-
     return updatedPreferences;
   } catch {
     throw new Error('Preferences update failed');
