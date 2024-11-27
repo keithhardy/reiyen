@@ -24,7 +24,7 @@ export default async function UserEquipmentPage(props: { params: Promise<{ id: s
 
   const equipment = await prisma.equipment.findMany({
     where: {
-      userId: 'auth0|' + params.id,
+      userId: params.id,
     },
   });
 
@@ -60,7 +60,7 @@ export default async function UserEquipmentPage(props: { params: Promise<{ id: s
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <UserEquipmentForm user={{ user_id: 'auth0|' + params.id }} />
+                <UserEquipmentForm user={{ user_id: params.id }} />
               </CardContent>
             </Card>
           </DialogContent>

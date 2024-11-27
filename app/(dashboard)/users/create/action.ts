@@ -26,6 +26,12 @@ export async function createUser(user: Omit<Auth0User, 'user_id'>): Promise<User
         email: createdUser.email,
         name: createdUser.name,
         picture: createdUser.picture,
+        preferences: {
+          create: {
+            position: '',
+            signature: ''
+          }
+        }
       }
     })
 

@@ -8,138 +8,42 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-model User {
-  id      String @id @default(cuid())
-  auth0Id String @unique
-  email   String
-  name    String
-  picture String
-}
-
-model Settings {
-  id                  String   @id @default(cuid())
-  address             Address?
-  email               String
-  governingBody       String
-  governingBodyNumber String
-  logoUrl             String
-  name                String
-  phone               String
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-}
-
 model Address {
-  id            String    @id @default(cuid())
   city          String
+  client        Client?   @relation(fields: [clientId], references: [id], onDelete: Cascade)
   clientId      String?   @unique
-  country       String    @default("United Kingdom")
   county        String?
+  country       String    @default("United Kingdom")
+  createdAt     DateTime  @default(now())
+  id            String    @id @default(cuid())
   postTown      String
   postcode      String
+  property      Property? @relation(fields: [propertyId], references: [id], onDelete: Cascade)
   propertyId    String?   @unique
+  settings      Settings? @relation(fields: [settingsId], references: [id], onDelete: Cascade)
   settingsId    String?   @unique
   streetAddress String
-  client        Client?   @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  property      Property? @relation(fields: [propertyId], references: [id], onDelete: Cascade)
-  settings      Settings? @relation(fields: [settingsId], references: [id], onDelete: Cascade)
-  createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
 
-model Preferences {
-  id        String   @id @default(cuid())
-  position  String
-  signature String
-  userId    String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Equipment {
-  id             String   @id @default(cuid())
-  certificateUrl String
-  make           String
-  model          String
-  serialNumber   String
-  testDate       String
-  type           String
-  userId         String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  @@unique([userId, type])
-}
-
-model Qualification {
-  id                  String   @id @default(cuid())
-  awardingBody        String
-  awardDate           String
-  certificateUrl      String
-  qualification       String
-  qualificationNumber String
-  userId              String
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
-}
-
-model Permission {
-  id         String   @id @default(cuid())
-  clientId   String?
-  permission String
-  userId     String
-  client     Client?  @relation(fields: [clientId], references: [id])
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  @@unique([userId, permission, clientId])
-}
-
-model Client {
-  id          String       @id @default(cuid())
-  address     Address?
-  email       String
-  logoUrl     String
-  name        String
-  permissions Permission[]
-  phone       String
-  properties  Property[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-}
-
-model Property {
-  id           String        @id @default(cuid())
-  address      Address?
-  certificates Certificate[]
-  clientId     String
-  occupier     String
-  uprn         String
-  client       Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-
-  @@index([clientId])
-}
-
 model Certificate {
-  id                                    String                                 @id @default(cuid())
   certificateType                       CertificateType
-  propertyId                            String
   date                                  String
-  technicianId                          String
-  technicianSignature                   String?
-  technicianSignatureDate               String?
-  supervisorId                          String?
-  supervisorSignature                   String?
-  supervisorSignatureDate               String?
-  status                                String
-  minorWorks                            MinorWorks?
+  domesticVentilationCommissioningSheet DomesticVentilationCommissioningSheet?
   electricalInstallationCertificate     ElectricalInstallationCertificate?
   electricalInstallationConditionReport ElectricalInstallationConditionReport?
   fireSafetyDesignSummary               FireSafetyDesignSummary?
-  domesticVentilationCommissioningSheet DomesticVentilationCommissioningSheet?
+  id                                    String                                 @id @default(cuid())
+  minorWorks                            MinorWorks?
   property                              Property                               @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  propertyId                            String
+  status                                String
+  supervisorId                          String?
+  supervisorSignature                   String?
+  supervisorSignatureDate               String?
+  technicianId                          String
+  technicianSignature                   String?
+  technicianSignatureDate               String?
 
   @@index([propertyId])
 }
@@ -152,32 +56,136 @@ enum CertificateType {
   DOMESTIC_VENTILATION_COMMISSIONING_SHEET
 }
 
-model MinorWorks {
-  id            String      @id @default(cuid())
-  certificate   Certificate @relation(fields: [certificateId], references: [id])
-  certificateId String      @unique
-}
-
-model ElectricalInstallationCertificate {
-  id            String      @id @default(cuid())
-  certificate   Certificate @relation(fields: [certificateId], references: [id])
-  certificateId String      @unique
-}
-
-model ElectricalInstallationConditionReport {
-  id            String      @id @default(cuid())
-  certificate   Certificate @relation(fields: [certificateId], references: [id])
-  certificateId String      @unique
-}
-
-model FireSafetyDesignSummary {
-  id            String      @id @default(cuid())
-  certificate   Certificate @relation(fields: [certificateId], references: [id])
-  certificateId String      @unique
+model Client {
+  address     Address?
+  createdAt   DateTime     @default(now())
+  email       String
+  id          String       @id @default(cuid())
+  logoUrl     String
+  name        String
+  permissions Permission[]
+  phone       String
+  properties  Property[]
+  updatedAt   DateTime     @updatedAt
 }
 
 model DomesticVentilationCommissioningSheet {
-  id            String      @id @default(cuid())
   certificate   Certificate @relation(fields: [certificateId], references: [id])
   certificateId String      @unique
+  id            String      @id @default(cuid())
+}
+
+model ElectricalInstallationCertificate {
+  certificate   Certificate @relation(fields: [certificateId], references: [id])
+  certificateId String      @unique
+  id            String      @id @default(cuid())
+}
+
+model ElectricalInstallationConditionReport {
+  certificate   Certificate @relation(fields: [certificateId], references: [id])
+  certificateId String      @unique
+  id            String      @id @default(cuid())
+}
+
+model Equipment {
+  certificateUrl String
+  createdAt      DateTime @default(now())
+  id             String   @id @default(cuid())
+  make           String
+  model          String
+  serialNumber   String
+  testDate       String
+  type           String
+  updatedAt      DateTime @updatedAt
+  user           User     @relation(fields: [userId], references: [id])
+  userId         String
+
+  @@unique([userId, type])
+}
+
+model FireSafetyDesignSummary {
+  certificate   Certificate @relation(fields: [certificateId], references: [id])
+  certificateId String      @unique
+  id            String      @id @default(cuid())
+}
+
+model MinorWorks {
+  certificate   Certificate @relation(fields: [certificateId], references: [id])
+  certificateId String      @unique
+  id            String      @id @default(cuid())
+}
+
+model Permission {
+  client     Client?  @relation(fields: [clientId], references: [id])
+  clientId   String?
+  createdAt  DateTime @default(now())
+  id         String   @id @default(cuid())
+  permission String
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+
+  @@unique([userId, permission, clientId])
+}
+
+model Preferences {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  position  String
+  signature String
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+}
+
+model Property {
+  address      Address?
+  certificates Certificate[]
+  client       Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  clientId     String
+  createdAt    DateTime      @default(now())
+  id           String        @id @default(cuid())
+  occupier     String
+  updatedAt    DateTime      @updatedAt
+  uprn         String
+
+  @@index([clientId])
+}
+
+model Qualification {
+  awardDate           String
+  awardingBody        String
+  certificateUrl      String
+  createdAt           DateTime @default(now())
+  id                  String   @id @default(cuid())
+  qualification       String
+  qualificationNumber String
+  updatedAt           DateTime @updatedAt
+  user                User     @relation(fields: [userId], references: [id])
+  userId              String
+}
+
+model Settings {
+  address             Address?
+  createdAt           DateTime @default(now())
+  email               String
+  governingBody       String
+  governingBodyNumber String
+  id                  String   @id @default(cuid())
+  logoUrl             String
+  name                String
+  phone               String
+  updatedAt           DateTime @updatedAt
+}
+
+model User {
+  auth0Id        String          @unique
+  email          String
+  equipment      Equipment[]
+  id             String          @id @default(cuid())
+  name           String
+  permissions    Permission[]
+  picture        String
+  preferences    Preferences?
+  qualifications Qualification[]
 }

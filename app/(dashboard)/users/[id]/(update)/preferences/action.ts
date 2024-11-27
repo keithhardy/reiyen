@@ -8,8 +8,8 @@ import { updateFile } from '@/lib/vercel-blob';
 
 export async function updatePreferences(preferences: Preferences): Promise<Preferences> {
   try {
-    const preferencesResponse = await prisma.preferences.findUnique({
-      where: { userId: preferences.userId },
+    const preferencesResponse = await prisma.preferences.findFirst({
+      where: { id: preferences.id },
     });
     const currentSignature = preferencesResponse?.signature;
 
@@ -20,18 +20,13 @@ export async function updatePreferences(preferences: Preferences): Promise<Prefe
       throw new Error('Failed to update preferences: Error updating file.');
     }
 
-    const updatedPreferences = await prisma.preferences.upsert({
+    const updatedPreferences = await prisma.preferences.update({
       where: {
-        userId: preferences.userId,
+        id: preferences.id,
       },
-      update: {
+      data: {
         position: preferences.position,
         signature: signatureUrl,
-      },
-      create: {
-        userId: preferences.userId,
-        position: preferences.position,
-        signature: signatureUrl || '',
       },
     });
 

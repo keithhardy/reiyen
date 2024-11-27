@@ -13,7 +13,7 @@ export default async function UserPreferencesPage(props: { params: Promise<{ id:
 
   const preferences = await prisma.preferences.findUnique({
     where: {
-      userId: 'auth0|' + params.id,
+      userId: params.id,
     },
   });
 
@@ -26,7 +26,7 @@ export default async function UserPreferencesPage(props: { params: Promise<{ id:
         </CardDescription>
       </CardHeader>
       <CardContent className='col-span-2 p-6 lg:col-span-1'>
-        <UserPreferencesForm preferences={preferences!} user={{ user_id: 'auth0|' + params.id }} />
+        <UserPreferencesForm preferences={preferences!} />
       </CardContent>
     </Card>
   );

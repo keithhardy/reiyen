@@ -14,8 +14,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { prisma } from '@/lib/prisma';
 
-export const dynamic = 'force-dynamic';
-
 export const metadata: Metadata = {
   title: 'Users – Reiyen',
 };

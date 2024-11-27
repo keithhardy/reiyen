@@ -21,25 +21,14 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
-export function UserPreferencesForm({
-  preferences,
-  user,
-}: {
-  preferences?: Preferences;
-  user: { user_id: string };
-}) {
+export function UserPreferencesForm({ preferences }: { preferences?: Preferences }) {
   const { toast } = useToast();
 
   const [isEditingSignature, setIsEditingSignature] = useState(false);
 
   const form = useForm<Preferences>({
     resolver: zodResolver(Schema),
-    defaultValues: {
-      id: preferences?.id || '',
-      position: preferences?.position || '',
-      signature: preferences?.signature || '',
-      userId: user.user_id,
-    },
+    defaultValues: preferences,
   });
 
   const signaturePad = useRef<SignatureCanvas>(null);
