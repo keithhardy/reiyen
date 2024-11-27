@@ -12,6 +12,14 @@ export const metadata: Metadata = {
   title: 'Permissions – Users – Reiyen',
 };
 
+export async function generateStaticParams() {
+  const users = await prisma.user.findMany({
+    select: { id: true },
+  });
+
+  return users.map((user) => ({ id: user.id }));
+}
+
 export default async function UserPermissionsPage({ params }: { params: Promise<{ id: string }> }) {
   const permissions = await prisma.permission.findMany({
     where: {

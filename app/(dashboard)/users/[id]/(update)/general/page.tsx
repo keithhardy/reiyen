@@ -9,6 +9,14 @@ export const metadata: Metadata = {
   title: 'General – Users – Reiyen',
 };
 
+export async function generateStaticParams() {
+  const users = await prisma.user.findMany({
+    select: { id: true },
+  });
+
+  return users.map((user) => ({ id: user.id }));
+}
+
 export default async function UserGeneralPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await prisma.user.findFirst({
     where: {

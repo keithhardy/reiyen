@@ -12,6 +12,14 @@ export const metadata: Metadata = {
   title: 'Qualifications – Users – Reiyen',
 };
 
+export async function generateStaticParams() {
+  const users = await prisma.user.findMany({
+    select: { id: true },
+  });
+
+  return users.map((user) => ({ id: user.id }));
+}
+
 export default async function UserQualificationsPage({ params }: { params: Promise<{ id: string }> }) {
   const qualifications = await prisma.qualification.findMany({
     where: {
