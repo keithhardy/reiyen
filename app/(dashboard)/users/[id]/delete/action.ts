@@ -13,7 +13,7 @@ export async function deleteUser(user: User): Promise<void> {
       id: user.auth0Id,
     });
 
-    if (user.picture && !user.picture.includes('auth0.com')) {
+    if (user.picture) {
       await deleteFile(user.picture);
     }
 

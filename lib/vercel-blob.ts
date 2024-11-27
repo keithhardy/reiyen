@@ -46,7 +46,7 @@ export async function uploadFile(newFile?: string, filePrefix: string = 'uploade
 
 export async function updateFile(newFile?: string, currentFile?: string, filePrefix: string = 'uploaded-file'): Promise<string | undefined> {
   if (newFile === '') {
-    if (currentFile && currentFile.includes('blob.vercel-storage.com')) {
+    if (currentFile && currentFile.includes('vercel-storage.com')) {
       await deleteFile(currentFile);
     }
     return undefined;
@@ -67,7 +67,7 @@ export async function updateFile(newFile?: string, currentFile?: string, filePre
 
     const uploadedFileUrl = await saveFile(newFile, fileName);
 
-    if (currentFile && currentFile.includes('blob.vercel-storage.com')) {
+    if (currentFile && currentFile.includes('vercel-storage.com')) {
       await deleteFile(currentFile);
     }
 

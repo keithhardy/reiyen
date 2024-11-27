@@ -54,7 +54,7 @@ export function UserCreateForm() {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input {...field} autoComplete='new-name' />
+                  <Input {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -67,7 +67,7 @@ export function UserCreateForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type='email' {...field} autoComplete='new-email' />
+                  <Input type='email' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -80,7 +80,7 @@ export function UserCreateForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type='password' {...field} autoComplete='new-password' />
+                  <Input type='password' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
