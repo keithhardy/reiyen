@@ -2,13 +2,15 @@
 
 import { Permission } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
+import { Schema } from '@/app/(dashboard)/users/[id]/(update)/permissions/schema';
 import { prisma } from '@/lib/prisma';
 
-export async function addPermissions(permissions: Omit<Permission, 'id' | 'createdAt' | 'updatedAt'>[]) {
+export async function addPermissions(data: z.infer<typeof Schema>) {
   try {
     await prisma.permission.createMany({
-      data: permissions,
+      data: data.permissions,
     });
 
     revalidatePath('users');

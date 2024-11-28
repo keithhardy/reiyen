@@ -22,7 +22,7 @@ export function UserPermissionsForm({ permissions, clients, userId }: { permissi
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
-      await addPermissions(data.permissions);
+      await addPermissions(data);
       toast({
         title: 'Permissions Added',
         description: 'The permissions have been successfully added.',
