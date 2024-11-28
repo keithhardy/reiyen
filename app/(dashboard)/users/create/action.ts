@@ -30,7 +30,7 @@ export async function createUser(user: User & { password: string }): Promise<Use
       },
     });
     
-    revalidatePath('/users', 'layout');
+    revalidatePath('/users');
     
     return prismaUser;
   } catch {

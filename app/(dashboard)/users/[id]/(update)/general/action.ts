@@ -44,7 +44,7 @@ export async function updateUser(user: User): Promise<User> {
       },
     });
 
-    revalidatePath('/users', 'layout');
+    revalidatePath('/users');
 
     return prismaUser;
   } catch {

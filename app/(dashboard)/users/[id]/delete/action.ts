@@ -23,7 +23,7 @@ export async function deleteUser(user: User): Promise<void> {
       },
     });
 
-    revalidatePath('/users', 'layout');
+    revalidatePath('/users');
     
   } catch {
     throw new Error('Failed to delete user.');
