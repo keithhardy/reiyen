@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 export const Schema = z.object({
-  name: z.string(),
-  auth0Id: z.string(),
-  id: z.string(),
-  picture: z.string(),
+  name: z.string().optional(),
+  auth0Id: z.string().optional(),
+  id: z.string().optional(),
+  picture: z.string().optional(),
 });

@@ -2,19 +2,17 @@ import { z } from 'zod';
 
 export const Schema = z.object({
   id: z.string(),
-  uprn: z.string().min(1, { message: 'UPRN cannot be empty' }),
-  occupier: z.string().min(1, { message: 'Occupier cannot be empty' }),
+  uprn: z.string().optional(),
+  occupier: z.string().optional(),
   address: z.object({
-    streetAddress: z.string().min(1, {
-      message: 'Street Address cannot be empty',
-    }),
-    city: z.string().min(1, { message: 'City cannot be empty' }),
-    county: z.string().min(1, { message: 'County cannot be empty' }),
-    postTown: z.string().min(1, { message: 'Post Town cannot be empty' }),
-    postcode: z.string().min(1, { message: 'Postcode cannot be empty' }),
+    streetAddress: z.string().optional(),
+    city: z.string().optional(),
+    county: z.string().optional(),
+    postTown: z.string().optional(),
+    postcode: z.string().optional(),
     country: z.string().optional(),
   }),
   client: z.object({
-    id: z.string().min(1, { message: 'Client cannot be empty' }),
+    id: z.string().optional(),
   }),
 });

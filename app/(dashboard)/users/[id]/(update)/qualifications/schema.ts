@@ -4,12 +4,10 @@ export const Schema = z.object({
   id: z.string().optional(),
   auth0Id: z.string().optional(),
   picture: z.string().optional(),
-  userId: z.string().min(1, { message: 'User ID cannot be empty' }),
-  awardingBody: z.string().min(1, { message: 'Awarding Body cannot be empty' }),
-  qualification: z.string().min(1, { message: 'Qualification cannot be empty' }),
-  qualificationNumber: z.string().min(1, {
-    message: 'Qualification Number cannot be empty',
-  }),
-  awardDate: z.string().min(1, { message: 'Award Date cannot be empty' }),
+  userId: z.string().optional(),
+  awardingBody: z.string().optional(),
+  qualification: z.string().optional(),
+  qualificationNumber: z.string().optional(),
+  awardDate: z.string().optional(),
   certificateUrl: z.string().optional(),
 });

@@ -2,11 +2,11 @@ import { z } from 'zod';
 
 export const Schema = z.object({
   id: z.string().optional(),
-  userId: z.string().min(1, { message: 'User ID cannot be empty' }),
-  make: z.string().min(1, { message: 'Make cannot be empty' }),
-  model: z.string().min(1, { message: 'Model cannot be empty' }),
-  serialNumber: z.string().min(1, { message: 'Serial Number cannot be empty' }),
-  testDate: z.string().min(1, { message: 'Test Date cannot be empty' }),
+  userId: z.string().optional(),
+  make: z.string().optional(),
+  model: z.string().optional(),
+  serialNumber: z.string().optional(),
+  testDate: z.string().optional(),
   certificateUrl: z.string().optional(),
-  type: z.string().min(1, { message: 'Type cannot be empty' }),
+  type: z.string().optional(),
 });
