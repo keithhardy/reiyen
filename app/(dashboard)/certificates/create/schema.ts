@@ -1,7 +1,13 @@
 import { $Enums } from '@prisma/client';
 import { z } from 'zod';
 
-const CertificateTypeValues = Object.values($Enums.CertificateType) as [string, ...string[]];
+const CertificateTypeValues = [
+  $Enums.CertificateType.MINOR_WORKS,
+  $Enums.CertificateType.ELECTRICAL_INSTALLATION_CERTIFICATE,
+  $Enums.CertificateType.ELECTRICAL_INSTALLATION_CONDITION_REPORT,
+  $Enums.CertificateType.FIRE_SAFETY_DESIGN_SUMMARY,
+  $Enums.CertificateType.DOMESTIC_VENTILATION_COMMISSIONING_SHEET,
+] as const;
 
 export const Schema = z.object({
   certificateType: z.enum(CertificateTypeValues),
@@ -15,9 +21,9 @@ export const Schema = z.object({
   supervisorSignatureDate: z.string().optional(),
   status: z.string(),
   property: z.object({
-    id: z.string().min(1, { message: 'Property cannot be empty' }),
+    id: z.string().optional(),
     client: z.object({
-      id: z.string().min(1, { message: 'Client cannot be empty' }),
+      id: z.string().optional(),
     }),
   }),
 });

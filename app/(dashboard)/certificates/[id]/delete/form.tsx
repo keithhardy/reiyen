@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Certificate } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { deleteCertificate } from '@/app/(dashboard)/certificates/[id]/delete/action';
 import { Schema } from '@/app/(dashboard)/certificates/[id]/delete/schema';
@@ -18,7 +19,7 @@ export function CertificateDeleteForm({ certificate }: { certificate: Certificat
 
   const { toast } = useToast();
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
       id: certificate.id,
@@ -26,11 +27,7 @@ export function CertificateDeleteForm({ certificate }: { certificate: Certificat
     },
   });
 
-  const onSubmit = async (
-    data: Pick<Certificate, 'id'> & {
-      certificateType: string;
-    }
-  ) => {
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await deleteCertificate(data);
       router.push('/certificates');

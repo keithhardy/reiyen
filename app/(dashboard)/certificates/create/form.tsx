@@ -1,10 +1,11 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { $Enums, Address, Certificate, Client, Property } from '@prisma/client';
+import { Address, Client, Property } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { createCertificate } from '@/app/(dashboard)/certificates/create/action';
 import { Schema } from '@/app/(dashboard)/certificates/create/schema';
@@ -29,10 +30,10 @@ export function CertificateCreateForm({
 
   const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      certificateType: $Enums.CertificateType.ELECTRICAL_INSTALLATION_CONDITION_REPORT,
+      certificateType: undefined,
       date: '24/11/2024',
       technicianId: '',
       technicianSignature: '',
@@ -52,13 +53,7 @@ export function CertificateCreateForm({
 
   const selectedClient = clients.find((client) => client.id === selectedClientId);
 
-  const onSubmit = async (
-    data: Omit<Certificate, 'id' | 'propertyId' | 'createdAt' | 'updatedAt'> & {
-      property: Pick<Property, 'id'> & {
-        client: Pick<Client, 'id'>;
-      };
-    }
-  ) => {
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await createCertificate(data);
       router.push('/certificates');
