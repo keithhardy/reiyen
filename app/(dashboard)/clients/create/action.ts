@@ -10,11 +10,10 @@ import { uploadFile } from '@/lib/vercel-blob';
 
 export async function createClient(client: z.infer<typeof Schema>): Promise<Client> {
   try {
-    let logoUrl;
     try {
-      logoUrl = await uploadFile(client.logoUrl, 'certifictate');
+      client.logoUrl = await uploadFile(client.logoUrl, 'certifictate');
     } catch {
-      throw new Error('Failed to create qualification: Error updating file.');
+      throw new Error('Client creation failed: Error uploading logo.');
     }
 
     const createdClient = await prisma.client.create({
@@ -22,7 +21,7 @@ export async function createClient(client: z.infer<typeof Schema>): Promise<Clie
         name: client.name,
         email: client.email,
         phone: client.phone,
-        logoUrl: logoUrl || '',
+        logoUrl: client.logoUrl || '',
         address: {
           create: {
             streetAddress: client.address.streetAddress,
@@ -37,9 +36,8 @@ export async function createClient(client: z.infer<typeof Schema>): Promise<Clie
     });
 
     revalidatePath('/clients');
-
     return createdClient;
   } catch {
-    throw new Error('Client update failed');
+    throw new Error('Client creation failed');
   }
 }

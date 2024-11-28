@@ -15,13 +15,11 @@ export async function updateClient(client: z.infer<typeof Schema>): Promise<Clie
         id: client.id,
       },
     });
-    const currentLogo = clientResponse?.logoUrl;
 
-    let logoUrl;
     try {
-      logoUrl = await updateFile(client.logoUrl, currentLogo, 'certifictate');
+      client.logoUrl = await updateFile(client.logoUrl, clientResponse?.logoUrl, 'certifictate');
     } catch {
-      throw new Error('Failed to create qualification: Error updating file.');
+      throw new Error('Client update failed: Error updating logo.');
     }
 
     const updatedClient = await prisma.client.update({
@@ -32,7 +30,7 @@ export async function updateClient(client: z.infer<typeof Schema>): Promise<Clie
         name: client.name,
         email: client.email,
         phone: client.phone,
-        logoUrl: logoUrl,
+        logoUrl: client.logoUrl,
         address: {
           update: {
             id: client.address?.id,
@@ -48,7 +46,6 @@ export async function updateClient(client: z.infer<typeof Schema>): Promise<Clie
     });
 
     revalidatePath('/clients');
-
     return updatedClient;
   } catch {
     throw new Error('Client update failed');

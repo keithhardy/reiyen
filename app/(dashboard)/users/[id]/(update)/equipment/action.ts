@@ -9,11 +9,10 @@ import { deleteFile, uploadFile } from '@/lib/vercel-blob';
 
 export async function createEquipment(equipment: z.infer<typeof Schema>): Promise<void> {
   try {
-    let certificateUrl;
     try {
-      certificateUrl = await uploadFile(equipment.certificateUrl, 'certifictate');
+      equipment.certificateUrl = await uploadFile(equipment.certificateUrl, 'certifictate');
     } catch {
-      throw new Error('Failed to create qualification: Error updating file.');
+      throw new Error('Equipment creation failed: Error updating file.');
     }
 
     await prisma.equipment.create({
@@ -24,7 +23,7 @@ export async function createEquipment(equipment: z.infer<typeof Schema>): Promis
         model: equipment.model,
         serialNumber: equipment.serialNumber,
         testDate: equipment.testDate,
-        certificateUrl: certificateUrl || '',
+        certificateUrl: equipment.certificateUrl || '',
       },
     });
 

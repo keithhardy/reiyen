@@ -12,11 +12,10 @@ export async function updateSettings(settings: z.infer<typeof Schema>): Promise<
   try {
     const settingsResponse = await prisma.settings.findFirst();
 
-    let logoUrl;
     try {
-      logoUrl = await updateFile(settings.logoUrl, settingsResponse?.logoUrl, 'logo');
+      settings.logoUrl = await updateFile(settings.logoUrl, settingsResponse?.logoUrl, 'logo');
     } catch {
-      throw new Error('Failed to update settings: Error updating file.');
+      throw new Error('Settings update failed: Error updating file.');
     }
 
     const updatedSettings = await prisma.settings.update({
@@ -27,7 +26,7 @@ export async function updateSettings(settings: z.infer<typeof Schema>): Promise<
         name: settings.name,
         email: settings.email,
         phone: settings.phone,
-        logoUrl: logoUrl,
+        logoUrl: settings.logoUrl,
         governingBody: settings.governingBody,
         governingBodyNumber: settings.governingBodyNumber,
         address: {

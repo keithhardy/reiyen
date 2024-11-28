@@ -33,6 +33,6 @@ export async function createProperty(property: z.infer<typeof Schema>): Promise<
 
     return createdProperty;
   } catch {
-    throw new Error('Failed to create property.');
+    throw new Error('Property creation failed');
   }
 }

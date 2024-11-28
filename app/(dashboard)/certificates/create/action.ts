@@ -11,16 +11,12 @@ import { prisma } from '@/lib/prisma';
 export async function createCertificate(certificate: z.infer<typeof Schema>): Promise<Certificate> {
   const session = await auth0.getSession();
 
-  if (!session) {
-    throw new Error('No logged in user');
-  }
-
   try {
     const createdCertificate = await prisma.certificate.create({
       data: {
         certificateType: certificate.certificateType,
         date: certificate.date,
-        technicianId: session.user.sub,
+        technicianId: session!.user.sub,
         status: certificate.status,
         property: {
           connect: {
@@ -31,7 +27,6 @@ export async function createCertificate(certificate: z.infer<typeof Schema>): Pr
     });
 
     revalidatePath('/certificates');
-
     return createdCertificate;
   } catch {
     throw new Error('Certificate creation failed');

@@ -16,6 +16,6 @@ export async function deleteProperty(property: z.infer<typeof Schema>): Promise<
 
     revalidatePath('/properties');
   } catch {
-    throw new Error('Property update failed');
+    throw new Error('Property deletion failed');
   }
 }

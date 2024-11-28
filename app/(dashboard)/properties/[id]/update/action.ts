@@ -33,6 +33,6 @@ export async function updateProperty(property: z.infer<typeof Schema>): Promise<
 
     revalidatePath('/properties');
   } catch {
-    throw new Error('Failed to update property.');
+    throw new Error('Property update failed');
   }
 }
