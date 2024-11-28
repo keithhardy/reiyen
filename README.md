@@ -2,8 +2,9 @@
 
 ### Users
 
-- Create
-- Delete
+<!-- - Create -->
+<!-- - Delete -->
+
 - General
 - Preferences
 - Equipment

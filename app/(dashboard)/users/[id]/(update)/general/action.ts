@@ -3,7 +3,7 @@
 import { User } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 
-import { auth0Management, waitForOperationInLogs } from '@/lib/auth0-management';
+import { auth0Management } from '@/lib/auth0-management';
 import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
@@ -33,11 +33,6 @@ export async function updateUser(user: User): Promise<User> {
       }
     );
 
-    await waitForOperationInLogs({
-      userId: user.auth0Id,
-      operationType: 'Update a User',
-    });
-
     const prismaUser = await prisma.user.update({
       where: {
         id: user.id,
@@ -49,7 +44,7 @@ export async function updateUser(user: User): Promise<User> {
       },
     });
 
-    revalidatePath('/users');
+    revalidatePath('/users', 'layout');
 
     return prismaUser;
   } catch {
