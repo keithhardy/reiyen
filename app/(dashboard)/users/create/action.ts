@@ -3,21 +3,16 @@
 import { User } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 
-import { auth0Management, User as Auth0User, waitForOperationInLogs } from '@/lib/auth0-management';
+import { auth0Management, waitForOperationInLogs } from '@/lib/auth0-management';
 import { prisma } from '@/lib/prisma';
 
-export async function createUser(user: Omit<Auth0User, 'user_id'>): Promise<User> {
+export async function createUser(user: User & { password: string }): Promise<User> {
   try {
     const { data: createdUser } = await auth0Management.users.create({
       connection: 'Username-Password-Authentication',
       name: user.name,
       email: user.email,
       password: user.password,
-    });
-
-    await waitForOperationInLogs({
-      userId: createdUser.user_id,
-      operationType: 'Create a User',
     });
 
     const prismaUser = await prisma.user.create({
@@ -35,8 +30,12 @@ export async function createUser(user: Omit<Auth0User, 'user_id'>): Promise<User
       },
     });
 
+    await waitForOperationInLogs({
+      userId: createdUser.user_id,
+      operationType: 'Create a User',
+    });
+    
     revalidatePath('/users');
-
     return prismaUser;
   } catch {
     throw new Error('Failed to create user.');

@@ -14,7 +14,6 @@ model Address {
   clientId      String?   @unique
   county        String?
   country       String    @default("United Kingdom")
-  createdAt     DateTime  @default(now())
   id            String    @id @default(cuid())
   postTown      String
   postcode      String
@@ -23,7 +22,6 @@ model Address {
   settings      Settings? @relation(fields: [settingsId], references: [id], onDelete: Cascade)
   settingsId    String?   @unique
   streetAddress String
-  updatedAt     DateTime  @updatedAt
 }
 
 model Certificate {
@@ -58,7 +56,6 @@ enum CertificateType {
 
 model Client {
   address     Address?
-  createdAt   DateTime     @default(now())
   email       String
   id          String       @id @default(cuid())
   logoUrl     String
@@ -66,7 +63,6 @@ model Client {
   permissions Permission[]
   phone       String
   properties  Property[]
-  updatedAt   DateTime     @updatedAt
 }
 
 model DomesticVentilationCommissioningSheet {
@@ -89,15 +85,13 @@ model ElectricalInstallationConditionReport {
 
 model Equipment {
   certificateUrl String
-  createdAt      DateTime @default(now())
-  id             String   @id @default(cuid())
+  id             String @id @default(cuid())
   make           String
   model          String
   serialNumber   String
   testDate       String
   type           String
-  updatedAt      DateTime @updatedAt
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user           User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         String
 
   @@unique([userId, type])
@@ -116,26 +110,22 @@ model MinorWorks {
 }
 
 model Permission {
-  client     Client?  @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  client     Client? @relation(fields: [clientId], references: [id], onDelete: Cascade)
   clientId   String?
-  createdAt  DateTime @default(now())
-  id         String   @id @default(cuid())
+  id         String  @id @default(cuid())
   permission String
-  updatedAt  DateTime @updatedAt
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
 
   @@unique([userId, permission, clientId])
 }
 
 model Preferences {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
+  id        String @id @default(cuid())
   position  String
   signature String
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String   @unique
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String @unique
 }
 
 model Property {
@@ -143,10 +133,8 @@ model Property {
   certificates Certificate[]
   client       Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
   clientId     String
-  createdAt    DateTime      @default(now())
   id           String        @id @default(cuid())
   occupier     String
-  updatedAt    DateTime      @updatedAt
   uprn         String
 
   @@index([clientId])
@@ -156,18 +144,15 @@ model Qualification {
   awardDate           String
   awardingBody        String
   certificateUrl      String
-  createdAt           DateTime @default(now())
-  id                  String   @id @default(cuid())
+  id                  String @id @default(cuid())
   qualification       String
   qualificationNumber String
-  updatedAt           DateTime @updatedAt
-  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId              String
 }
 
 model Settings {
   address             Address?
-  createdAt           DateTime @default(now())
   email               String
   governingBody       String
   governingBodyNumber String
@@ -175,7 +160,6 @@ model Settings {
   logoUrl             String
   name                String
   phone               String
-  updatedAt           DateTime @updatedAt
 }
 
 model User {

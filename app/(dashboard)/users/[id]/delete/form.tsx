@@ -20,8 +20,7 @@ export function UserDeleteForm({ user }: { user: User }) {
   const form = useForm<User>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      id: user.id,
-      auth0Id: user.auth0Id,
+      ...user,
       name: '',
     },
   });

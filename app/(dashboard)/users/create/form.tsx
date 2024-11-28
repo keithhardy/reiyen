@@ -1,6 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { User } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
@@ -10,14 +11,13 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-import { User } from '@/lib/auth0-management';
 
 export function UserCreateForm() {
   const router = useRouter();
 
   const { toast } = useToast();
 
-  const form = useForm<User>({
+  const form = useForm<User & { password: string }>({
     resolver: zodResolver(Schema),
     defaultValues: {
       name: '',
@@ -26,7 +26,7 @@ export function UserCreateForm() {
     },
   });
 
-  const onSubmit = async (data: User) => {
+  const onSubmit = async (data: User & { password: string }) => {
     try {
       const user = await createUser(data);
       router.back();
