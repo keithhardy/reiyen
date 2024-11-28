@@ -1,14 +1,14 @@
 import { z } from 'zod';
 
 export const Schema = z.object({
-  uprn: z.string().optional(),
-  occupier: z.string().optional(),
+  uprn: z.string(),
+  occupier: z.string(),
   address: z.object({
-    streetAddress: z.string().optional(),
-    city: z.string().optional(),
+    streetAddress: z.string(),
+    city: z.string(),
     county: z.string().optional(),
-    postTown: z.string().optional(),
-    postcode: z.string().optional(),
+    postTown: z.string(),
+    postcode: z.string(),
     country: z.string().optional(),
   }),
   client: z.object({
