@@ -6,12 +6,11 @@ import { useForm } from 'react-hook-form';
 
 import { updatePreferences } from '@/app/(dashboard)/users/[id]/(update)/preferences/action';
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/preferences/schema';
+import { SignatureField } from '@/components/form/signature-field';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
-
-import { SignatureField } from '../components/signature-field';
 
 export function UserPreferencesForm({ preferences }: { preferences: Preferences }) {
   const { toast } = useToast();
