@@ -2,10 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Preferences } from '@prisma/client';
-import Image from 'next/image';
-import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import SignatureCanvas from 'react-signature-canvas';
 
 import { updatePreferences } from '@/app/(dashboard)/users/[id]/(update)/preferences/action';
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/preferences/schema';
@@ -14,18 +11,10 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
+import { SignatureField } from '../components/signature-field';
+
 export function UserPreferencesForm({ preferences }: { preferences: Preferences }) {
   const { toast } = useToast();
-
-  const [isEditingSignature, setIsEditingSignature] = useState(false);
-
-  const signaturePad = useRef<SignatureCanvas>(null);
-
-  const handleClearSignature = () => {
-    signaturePad.current?.clear();
-    form.setValue('signature', '');
-    setIsEditingSignature(true);
-  };
 
   const form = useForm<Preferences>({
     resolver: zodResolver(Schema),
@@ -33,11 +22,6 @@ export function UserPreferencesForm({ preferences }: { preferences: Preferences 
   });
 
   const onSubmit = async (data: Preferences) => {
-    if (signaturePad.current && !signaturePad.current.isEmpty()) {
-      data.signature = signaturePad.current.toDataURL('image/png');
-    } else {
-      data.signature = isEditingSignature ? '' : preferences?.signature || '';
-    }
     try {
       await updatePreferences(data);
       toast({
@@ -73,24 +57,12 @@ export function UserPreferencesForm({ preferences }: { preferences: Preferences 
           <FormField
             control={form.control}
             name='signature'
-            render={() => (
+            render={({ field }) => (
               <FormItem>
                 <FormLabel>Signature</FormLabel>
                 <FormControl>
-                  {isEditingSignature || !preferences?.signature ? (
-                    <SignatureCanvas
-                      ref={signaturePad}
-                      canvasProps={{
-                        className: 'signature-canvas border rounded-md w-full h-56 bg-white',
-                      }}
-                    />
-                  ) : (
-                    <Image src={preferences.signature} alt='Saved signature' width='1000' height='1000' className='h-56 w-full rounded-md border bg-white' />
-                  )}
+                  <SignatureField {...field} />
                 </FormControl>
-                <button type='button' onClick={handleClearSignature} className='mt-2 bg-background text-sm'>
-                  Clear Signature
-                </button>
                 <FormMessage />
               </FormItem>
             )}
