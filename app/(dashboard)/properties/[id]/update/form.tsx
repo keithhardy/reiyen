@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Address, Client, Property } from '@prisma/client';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { updateProperty } from '@/app/(dashboard)/properties/[id]/update/action';
 import { Schema } from '@/app/(dashboard)/properties/[id]/update/schema';
@@ -24,17 +25,27 @@ export function PropertyUpdateForm({
 }) {
   const { toast } = useToast();
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
-    defaultValues: property,
+    defaultValues: {
+      id: property.id || '',
+      occupier: property.occupier || '',
+      uprn: property.uprn || '',
+      client: {
+        id: property.client.id || '',
+      },
+      address: {
+        city: property.address?.city || '',
+        county: property.address?.county || '',
+        postTown: property.address?.postTown || '',
+        postcode: property.address?.postcode || '',
+        streetAddress: property.address?.streetAddress || '',
+        country: property.address?.country || '',
+      },
+    },
   });
 
-  const onSubmit = async (
-    data: Property & {
-      address: Address | null;
-      client: Client;
-    }
-  ) => {
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await updateProperty(data);
       toast({

@@ -1,16 +1,13 @@
 'use server';
 
-import { Address, Client, Property } from '@prisma/client';
+import { Property } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
+import { Schema } from '@/app/(dashboard)/properties/create/schema';
 import { prisma } from '@/lib/prisma';
 
-export async function createProperty(
-  property: Omit<Property, 'id' | 'clientId' | 'createdAt' | 'updatedAt'> & {
-    address: Omit<Address, 'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'>;
-    client: Pick<Client, 'id'>;
-  }
-): Promise<Property> {
+export async function createProperty(property: z.infer<typeof Schema>): Promise<Property> {
   try {
     const createdProperty = await prisma.property.create({
       data: {

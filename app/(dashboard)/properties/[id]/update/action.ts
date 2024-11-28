@@ -1,16 +1,12 @@
 'use server';
 
-import { Address, Client, Property } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
+import { Schema } from '@/app/(dashboard)/properties/[id]/update/schema';
 import { prisma } from '@/lib/prisma';
 
-export async function updateProperty(
-  property: Property & {
-    address: Address | null;
-    client: Client;
-  }
-): Promise<void> {
+export async function updateProperty(property: z.infer<typeof Schema>): Promise<void> {
   try {
     await prisma.property.update({
       where: {

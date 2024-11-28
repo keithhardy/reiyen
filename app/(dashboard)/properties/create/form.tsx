@@ -1,9 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Address, Client, Property } from '@prisma/client';
+import { Client } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { createProperty } from '@/app/(dashboard)/properties/create/action';
 import { Schema } from '@/app/(dashboard)/properties/create/schema';
@@ -37,12 +38,7 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
     },
   });
 
-  const onSubmit = async (
-    data: Omit<Property, 'id' | 'clientId' | 'createdAt' | 'updatedAt'> & {
-      address: Omit<Address, 'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'>;
-      client: Pick<Client, 'id'>;
-    }
-  ) => {
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await createProperty(data);
       router.push('/properties');

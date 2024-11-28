@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Property } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { deleteProperty } from '@/app/(dashboard)/properties/[id]/delete/action';
 import { Schema } from '@/app/(dashboard)/properties/[id]/delete/schema';
@@ -17,7 +18,7 @@ export function PropertyDeleteForm({ property }: { property: Property }) {
 
   const { toast } = useToast();
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
       id: property.id,
@@ -25,7 +26,7 @@ export function PropertyDeleteForm({ property }: { property: Property }) {
     },
   });
 
-  const onSubmit = async (data: Pick<Property, 'id'>) => {
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await deleteProperty(data);
       router.push('/properties');

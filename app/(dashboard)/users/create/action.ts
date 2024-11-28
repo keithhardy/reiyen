@@ -31,9 +31,9 @@ export async function createUser(user: z.infer<typeof Schema>): Promise<User> {
         },
       },
     });
-    
+
     revalidatePath('/users');
-    
+
     return prismaUser;
   } catch {
     throw new Error('Failed to create user.');

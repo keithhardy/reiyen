@@ -25,7 +25,6 @@ export async function deleteUser(user: z.infer<typeof Schema>): Promise<void> {
     });
 
     revalidatePath('/users');
-    
   } catch {
     throw new Error('Failed to delete user.');
   }

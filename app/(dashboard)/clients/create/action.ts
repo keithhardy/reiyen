@@ -8,9 +8,7 @@ import { Schema } from '@/app/(dashboard)/clients/create/schema';
 import { prisma } from '@/lib/prisma';
 import { uploadFile } from '@/lib/vercel-blob';
 
-export async function createClient(
-  client: z.infer<typeof Schema>
-): Promise<Client> {
+export async function createClient(client: z.infer<typeof Schema>): Promise<Client> {
   try {
     let logoUrl;
     try {
