@@ -1,11 +1,16 @@
 'use client';
 
 import { Client, Permission } from '@prisma/client';
+import { XIcon } from 'lucide-react';
 
+import { deletePermission } from '@/app/(dashboard)/users/[id]/(update)/permissions/action';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useToast } from '@/hooks/use-toast';
 
-export function DataList({ permissions, clients }: { permissions: Omit<Permission, 'id' | 'createdAt' | 'updatedAt'>[]; clients: Client[] }) {
+export function DataList({ permissions, clients }: { permissions: Permission[]; clients: Client[] }) {
+  const { toast } = useToast();
+
   const clientOptions = [
     { value: 'global', label: 'Global' },
     ...clients.map((client) => ({
@@ -18,9 +23,25 @@ export function DataList({ permissions, clients }: { permissions: Omit<Permissio
     const clientPermissions = permissions.filter((perm) => (perm.clientId || 'global') === value);
     return {
       client: label,
-      permissions: clientPermissions.map((p) => p.permission),
+      permissions: clientPermissions,
     };
   });
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deletePermission(id);
+      toast({
+        title: 'Permission Deleted',
+        description: 'The permission has been successfully deleted.',
+      });
+    } catch {
+      toast({
+        title: 'Error',
+        description: 'Failed to delete the permission. Please try again.',
+        variant: 'destructive',
+      });
+    }
+  };
 
   return (
     <ScrollArea className='h-[310px]'>
@@ -35,10 +56,15 @@ export function DataList({ permissions, clients }: { permissions: Omit<Permissio
               <div key={client} className='space-y-4'>
                 <h4 className='text-sm font-semibold capitalize'>{client}</h4>
                 <div className='flex flex-wrap gap-2'>
-                  {permissions.map((permission) => (
-                    <Badge key={`${client}-${permission}`} variant='secondary' className='rounded-md px-2 py-1 font-medium'>
-                      {permission}
-                    </Badge>
+                  {permissions.map(({ id, permission }) => (
+                    <div key={id} className='flex space-x-1'>
+                      <Badge variant='outline' className='rounded-md px-2 py-1 font-medium'>
+                        {permission}
+                      </Badge>
+                      <Badge variant='destructive' className='h-[26px] cursor-pointer rounded-md px-1.5' onClick={() => handleDelete(id)}>
+                        <XIcon className='h-3 w-3' />
+                      </Badge>
+                    </div>
                   ))}
                 </div>
               </div>
