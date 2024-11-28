@@ -11,5 +11,5 @@ export const Schema = z.object({
     message: 'Qualification Number cannot be empty',
   }),
   awardDate: z.string().min(1, { message: 'Award Date cannot be empty' }),
-  certificateUrl: z.string().min(1, { message: 'Certificate URL cannot be empty' }),
+  certificateUrl: z.string().optional(),
 });

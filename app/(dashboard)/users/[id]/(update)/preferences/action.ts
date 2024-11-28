@@ -12,11 +12,10 @@ export async function updatePreferences(preferences: z.infer<typeof Schema>): Pr
   try {
     const preferencesResponse = await prisma.preferences.findFirst({ where: { id: preferences.id } });
 
-    let signatureUrl;
     try {
-      signatureUrl = await updateFile(preferences.signature, preferencesResponse?.signature, 'signature');
+      preferences.signature = await updateFile(preferences.signature, preferencesResponse?.signature, 'signature');
     } catch {
-      throw new Error('Failed to update preferences: Error updating file.');
+      throw new Error('Preferences update failed: Error updating file.');
     }
 
     const updatedPreferences = await prisma.preferences.update({
@@ -25,7 +24,7 @@ export async function updatePreferences(preferences: z.infer<typeof Schema>): Pr
       },
       data: {
         position: preferences.position,
-        signature: signatureUrl,
+        signature: preferences.signature,
       },
     });
 

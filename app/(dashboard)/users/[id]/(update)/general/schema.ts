@@ -5,5 +5,5 @@ export const Schema = z.object({
   auth0Id: z.string(),
   email: z.string(),
   id: z.string(),
-  picture: z.string(),
+  picture: z.string().optional(),
 });

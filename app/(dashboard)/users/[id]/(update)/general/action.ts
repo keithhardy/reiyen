@@ -17,11 +17,10 @@ export async function updateUser(user: z.infer<typeof Schema>): Promise<User> {
       },
     });
 
-    let pictureUrl;
     try {
-      pictureUrl = await updateFile(user.picture, currentUser?.picture, 'profile-picture');
+      user.picture = await updateFile(user.picture, currentUser?.picture, 'profile-picture');
     } catch {
-      throw new Error('Failed to update user: Error updating file.');
+      throw new Error('User update failed: Error updating file.');
     }
 
     await auth0Management.users.update(
@@ -31,7 +30,7 @@ export async function updateUser(user: z.infer<typeof Schema>): Promise<User> {
       {
         name: user.name,
         email: user.email,
-        picture: pictureUrl,
+        picture: user.picture,
       }
     );
 
@@ -42,14 +41,13 @@ export async function updateUser(user: z.infer<typeof Schema>): Promise<User> {
       data: {
         email: user.email,
         name: user.name,
-        picture: pictureUrl,
+        picture: user.picture,
       },
     });
 
     revalidatePath('/users');
-
     return prismaUser;
   } catch {
-    throw new Error('Failed to update user.');
+    throw new Error('User update failed.');
   }
 }

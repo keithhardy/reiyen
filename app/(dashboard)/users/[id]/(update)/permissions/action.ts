@@ -14,6 +14,6 @@ export async function addPermissions(data: z.infer<typeof Schema>) {
 
     revalidatePath('users');
   } catch {
-    throw new Error('Failed to add permissions. Please try again later.');
+    throw new Error('Failed to add permissions.');
   }
 }
