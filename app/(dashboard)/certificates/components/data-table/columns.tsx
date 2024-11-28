@@ -2,6 +2,7 @@
 
 import { Certificate } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
+import { format } from 'date-fns';
 
 import { certificateTypeNameMapping } from '@/lib/config';
 
@@ -34,6 +35,7 @@ export const columns: ColumnDef<Certificate>[] = [
   {
     accessorKey: 'date',
     header: 'Date',
+    cell: ({ row }) => format(row.getValue('date'), 'MM/dd/yyyy'),
   },
   {
     accessorKey: 'status',

@@ -15,7 +15,6 @@ import { useToast } from '@/hooks/use-toast';
 
 export function ClientDeleteForm({ client }: { client: Client }) {
   const router = useRouter();
-
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof Schema>>({
@@ -63,18 +62,7 @@ export function ClientDeleteForm({ client }: { client: Client }) {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name='id'
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input {...field} type='hidden' />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+
           <div className='flex justify-end'>
             <Button type='submit' disabled={form.watch('name') !== client.name || form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Deleting' : 'Delete'}

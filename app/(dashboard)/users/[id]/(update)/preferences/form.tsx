@@ -54,6 +54,7 @@ export function UserPreferencesForm({ preferences }: { preferences: Preferences 
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='signature'
@@ -67,11 +68,12 @@ export function UserPreferencesForm({ preferences }: { preferences: Preferences 
               </FormItem>
             )}
           />
-        </div>
-        <div className='flex justify-end'>
-          <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
-            {form.formState.isSubmitting ? 'Saving' : 'Save'}
-          </Button>
+
+          <div className='flex justify-end'>
+            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
+              {form.formState.isSubmitting ? 'Saving' : 'Save'}
+            </Button>
+          </div>
         </div>
       </form>
     </Form>

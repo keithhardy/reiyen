@@ -17,7 +17,6 @@ import { useToast } from '@/hooks/use-toast';
 
 export function SettingsUpdateForm({ settings }: { settings: Settings & { address: Address | null } }) {
   const { toast } = useToast();
-
   const [imagePreview, setImagePreview] = useState(settings?.logoUrl || '');
 
   const form = useForm<z.infer<typeof Schema>>({
@@ -75,6 +74,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='email'
@@ -88,6 +88,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='phone'
@@ -101,6 +102,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='logoUrl'
@@ -119,6 +121,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='governingBody'
@@ -132,6 +135,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='governingBodyNumber'
@@ -145,6 +149,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.streetAddress'
@@ -158,6 +163,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.city'
@@ -171,6 +177,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.county'
@@ -184,6 +191,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.postTown'
@@ -197,6 +205,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.postcode'
@@ -210,6 +219,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.country'
@@ -223,6 +233,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
               </FormItem>
             )}
           />
+
           <div className='flex justify-end'>
             <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Saving' : 'Save'}

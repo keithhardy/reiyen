@@ -21,8 +21,10 @@ export function UserDeleteForm({ user }: { user: User }) {
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
-      ...user,
       name: '',
+      auth0Id: user.auth0Id,
+      id: user.id,
+      picture: user.picture,
     },
   });
 
@@ -62,6 +64,7 @@ export function UserDeleteForm({ user }: { user: User }) {
               </FormItem>
             )}
           />
+
           <div className='flex justify-end'>
             <Button type='submit' disabled={form.watch('name') !== user.name || form.formState.isSubmitting} variant='destructive'>
               {form.formState.isSubmitting ? 'Deleting' : 'Delete'}

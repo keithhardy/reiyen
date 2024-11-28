@@ -17,9 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 
 export function ClientCreateForm() {
   const router = useRouter();
-
   const { toast } = useToast();
-
   const [imagePreview, setImagePreview] = useState('');
 
   const form = useForm<z.infer<typeof Schema>>({
@@ -74,6 +72,7 @@ export function ClientCreateForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='email'
@@ -87,6 +86,7 @@ export function ClientCreateForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='phone'
@@ -100,6 +100,7 @@ export function ClientCreateForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='logoUrl'
@@ -118,6 +119,7 @@ export function ClientCreateForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.streetAddress'
@@ -131,6 +133,7 @@ export function ClientCreateForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.city'
@@ -144,6 +147,7 @@ export function ClientCreateForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.county'
@@ -157,6 +161,7 @@ export function ClientCreateForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.postTown'
@@ -170,6 +175,7 @@ export function ClientCreateForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.postcode'
@@ -183,6 +189,7 @@ export function ClientCreateForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.country'
@@ -196,6 +203,7 @@ export function ClientCreateForm() {
               </FormItem>
             )}
           />
+
           <div className='flex justify-end'>
             <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Creating' : 'Create'}

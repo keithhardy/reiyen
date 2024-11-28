@@ -62,6 +62,7 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='make'
@@ -75,6 +76,7 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='model'
@@ -88,6 +90,7 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='serialNumber'
@@ -101,6 +104,7 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='testDate'
@@ -114,6 +118,7 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='certificateUrl'
@@ -127,6 +132,7 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
               </FormItem>
             )}
           />
+
           <div className='flex justify-end'>
             <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Adding' : 'Add'}

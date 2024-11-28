@@ -2,6 +2,8 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Address, Client, Property } from '@prisma/client';
+import { format } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -10,48 +12,32 @@ import { z } from 'zod';
 import { createCertificate } from '@/app/(dashboard)/certificates/create/action';
 import { Schema } from '@/app/(dashboard)/certificates/create/schema';
 import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { certificateTypeNameMapping } from '@/lib/config';
+import { cn } from '@/lib/utils';
 
-export function CertificateCreateForm({
-  clients,
-}: {
-  clients: (Client & {
-    properties: (Property & {
-      address: Address | null;
-    })[];
-  })[];
-}) {
+export function CertificateCreateForm({ clients }: { clients: (Client & { properties: (Property & { address: Address | null })[] })[] }) {
   const router = useRouter();
-
   const { toast } = useToast();
-
   const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
+  const selectedClient = clients.find((client) => client.id === selectedClientId);
 
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
       certificateType: undefined,
-      date: '24/11/2024',
+      date: new Date(),
       technicianId: '',
-      technicianSignature: '',
-      technicianSignatureDate: '',
-      supervisorId: '',
-      supervisorSignature: '',
-      supervisorSignatureDate: '',
       status: 'In progress',
       property: {
         id: '',
-        client: {
-          id: '',
-        },
       },
     },
   });
-
-  const selectedClient = clients.find((client) => client.id === selectedClientId);
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
@@ -98,27 +84,40 @@ export function CertificateCreateForm({
               </FormItem>
             )}
           />
+
+          <FormItem>
+            <FormLabel>Client</FormLabel>
+            <FormControl>
+              <Select onValueChange={(value) => setSelectedClientId(value)} value={selectedClientId || ''}>
+                <SelectTrigger>
+                  <SelectValue placeholder='Select a client' />
+                </SelectTrigger>
+                <SelectContent>
+                  {clients.map((client) => (
+                    <SelectItem key={client.id} value={client.id}>
+                      {client.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </FormControl>
+          </FormItem>
+
           <FormField
             control={form.control}
-            name='property.client.id'
+            name='property.id'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Client</FormLabel>
+                <FormLabel>Property</FormLabel>
                 <FormControl>
-                  <Select
-                    onValueChange={(value) => {
-                      field.onChange(value);
-                      setSelectedClientId(value);
-                    }}
-                    defaultValue={field.value}
-                  >
+                  <Select onValueChange={field.onChange} defaultValue={field.value} disabled={!selectedClient || selectedClient.properties.length === 0}>
                     <SelectTrigger>
-                      <SelectValue placeholder='Select a client' />
+                      <SelectValue placeholder={!selectedClient ? 'Select a client' : 'Select a property'} />
                     </SelectTrigger>
                     <SelectContent>
-                      {clients.map((client) => (
-                        <SelectItem key={client.id} value={client.id}>
-                          {client.name}
+                      {selectedClient?.properties.map((property) => (
+                        <SelectItem key={property.id} value={property.id}>
+                          {property.address?.streetAddress}, {property.address?.postcode}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -128,32 +127,32 @@ export function CertificateCreateForm({
               </FormItem>
             )}
           />
-          {selectedClient && selectedClient.properties.length > 0 && (
-            <FormField
-              control={form.control}
-              name='property.id'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Property</FormLabel>
-                  <FormControl>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <SelectTrigger>
-                        <SelectValue placeholder='Select a property' />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {selectedClient.properties.map((property) => (
-                          <SelectItem key={property.id} value={property.id}>
-                            {property.address?.streetAddress}, {property.address?.postcode}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          )}
+
+          <FormField
+            control={form.control}
+            name='date'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Date</FormLabel>
+                <FormControl>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button variant={'outline'} className={cn('flex w-[240px] pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}>
+                          {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
+                          <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className='w-auto p-0' align='start'>
+                      <Calendar mode='single' selected={field.value} onSelect={field.onChange} disabled={(date) => date > new Date() || date < new Date('1900-01-01')} initialFocus />
+                    </PopoverContent>
+                  </Popover>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <div className='flex justify-end'>
             <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>

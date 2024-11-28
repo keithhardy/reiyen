@@ -5,19 +5,10 @@ const CertificateTypeValues = [$Enums.CertificateType.MINOR_WORKS, $Enums.Certif
 
 export const Schema = z.object({
   certificateType: z.enum(CertificateTypeValues),
-  propertyId: z.string().optional(),
-  date: z.string(),
+  date: z.date(),
   technicianId: z.string(),
-  technicianSignature: z.string().optional(),
-  technicianSignatureDate: z.string().optional(),
-  supervisorId: z.string().optional(),
-  supervisorSignature: z.string().optional(),
-  supervisorSignatureDate: z.string().optional(),
   status: z.string(),
   property: z.object({
     id: z.string().optional(),
-    client: z.object({
-      id: z.string().optional(),
-    }),
   }),
 });

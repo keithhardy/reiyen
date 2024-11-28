@@ -13,16 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 
-export function PropertyUpdateForm({
-  property,
-  clients,
-}: {
-  property: Property & {
-    address: Address | null;
-    client: Client;
-  };
-  clients: Client[];
-}) {
+export function PropertyUpdateForm({ property, clients }: { property: Property & { address: Address | null; client: Client }; clients: Client[] }) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof Schema>>({
@@ -89,6 +80,7 @@ export function PropertyUpdateForm({
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='uprn'
@@ -102,6 +94,7 @@ export function PropertyUpdateForm({
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='occupier'
@@ -115,6 +108,7 @@ export function PropertyUpdateForm({
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.streetAddress'
@@ -128,6 +122,7 @@ export function PropertyUpdateForm({
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.city'
@@ -141,6 +136,7 @@ export function PropertyUpdateForm({
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.county'
@@ -154,6 +150,7 @@ export function PropertyUpdateForm({
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.postTown'
@@ -167,6 +164,7 @@ export function PropertyUpdateForm({
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.postcode'
@@ -180,6 +178,7 @@ export function PropertyUpdateForm({
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.country'
@@ -193,6 +192,7 @@ export function PropertyUpdateForm({
               </FormItem>
             )}
           />
+
           <div className='flex justify-end'>
             <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Saving' : 'Save'}

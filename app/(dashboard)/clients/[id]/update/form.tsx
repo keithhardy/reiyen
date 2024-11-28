@@ -17,7 +17,6 @@ import { useToast } from '@/hooks/use-toast';
 
 export function ClientUpdateForm({ client }: { client: Client & { address: Address | null } }) {
   const { toast } = useToast();
-
   const [imagePreview, setImagePreview] = useState(client.logoUrl || '');
 
   const form = useForm<z.infer<typeof Schema>>({
@@ -73,6 +72,7 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='email'
@@ -86,6 +86,7 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='phone'
@@ -99,6 +100,7 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='logoUrl'
@@ -117,6 +119,7 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.streetAddress'
@@ -130,6 +133,7 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.city'
@@ -143,6 +147,7 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.county'
@@ -156,6 +161,7 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.postTown'
@@ -169,6 +175,7 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.postcode'
@@ -182,6 +189,7 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='address.country'
@@ -195,6 +203,7 @@ export function ClientUpdateForm({ client }: { client: Client & { address: Addre
               </FormItem>
             )}
           />
+
           <div className='flex justify-end'>
             <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Saving' : 'Save'}

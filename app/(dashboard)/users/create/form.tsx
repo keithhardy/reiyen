@@ -60,6 +60,7 @@ export function UserCreateForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='email'
@@ -73,6 +74,7 @@ export function UserCreateForm() {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='password'
@@ -86,6 +88,7 @@ export function UserCreateForm() {
               </FormItem>
             )}
           />
+
           <div className='flex justify-end'>
             <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Creating' : 'Create'}

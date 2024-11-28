@@ -17,7 +17,6 @@ import { useToast } from '@/hooks/use-toast';
 
 export function UserGeneralForm({ user }: { user: User }) {
   const { toast } = useToast();
-
   const [imagePreview, setImagePreview] = useState(user.picture || '');
 
   const form = useForm<z.infer<typeof Schema>>({
@@ -61,6 +60,7 @@ export function UserGeneralForm({ user }: { user: User }) {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='name'
@@ -74,6 +74,7 @@ export function UserGeneralForm({ user }: { user: User }) {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name='email'
@@ -87,6 +88,7 @@ export function UserGeneralForm({ user }: { user: User }) {
               </FormItem>
             )}
           />
+
           <div className='flex justify-end'>
             <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Saving' : 'Save'}

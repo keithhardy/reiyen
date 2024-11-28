@@ -16,14 +16,13 @@ import { certificateTypeNameMapping } from '@/lib/config';
 
 export function CertificateDeleteForm({ certificate }: { certificate: Certificate }) {
   const router = useRouter();
-
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
       id: certificate.id,
-      certificateType: '' as string,
+      certificateType: '',
     },
   });
 
@@ -63,18 +62,7 @@ export function CertificateDeleteForm({ certificate }: { certificate: Certificat
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name='id'
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input {...field} type='hidden' />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+
           <div className='flex justify-end'>
             <Button type='submit' disabled={form.watch('certificateType') !== certificateTypeNameMapping[certificate.certificateType] || form.formState.isSubmitting} variant='outline'>
               {form.formState.isSubmitting ? 'Deleting' : 'Delete'}

@@ -26,7 +26,7 @@ model Address {
 
 model Certificate {
   certificateType                       CertificateType
-  date                                  String
+  date                                  DateTime
   domesticVentilationCommissioningSheet DomesticVentilationCommissioningSheet?
   electricalInstallationCertificate     ElectricalInstallationCertificate?
   electricalInstallationConditionReport ElectricalInstallationConditionReport?
