@@ -5,6 +5,7 @@ import { Address, Settings } from '@prisma/client';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { updateSettings } from '@/app/(dashboard)/settings/action';
 import { Schema } from '@/app/(dashboard)/settings/schema';
@@ -19,7 +20,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
 
   const [imagePreview, setImagePreview] = useState(settings?.logoUrl || '');
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
       id: settings?.id,
@@ -29,8 +30,8 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
       logoUrl: settings?.logoUrl || '',
       governingBody: settings?.governingBody || '',
       governingBodyNumber: settings?.governingBodyNumber || '',
-      address: settings?.address || {
-        id: settings?.address?.id || '',
+      address: {
+        id: settings?.address?.id,
         streetAddress: settings?.address?.streetAddress || '',
         city: settings?.address?.city || '',
         county: settings?.address?.county || '',
@@ -41,11 +42,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
     },
   });
 
-  const onSubmit = async (
-    data: Omit<Settings, 'createdAt' | 'updatedAt'> & {
-      address: Omit<Address, 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'> | null;
-    }
-  ) => {
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await updateSettings(data);
       toast({

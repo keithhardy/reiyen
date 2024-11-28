@@ -1,16 +1,14 @@
 'use server';
 
-import { Address, Settings } from '@prisma/client';
+import { Settings } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
+import { Schema } from '@/app/(dashboard)/settings/schema';
 import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
-export async function updateSettings(
-  settings: Omit<Settings, 'createdAt' | 'updatedAt'> & {
-    address: Omit<Address, 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'> | null;
-  }
-): Promise<Settings> {
+export async function updateSettings(settings: z.infer<typeof Schema>): Promise<Settings> {
   try {
     const settingsResponse = await prisma.settings.findFirst();
 

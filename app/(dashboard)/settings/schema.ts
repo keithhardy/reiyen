@@ -11,6 +11,7 @@ export const Schema = z.object({
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
   address: z.object({
+    id: z.string().optional(),
     streetAddress: z.string().optional(),
     city: z.string().optional(),
     county: z.string().optional(),
