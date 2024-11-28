@@ -5,6 +5,7 @@ import { User } from '@prisma/client';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { updateUser } from '@/app/(dashboard)/users/[id]/(update)/general/action';
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/general/schema';
@@ -19,12 +20,12 @@ export function UserGeneralForm({ user }: { user: User }) {
 
   const [imagePreview, setImagePreview] = useState(user.picture || '');
 
-  const form = useForm<User>({
+  const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: user,
   });
 
-  const onSubmit = async (data: User) => {
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await updateUser(data);
       toast({

@@ -1,8 +1,8 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Equipment } from '@prisma/client';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { createEquipment } from '@/app/(dashboard)/users/[id]/(update)/equipment/action';
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/equipment/schema';
@@ -15,7 +15,7 @@ import { useToast } from '@/hooks/use-toast';
 export function UserEquipmentForm({ userId }: { userId: string }) {
   const { toast } = useToast();
 
-  const form = useForm<Equipment>({
+  const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
       userId,
@@ -28,7 +28,7 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
     },
   });
 
-  const onSubmit = async (data: Equipment) => {
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await createEquipment(data);
       form.reset();

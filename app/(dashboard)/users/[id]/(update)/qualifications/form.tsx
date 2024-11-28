@@ -1,8 +1,8 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Qualification } from '@prisma/client';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { createQualification } from '@/app/(dashboard)/users/[id]/(update)/qualifications/action';
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/qualifications/schema';
@@ -15,7 +15,7 @@ import { useToast } from '@/hooks/use-toast';
 export function UserQualificationsForm({ userId }: { userId: string }) {
   const { toast } = useToast();
 
-  const form = useForm<Qualification>({
+  const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
       userId,
@@ -27,7 +27,7 @@ export function UserQualificationsForm({ userId }: { userId: string }) {
     },
   });
 
-  const onSubmit = async (data: Qualification) => {
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await createQualification(data);
       form.reset();

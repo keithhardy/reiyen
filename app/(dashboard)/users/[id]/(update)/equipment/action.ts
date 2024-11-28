@@ -1,12 +1,13 @@
 'use server';
 
-import { Equipment } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
+import { Schema } from '@/app/(dashboard)/users/[id]/(update)/equipment/schema';
 import { prisma } from '@/lib/prisma';
 import { deleteFile, uploadFile } from '@/lib/vercel-blob';
 
-export async function createEquipment(equipment: Omit<Equipment, 'id'>): Promise<void> {
+export async function createEquipment(equipment: z.infer<typeof Schema>): Promise<void> {
   try {
     let certificateUrl;
     try {
@@ -33,7 +34,7 @@ export async function createEquipment(equipment: Omit<Equipment, 'id'>): Promise
   }
 }
 
-export async function deleteEquipment(equipment: Pick<Equipment, 'id' | 'certificateUrl'>): Promise<void> {
+export async function deleteEquipment(equipment: z.infer<typeof Schema>): Promise<void> {
   try {
     await prisma.equipment.delete({
       where: { id: equipment.id },

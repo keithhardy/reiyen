@@ -2,12 +2,14 @@
 
 import { User } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
+import { Schema } from '@/app/(dashboard)/users/[id]/(update)/general/schema';
 import { auth0Management } from '@/lib/auth0-management';
 import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
-export async function updateUser(user: User): Promise<User> {
+export async function updateUser(user: z.infer<typeof Schema>): Promise<User> {
   try {
     const currentUser = await prisma.user.findFirst({
       where: {

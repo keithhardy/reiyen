@@ -17,7 +17,9 @@ export function UserPermissionsForm({ permissions, clients, userId }: { permissi
 
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
-    defaultValues: { permissions: [] },
+    defaultValues: {
+      permissions: [],
+    },
   });
 
   const onSubmit = async (data: z.infer<typeof Schema>) => {

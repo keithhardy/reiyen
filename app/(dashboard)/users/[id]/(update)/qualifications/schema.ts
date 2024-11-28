@@ -1,6 +1,9 @@
 import { z } from 'zod';
 
 export const Schema = z.object({
+  id: z.string().optional(),
+  auth0Id: z.string().optional(),
+  picture: z.string().optional(),
   userId: z.string().min(1, { message: 'User ID cannot be empty' }),
   awardingBody: z.string().min(1, { message: 'Awarding Body cannot be empty' }),
   qualification: z.string().min(1, { message: 'Qualification cannot be empty' }),

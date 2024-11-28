@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Preferences } from '@prisma/client';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { updatePreferences } from '@/app/(dashboard)/users/[id]/(update)/preferences/action';
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/preferences/schema';
@@ -15,12 +16,12 @@ import { useToast } from '@/hooks/use-toast';
 export function UserPreferencesForm({ preferences }: { preferences: Preferences }) {
   const { toast } = useToast();
 
-  const form = useForm<Preferences>({
+  const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: preferences,
   });
 
-  const onSubmit = async (data: Preferences) => {
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       await updatePreferences(data);
       toast({

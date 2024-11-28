@@ -2,11 +2,13 @@
 
 import { Preferences } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
+import { Schema } from '@/app/(dashboard)/users/[id]/(update)/preferences/schema';
 import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
-export async function updatePreferences(preferences: Preferences): Promise<Preferences> {
+export async function updatePreferences(preferences: z.infer<typeof Schema>): Promise<Preferences> {
   try {
     const preferencesResponse = await prisma.preferences.findFirst({ where: { id: preferences.id } });
 

@@ -1,12 +1,13 @@
 'use server';
 
-import { Qualification } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
+import { Schema } from '@/app/(dashboard)/users/[id]/(update)/qualifications/schema';
 import { prisma } from '@/lib/prisma';
 import { deleteFile, uploadFile } from '@/lib/vercel-blob';
 
-export async function createQualification(qualification: Omit<Qualification, 'id'>): Promise<void> {
+export async function createQualification(qualification: z.infer<typeof Schema>): Promise<void> {
   try {
     let certificateUrl;
     try {
@@ -32,7 +33,7 @@ export async function createQualification(qualification: Omit<Qualification, 'id
   }
 }
 
-export async function deleteQualification(qualification: Qualification): Promise<void> {
+export async function deleteQualification(qualification: z.infer<typeof Schema>): Promise<void> {
   try {
     await prisma.qualification.delete({
       where: { id: qualification.id },

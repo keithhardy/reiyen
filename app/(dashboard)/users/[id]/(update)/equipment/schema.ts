@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const Schema = z.object({
+  id: z.string().optional(),
   userId: z.string().min(1, { message: 'User ID cannot be empty' }),
   make: z.string().min(1, { message: 'Make cannot be empty' }),
   model: z.string().min(1, { message: 'Model cannot be empty' }),
