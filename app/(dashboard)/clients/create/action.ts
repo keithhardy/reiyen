@@ -1,15 +1,15 @@
 'use server';
 
-import { Address, Client } from '@prisma/client';
+import { Client } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
+import { Schema } from '@/app/(dashboard)/clients/create/schema';
 import { prisma } from '@/lib/prisma';
 import { uploadFile } from '@/lib/vercel-blob';
 
 export async function createClient(
-  client: Omit<Client, 'id' | 'createdAt' | 'updatedAt'> & {
-    address: Omit<Address, 'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'>;
-  }
+  client: z.infer<typeof Schema>
 ): Promise<Client> {
   try {
     let logoUrl;

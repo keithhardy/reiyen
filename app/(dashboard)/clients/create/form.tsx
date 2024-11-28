@@ -1,11 +1,11 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Address, Client } from '@prisma/client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { createClient } from '@/app/(dashboard)/clients/create/action';
 import { Schema } from '@/app/(dashboard)/clients/create/schema';
@@ -22,7 +22,7 @@ export function ClientCreateForm() {
 
   const [imagePreview, setImagePreview] = useState('');
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
     defaultValues: {
       name: '',
@@ -40,11 +40,7 @@ export function ClientCreateForm() {
     },
   });
 
-  const onSubmit = async (
-    data: Omit<Client, 'id' | 'createdAt' | 'updatedAt'> & {
-      address: Omit<Address, 'id' | 'createdAt' | 'updatedAt' | 'settingsId' | 'clientId' | 'propertyId'>;
-    }
-  ) => {
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       const client = await createClient(data);
       router.push('/clients');

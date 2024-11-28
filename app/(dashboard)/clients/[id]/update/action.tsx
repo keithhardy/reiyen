@@ -1,12 +1,14 @@
 'use server';
 
-import { Address, Client } from '@prisma/client';
+import { Client } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
+import { Schema } from '@/app/(dashboard)/clients/[id]/update/schema';
 import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
 
-export async function updateClient(client: Client & { address: Address | null }): Promise<Client> {
+export async function updateClient(client: z.infer<typeof Schema>): Promise<Client> {
   try {
     const clientResponse = await prisma.client.findUnique({
       where: {

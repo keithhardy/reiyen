@@ -5,6 +5,7 @@ import { Address, Client } from '@prisma/client';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 import { updateClient } from '@/app/(dashboard)/clients/[id]/update/action';
 import { Schema } from '@/app/(dashboard)/clients/[id]/update/schema';
@@ -14,27 +15,32 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 
-export function ClientUpdateForm({
-  client,
-}: {
-  client: Client & {
-    address: Address | null;
-  };
-}) {
+export function ClientUpdateForm({ client }: { client: Client & { address: Address | null } }) {
   const { toast } = useToast();
 
   const [imagePreview, setImagePreview] = useState(client.logoUrl || '');
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
-    defaultValues: client,
+    defaultValues: {
+      name: client.name || '',
+      email: client.email || '',
+      phone: client.phone || '',
+      id: client.id,
+      logoUrl: client.logoUrl,
+      address: {
+        city: client.address?.city || '',
+        county: client.address?.county || '',
+        postTown: client.address?.postTown || '',
+        postcode: client.address?.postcode || '',
+        streetAddress: client.address?.streetAddress || '',
+        id: client.address?.id,
+        country: client.address?.country || '',
+      },
+    },
   });
 
-  const onSubmit = async (
-    data: Client & {
-      address: Address | null;
-    }
-  ) => {
+  const onSubmit = async (data: z.infer<typeof Schema>) => {
     try {
       const client = await updateClient(data);
       toast({

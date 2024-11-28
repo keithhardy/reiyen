@@ -1,12 +1,13 @@
 import { z } from 'zod';
 
 export const Schema = z.object({
-  id: z.string().min(1, { message: 'ID cannot be empty' }),
+  id: z.string().optional(),
   name: z.string().min(1, { message: 'Name cannot be empty' }),
   email: z.string().email({ message: 'Must be an email' }),
   phone: z.string().min(1, { message: 'Phone cannot be empty' }),
   logoUrl: z.string().optional(),
   address: z.object({
+    id: z.string().optional(),
     streetAddress: z.string().min(1, {
       message: 'Street Address cannot be empty',
     }),
