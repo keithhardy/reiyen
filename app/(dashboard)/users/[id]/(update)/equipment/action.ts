@@ -32,7 +32,7 @@ export async function createEquipment(
       },
     });
 
-    revalidatePath('/users');
+    revalidatePath('/users/[id]/equipment');
   } catch {
     throw new Error('Equipment creation failed');
   }
@@ -50,7 +50,7 @@ export async function deleteEquipment(
       await deleteFile(equipment.certificateUrl);
     }
 
-    revalidatePath('/users');
+    revalidatePath('/users/[id]/equipment');
   } catch {
     throw new Error('Equipment deletion failed');
   }

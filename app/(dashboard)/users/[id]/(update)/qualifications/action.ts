@@ -31,7 +31,7 @@ export async function createQualification(
       },
     });
 
-    revalidatePath('/users');
+    revalidatePath('/users/[id]/qualifications');
   } catch {
     throw new Error('Qualification creation failed');
   }
@@ -49,7 +49,7 @@ export async function deleteQualification(
       await deleteFile(qualification.certificateUrl);
     }
 
-    revalidatePath('/users');
+    revalidatePath('/users/[id]/qualifications');
   } catch {
     throw new Error('Qualification deletion failed');
   }
