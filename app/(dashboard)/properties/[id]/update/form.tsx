@@ -8,6 +8,7 @@ import { Address, Client, Property } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { PopoverSelect } from '@/components/form/popover-select';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -18,7 +19,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { PopoverSelect } from '@/components/form/popover-select';
 
 export function PropertyUpdateForm({
   property,
@@ -69,7 +69,7 @@ export function PropertyUpdateForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-4 pb-4">
-        <FormField
+          <FormField
             control={form.control}
             name="client.id"
             render={({ field }) => (
@@ -81,7 +81,7 @@ export function PropertyUpdateForm({
                     id: client.id,
                     name: client.name,
                   }))}
-                  label='Client'
+                  label="Client"
                 />
                 <FormMessage />
               </FormItem>

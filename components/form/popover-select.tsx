@@ -21,7 +21,7 @@ import {
 interface PopoverSelectProps {
   value?: string;
   onChange: (value: string) => void;
-  options: { id: string; name: string }[];
+  options?: { id: string; name: string }[]; // Made options optional
   label?: string; // Optional label for options (e.g., "client")
 }
 
@@ -51,49 +51,51 @@ export function PopoverSelect({
           ref={triggerRef}
           variant="outline"
           role="combobox"
-          className={cn(
-            'w-full justify-between',
-            !value && 'text-muted-foreground'
-          )}
+          className="w-full justify-between font-normal"
+          disabled={!options || options.length === 0} // Disable the button if options is undefined or empty
         >
           {value
-            ? options.find((option) => option.id === value)?.name
-            : `Select ${label}`}
+            ? options?.find((option) => option.id === value)?.name
+            : options
+            ? `Select a ${label}`
+            : `No ${label}s available`}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent
-        align="start"
-        style={{ width: popoverWidth || 'auto' }}
-        className="p-0"
-      >
-        <Command>
-          <CommandInput placeholder={`Search ${label}...`} className="h-9" />
-          <CommandList>
-            <CommandEmpty>No {label}s found.</CommandEmpty>
-            <CommandGroup>
-              {options.map((option) => (
-                <CommandItem
-                  key={option.id}
-                  value={option.name}
-                  onSelect={() => {
-                    onChange(option.id);
-                    setIsPopoverOpen(false);
-                  }}
-                >
-                  {option.name}
-                  <Check
-                    className={cn(
-                      'ml-auto',
-                      option.id === value ? 'opacity-100' : 'opacity-0'
-                    )}
-                  />
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
+      {options && options.length > 0 && ( // Render the popover content only if options exist
+        <PopoverContent
+          align="start"
+          style={{ width: popoverWidth || 'auto' }}
+          className="p-0"
+        >
+          <Command>
+            <CommandInput placeholder={`Search ${label}...`} className="h-9" />
+            <CommandList>
+              <CommandEmpty>No {label}s found.</CommandEmpty>
+              <CommandGroup>
+                {options.map((option) => (
+                  <CommandItem
+                    key={option.id}
+                    value={option.name}
+                    onSelect={() => {
+                      onChange(option.id);
+                      setIsPopoverOpen(false);
+                    }}
+                  >
+                    {option.name}
+                    <Check
+                      className={cn(
+                        'ml-auto',
+                        option.id === value ? 'opacity-100' : 'opacity-0'
+                      )}
+                    />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      )}
     </Popover>
   );
 }

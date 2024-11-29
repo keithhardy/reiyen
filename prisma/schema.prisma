@@ -42,7 +42,7 @@ model Certificate {
   userId                                String
   userSignature                         String?
   userSignatureDate                     String?
-  User                                  User                                   @relation(fields: [userId], references: [id])
+  user                                  User                                   @relation(fields: [userId], references: [id])
 
   @@index([propertyId])
 }

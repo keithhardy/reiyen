@@ -79,7 +79,7 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
                     id: client.id,
                     name: client.name,
                   }))}
-                  label='Client'
+                  label="Client"
                 />
                 <FormMessage />
               </FormItem>

@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 
 import { UserPreferencesForm } from '@/app/(dashboard)/users/[id]/(update)/preferences/form';
 import { prisma } from '@/lib/prisma';
@@ -35,10 +34,6 @@ export default async function UserPreferencesPage({
     },
   });
 
-  if (!preferences) {
-    notFound();
-  }
-
   return (
     <Card className="grid grid-cols-2">
       <CardHeader className="col-span-2 lg:col-span-1">
@@ -49,7 +44,7 @@ export default async function UserPreferencesPage({
         </CardDescription>
       </CardHeader>
       <CardContent className="col-span-2 p-6 lg:col-span-1">
-        <UserPreferencesForm preferences={preferences} />
+        <UserPreferencesForm preferences={preferences!} />
       </CardContent>
     </Card>
   );

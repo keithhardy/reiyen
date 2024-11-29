@@ -18,9 +18,9 @@ const StatusValues = [
 export const Schema = z.object({
   certificateType: z.enum(CertificateTypeValues),
   date: z.date(),
-  userId: z.string(),
+  userId: z.string().min(1, 'Please select a user'),
   status: z.enum(StatusValues),
   property: z.object({
-    id: z.string(),
+    id: z.string().min(1, 'Please select a property'),
   }),
 });

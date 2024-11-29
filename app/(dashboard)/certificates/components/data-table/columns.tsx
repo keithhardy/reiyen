@@ -28,7 +28,7 @@ export const columns: ColumnDef<Certificate>[] = [
     header: 'Postcode',
   },
   {
-    accessorKey: 'userId',
+    accessorKey: 'user.name',
     header: 'Technician',
   },
   {

@@ -16,6 +16,7 @@ import { CalendarIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { PopoverSelect } from '@/components/form/popover-select';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -125,23 +126,14 @@ export function CertificateCreateForm({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>User</FormLabel>
-                <FormControl>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a user" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {users.map((user) => (
-                        <SelectItem key={user.id} value={user.id}>
-                          {user.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
+                <PopoverSelect
+                  {...field}
+                  options={users.map((user) => ({
+                    id: user.id,
+                    name: user.name,
+                  }))}
+                  label="user"
+                />
                 <FormMessage />
               </FormItem>
             )}
@@ -149,23 +141,15 @@ export function CertificateCreateForm({
 
           <FormItem>
             <FormLabel>Client</FormLabel>
-            <FormControl>
-              <Select
-                onValueChange={(value) => setSelectedClientId(value)}
+            <PopoverSelect
+                onChange={(value) => setSelectedClientId(value)}
                 value={selectedClientId || ''}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a client" />
-                </SelectTrigger>
-                <SelectContent>
-                  {clients.map((client) => (
-                    <SelectItem key={client.id} value={client.id}>
-                      {client.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </FormControl>
+                  options={clients.map((client) => ({
+                    id: client.id,
+                    name: client.name,
+                  }))}
+                  label="client"
+                />
           </FormItem>
 
           <FormField
@@ -175,31 +159,14 @@ export function CertificateCreateForm({
               <FormItem>
                 <FormLabel>Property</FormLabel>
                 <FormControl>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                    disabled={
-                      !selectedClient || selectedClient.properties.length === 0
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue
-                        placeholder={
-                          !selectedClient
-                            ? 'Select a client'
-                            : 'Select a property'
-                        }
-                      />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {selectedClient?.properties.map((property) => (
-                        <SelectItem key={property.id} value={property.id}>
-                          {property.address?.streetAddress},{' '}
-                          {property.address?.postcode}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                <PopoverSelect
+                  {...field}
+                  options={selectedClient?.properties.map((user) => ({
+                    id: user.id,
+                    name: user.address?.streetAddress + ', ' + user.address?.city + ', ' + user.address?.postcode,
+                  }))}
+                  label="property"
+                />
                 </FormControl>
                 <FormMessage />
               </FormItem>
