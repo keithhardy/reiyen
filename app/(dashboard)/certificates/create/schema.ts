@@ -12,9 +12,9 @@ const CertificateTypeValues = [
 export const Schema = z.object({
   certificateType: z.enum(CertificateTypeValues),
   date: z.date(),
-  userId: z.string().optional(),
+  userId: z.string(),
   status: z.string(),
   property: z.object({
-    id: z.string().optional(),
+    id: z.string(),
   }),
 });

@@ -58,7 +58,7 @@ export function CertificateCreateForm({
     defaultValues: {
       certificateType: undefined,
       date: new Date(),
-      technicianId: '',
+      userId: 'cm433gf3u0000145rvhuj94j3',
       status: 'In progress',
       property: {
         id: '',
