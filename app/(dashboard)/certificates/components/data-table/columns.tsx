@@ -27,7 +27,7 @@ export const columns: ColumnDef<Certificate>[] = [
   {
     accessorKey: 'date',
     header: ({ column }) => <ColumnHeader column={column} title='Date' />,
-    cell: ({ row }) => format(row.getValue('date'), 'MM/dd/yyyy'),
+    cell: ({ row }) => format(row.getValue('date'), 'dd/MM/yyyy'),
   },
   {
     id: 'actions',
