@@ -57,45 +57,49 @@ export function PopoverSelect({
           {value
             ? options?.find((option) => option.id === value)?.name
             : options
-            ? `Select a ${label}`
-            : `No ${label}s available`}
+              ? `Select a ${label}`
+              : `No ${label}s available`}
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      {options && options.length > 0 && ( // Render the popover content only if options exist
-        <PopoverContent
-          align="start"
-          style={{ width: popoverWidth || 'auto' }}
-          className="p-0"
-        >
-          <Command>
-            <CommandInput placeholder={`Search ${label}...`} className="h-9" />
-            <CommandList>
-              <CommandEmpty>No {label}s found.</CommandEmpty>
-              <CommandGroup>
-                {options.map((option) => (
-                  <CommandItem
-                    key={option.id}
-                    value={option.name}
-                    onSelect={() => {
-                      onChange(option.id);
-                      setIsPopoverOpen(false);
-                    }}
-                  >
-                    {option.name}
-                    <Check
-                      className={cn(
-                        'ml-auto',
-                        option.id === value ? 'opacity-100' : 'opacity-0'
-                      )}
-                    />
-                  </CommandItem>
-                ))}
-              </CommandGroup>
-            </CommandList>
-          </Command>
-        </PopoverContent>
-      )}
+      {options &&
+        options.length > 0 && ( // Render the popover content only if options exist
+          <PopoverContent
+            align="start"
+            style={{ width: popoverWidth || 'auto' }}
+            className="p-0"
+          >
+            <Command>
+              <CommandInput
+                placeholder={`Search ${label}...`}
+                className="h-9"
+              />
+              <CommandList>
+                <CommandEmpty>No {label}s found.</CommandEmpty>
+                <CommandGroup>
+                  {options.map((option) => (
+                    <CommandItem
+                      key={option.id}
+                      value={option.name}
+                      onSelect={() => {
+                        onChange(option.id);
+                        setIsPopoverOpen(false);
+                      }}
+                    >
+                      {option.name}
+                      <Check
+                        className={cn(
+                          'ml-auto',
+                          option.id === value ? 'opacity-100' : 'opacity-0'
+                        )}
+                      />
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </PopoverContent>
+        )}
     </Popover>
   );
 }

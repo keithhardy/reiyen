@@ -28,7 +28,7 @@ export default async function CertificatesPage() {
           address: true,
         },
       },
-      user: true
+      user: true,
     },
   });
 

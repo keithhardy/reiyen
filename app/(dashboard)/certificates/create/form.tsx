@@ -142,14 +142,14 @@ export function CertificateCreateForm({
           <FormItem>
             <FormLabel>Client</FormLabel>
             <PopoverSelect
-                onChange={(value) => setSelectedClientId(value)}
-                value={selectedClientId || ''}
-                  options={clients.map((client) => ({
-                    id: client.id,
-                    name: client.name,
-                  }))}
-                  label="client"
-                />
+              onChange={(value) => setSelectedClientId(value)}
+              value={selectedClientId || ''}
+              options={clients.map((client) => ({
+                id: client.id,
+                name: client.name,
+              }))}
+              label="client"
+            />
           </FormItem>
 
           <FormField
@@ -159,14 +159,19 @@ export function CertificateCreateForm({
               <FormItem>
                 <FormLabel>Property</FormLabel>
                 <FormControl>
-                <PopoverSelect
-                  {...field}
-                  options={selectedClient?.properties.map((user) => ({
-                    id: user.id,
-                    name: user.address?.streetAddress + ', ' + user.address?.city + ', ' + user.address?.postcode,
-                  }))}
-                  label="property"
-                />
+                  <PopoverSelect
+                    {...field}
+                    options={selectedClient?.properties.map((user) => ({
+                      id: user.id,
+                      name:
+                        user.address?.streetAddress +
+                        ', ' +
+                        user.address?.city +
+                        ', ' +
+                        user.address?.postcode,
+                    }))}
+                    label="property"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
