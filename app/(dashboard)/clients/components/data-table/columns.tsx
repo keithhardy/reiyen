@@ -3,6 +3,7 @@
 import { RowActions } from '@/app/(dashboard)/clients/components/data-table/row-actions';
 import { Address, Client } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
+import { ColumnHeader } from '@/app/(dashboard)/clients/components/data-table/column-header';
 
 export const columns: ColumnDef<
   Client & {
@@ -11,15 +12,15 @@ export const columns: ColumnDef<
 >[] = [
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: ({ column }) => <ColumnHeader column={column} title='Name' />,
   },
   {
     accessorKey: 'email',
-    header: 'Email',
+    header: ({ column }) => <ColumnHeader column={column} title='Email' />,
   },
   {
     accessorKey: 'phone',
-    header: 'Phone',
+    header: ({ column }) => <ColumnHeader column={column} title='Phone' />,
   },
   {
     id: 'actions',
