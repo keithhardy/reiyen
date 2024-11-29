@@ -10,6 +10,7 @@ import { Client } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
+import { PopoverSelect } from '@/components/form/popover-select';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -20,13 +21,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 
 export function PropertyCreateForm({ clients }: { clients: Client[] }) {
   const router = useRouter();
@@ -77,25 +71,16 @@ export function PropertyCreateForm({ clients }: { clients: Client[] }) {
             control={form.control}
             name="client.id"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormLabel>Client</FormLabel>
-                <FormControl>
-                  <Select
-                    onValueChange={(value) => field.onChange(value)}
-                    defaultValue={field.value}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a client" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {clients.map((client) => (
-                        <SelectItem key={client.id} value={client.id}>
-                          {client.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
+                <PopoverSelect
+                  {...field}
+                  options={clients.map((client) => ({
+                    id: client.id,
+                    name: client.name,
+                  }))}
+                  label='Client'
+                />
                 <FormMessage />
               </FormItem>
             )}
