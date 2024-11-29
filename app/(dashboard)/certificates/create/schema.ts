@@ -9,11 +9,17 @@ const CertificateTypeValues = [
   $Enums.CertificateType.DOMESTIC_VENTILATION_COMMISSIONING_SHEET,
 ] as const;
 
+const StatusValues = [
+  $Enums.CertificateStatus.IN_PROGRESS,
+  $Enums.CertificateStatus.READY_FOR_SUPERVISOR,
+  $Enums.CertificateStatus.COMPLETE,
+] as const;
+
 export const Schema = z.object({
   certificateType: z.enum(CertificateTypeValues),
   date: z.date(),
   userId: z.string(),
-  status: z.string(),
+  status: z.enum(StatusValues),
   property: z.object({
     id: z.string(),
   }),

@@ -10,7 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { certificateTypeNameMapping } from '@/lib/config';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Address, Client, Property } from '@prisma/client';
+import { Address, Client, Property, User } from '@prisma/client';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -41,10 +41,12 @@ import {
 
 export function CertificateCreateForm({
   clients,
+  users,
 }: {
   clients: (Client & {
     properties: (Property & { address: Address | null })[];
   })[];
+  users: User[];
 }) {
   const router = useRouter();
   const { toast } = useToast();
@@ -58,8 +60,8 @@ export function CertificateCreateForm({
     defaultValues: {
       certificateType: undefined,
       date: new Date(),
-      userId: 'cm433gf3u0000145rvhuj94j3',
-      status: 'In progress',
+      userId: '',
+      status: 'IN_PROGRESS',
       property: {
         id: '',
       },
@@ -109,6 +111,34 @@ export function CertificateCreateForm({
                           </SelectItem>
                         )
                       )}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="userId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>User</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a user" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {users.map((user) => (
+                        <SelectItem key={user.id} value={user.id}>
+                          {user.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </FormControl>

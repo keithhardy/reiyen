@@ -32,6 +32,8 @@ export default async function CertificateCreatePage() {
     },
   });
 
+  const users = await prisma.user.findMany();
+
   return (
     <>
       <PageHeader>
@@ -52,7 +54,7 @@ export default async function CertificateCreatePage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="col-span-2 p-6 lg:col-span-1">
-          <CertificateCreateForm clients={clients} />
+          <CertificateCreateForm clients={clients} users={users} />
         </CardContent>
       </Card>
     </>

@@ -35,7 +35,7 @@ model Certificate {
   minorWorks                            MinorWorks?
   property                              Property                               @relation(fields: [propertyId], references: [id], onDelete: Cascade)
   propertyId                            String
-  status                                String
+  status                                CertificateStatus
   supervisorId                          String?
   supervisorSignature                   String?
   supervisorSignatureDate               String?
@@ -53,6 +53,12 @@ enum CertificateType {
   ELECTRICAL_INSTALLATION_CONDITION_REPORT
   FIRE_SAFETY_DESIGN_SUMMARY
   DOMESTIC_VENTILATION_COMMISSIONING_SHEET
+}
+
+enum CertificateStatus {
+  IN_PROGRESS
+  READY_FOR_SUPERVISOR
+  COMPLETE
 }
 
 model Client {

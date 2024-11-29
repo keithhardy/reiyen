@@ -1,6 +1,6 @@
 'use client';
 
-import { certificateTypeNameMapping } from '@/lib/config';
+import { certificateTypeNameMapping, statusNameMapping } from '@/lib/config';
 import { Certificate } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
@@ -39,6 +39,9 @@ export const columns: ColumnDef<Certificate>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
+    cell: ({ row }) => {
+      return statusNameMapping[row.original.status];
+    },
   },
   {
     id: 'actions',

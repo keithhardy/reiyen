@@ -80,6 +80,12 @@ export const certificateTypeUrlMapping = {
     'domestic-ventilation-commissioning-sheet',
 };
 
+export const statusNameMapping = {
+  IN_PROGRESS: 'In Progress',
+  READY_FOR_SUPERVISOR: 'Ready for Supervisor',
+  COMPLETE: 'Complete',
+};
+
 export const globalPermissions = [
   'create:user',
   'read:user',

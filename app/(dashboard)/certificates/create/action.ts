@@ -24,7 +24,7 @@ export async function createCertificate(
     revalidatePath('/certificates');
     return createdCertificate;
   } catch (error) {
-    console.log(error)
+    console.log(error);
     throw new Error('Certificate creation failed');
   }
 }
