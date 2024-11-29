@@ -19,14 +19,6 @@ export const columns: ColumnDef<
     header: 'Occupier',
   },
   {
-    accessorKey: 'client.name',
-    header: 'Client',
-  },
-  {
-    accessorKey: 'address.streetAddress',
-    header: 'Address',
-  },
-  {
     id: 'actions',
     cell: ({ row }) => {
       return (
