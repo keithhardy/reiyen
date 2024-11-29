@@ -26,7 +26,7 @@ export async function deletePermission(id: string) {
       },
     });
 
-    revalidatePath('users');
+    revalidatePath('users/[id]/permissions');
   } catch {
     throw new Error('Failed to delete permissions.');
   }
