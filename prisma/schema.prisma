@@ -39,9 +39,10 @@ model Certificate {
   supervisorId                          String?
   supervisorSignature                   String?
   supervisorSignatureDate               String?
-  technicianId                          String
-  technicianSignature                   String?
-  technicianSignatureDate               String?
+  userId                                String
+  userSignature                         String?
+  userSignatureDate                     String?
+  User                                  User                                   @relation(fields: [userId], references: [id])
 
   @@index([propertyId])
 }
@@ -172,4 +173,5 @@ model User {
   picture        String
   preferences    Preferences?
   qualifications Qualification[]
+  certificates   Certificate[]
 }
