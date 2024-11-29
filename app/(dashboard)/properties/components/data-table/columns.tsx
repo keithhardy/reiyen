@@ -18,6 +18,21 @@ export const columns: ColumnDef<
   {
     accessorKey: 'occupier',
     header: ({ column }) => <ColumnHeader column={column} title="Occupier" />,
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
+  },
+  {
+    accessorKey: 'client.name',
+    id: 'client',
+    header: ({ column }) => <ColumnHeader column={column} title="Client" />,
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
+  },
+  {
+    accessorKey: 'address.streetAddress',
+    header: ({ column }) => <ColumnHeader column={column} title="Address" />,
+  },
+  {
+    accessorKey: 'address.postcode',
+    header: ({ column }) => <ColumnHeader column={column} title="Postcode" />,
   },
   {
     id: 'actions',

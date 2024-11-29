@@ -19,13 +19,26 @@ export const columns: ColumnDef<Certificate>[] = [
     enableSorting: false
   },
   {
-    accessorKey: 'status',
-    header: ({ column }) => <ColumnHeader column={column} title='Status' />,
-    cell: ({ row }) => {
-      return statusNameMapping[row.original.status];
-    },
+    accessorKey: 'property.client.name',
+    id: 'client',
+    header: ({ column }) => <ColumnHeader column={column} title='Client' />,
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
+    enableSorting: false,
+  },
+  {
+    accessorKey: 'user.name',
+    id: 'technician',
+    header: ({ column }) => <ColumnHeader column={column} title='Technician' />,
     filterFn: (row, id, value) => value.includes(row.getValue(id)),
     enableSorting: false
+  },
+  {
+    accessorKey: 'property.address.streetAddress',
+    header: ({ column }) => <ColumnHeader column={column} title='Address' />,
+  },
+  {
+    accessorKey: 'property.address.postcode',
+    header: ({ column }) => <ColumnHeader column={column} title='Postcode' />,
   },
   {
     accessorKey: 'date',
@@ -33,11 +46,13 @@ export const columns: ColumnDef<Certificate>[] = [
     cell: ({ row }) => format(row.getValue('date'), 'dd/MM/yyyy'),
   },
   {
-    accessorKey: 'property.client.name',
-    id: 'client',
-    header: ({ column }) => <ColumnHeader column={column} title='Client' />,
+    accessorKey: 'status',
+    header: ({ column }) => <ColumnHeader column={column} title='Status' />,
+    cell: ({ row }) => {
+      return statusNameMapping[row.original.status];
+    },
     filterFn: (row, id, value) => value.includes(row.getValue(id)),
-    enableSorting: false,
+    enableSorting: false
   },
   {
     id: 'actions',

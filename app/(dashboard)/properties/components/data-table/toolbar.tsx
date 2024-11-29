@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 import { ViewOptions } from './view-options';
+import { FacetedFilter } from './faceted-filter';
 
 interface ToolbarProps<TData> {
   table: Table<TData>;
@@ -14,6 +15,26 @@ interface ToolbarProps<TData> {
 
 export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
+
+  const clientColumn = table.getColumn('client');
+  const clientOptions = clientColumn
+    ? Array.from(clientColumn.getFacetedUniqueValues().entries()).map(
+        ([value]) => ({
+          label: String(value),
+          value: String(value),
+        })
+      )
+    : [];
+
+    const occupierColumn = table.getColumn('occupier');
+    const occupierOptions = occupierColumn
+      ? Array.from(occupierColumn.getFacetedUniqueValues().entries()).map(
+          ([value]) => ({
+            label: String(value),
+            value: String(value),
+          })
+        )
+      : [];
 
   return (
     <div className="flex items-center justify-between">
@@ -24,6 +45,22 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
           onChange={(event) => table.setGlobalFilter(event.target.value)}
           className="h-8 w-[150px] border-dashed lg:w-[250px]"
         />
+
+        {clientColumn && (
+          <FacetedFilter
+            column={clientColumn}
+            title="Client"
+            options={clientOptions}
+          />
+        )}
+
+        {occupierColumn && (
+          <FacetedFilter
+            column={occupierColumn}
+            title="Occupier"
+            options={occupierOptions}
+          />
+        )}
 
         {isFiltered && (
           <Button

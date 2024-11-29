@@ -5,9 +5,9 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 
 import { Button } from '@/components/ui/button';
-
 import { FacetedFilter } from './faceted-filter';
 import { ViewOptions } from './view-options';
+import { Input } from '@/components/ui/input';
 
 interface ToolbarProps<TData> {
   table: Table<TData>;
@@ -16,7 +16,6 @@ interface ToolbarProps<TData> {
 export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
-  // Client Options
   const clientColumn = table.getColumn('client');
   const clientOptions = clientColumn
     ? Array.from(clientColumn.getFacetedUniqueValues().entries()).map(
@@ -27,7 +26,6 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
       )
     : [];
 
-  // Certificate Type Options
   const certificateTypeColumn = table.getColumn('certificateType');
   const certificateTypeOptions = certificateTypeColumn
     ? Array.from(certificateTypeColumn.getFacetedUniqueValues().entries()).map(
@@ -41,7 +39,6 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
       )
     : [];
 
-  // Status Options
   const statusColumn = table.getColumn('status');
   const statusOptions = statusColumn
     ? Array.from(statusColumn.getFacetedUniqueValues().entries()).map(
@@ -55,10 +52,27 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
       )
     : [];
 
+  // Technician column filter
+  const technicianColumn = table.getColumn('technician');
+  const technicianOptions = technicianColumn
+    ? Array.from(
+        technicianColumn.getFacetedUniqueValues().entries()
+      ).map(([value]) => ({
+        label: String(value),
+        value: String(value),
+      }))
+    : [];
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
-        {/* Certificate Type Filter */}
+        <Input
+          placeholder="Search..."
+          value={(table.getState().globalFilter as string) ?? ''}
+          onChange={(event) => table.setGlobalFilter(event.target.value)}
+          className="h-8 w-[150px] border-dashed lg:w-[250px]"
+        />
+
         {certificateTypeColumn && (
           <FacetedFilter
             column={certificateTypeColumn}
@@ -67,7 +81,6 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
           />
         )}
 
-        {/* Client Filter */}
         {clientColumn && (
           <FacetedFilter
             column={clientColumn}
@@ -76,7 +89,14 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
           />
         )}
 
-        {/* Status Filter */}
+        {technicianColumn && (
+          <FacetedFilter
+            column={technicianColumn}
+            title="Technician"
+            options={technicianOptions}
+          />
+        )}
+
         {statusColumn && (
           <FacetedFilter
             column={statusColumn}
@@ -85,7 +105,6 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
           />
         )}
 
-        {/* Reset Button */}
         {isFiltered && (
           <Button
             variant="ghost"
@@ -98,7 +117,6 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
         )}
       </div>
 
-      {/* View Options */}
       <ViewOptions table={table} />
     </div>
   );
