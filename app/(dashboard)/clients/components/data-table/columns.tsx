@@ -22,10 +22,6 @@ export const columns: ColumnDef<
     header: 'Phone',
   },
   {
-    accessorKey: 'address.streetAddress',
-    header: 'Address',
-  },
-  {
     id: 'actions',
     cell: ({ row }) => {
       return (
