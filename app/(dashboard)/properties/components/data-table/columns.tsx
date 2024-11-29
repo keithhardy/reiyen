@@ -3,31 +3,28 @@
 import { RowActions } from '@/app/(dashboard)/properties/components/data-table/row-actions';
 import { Address, Client, Property } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
-import { House } from 'lucide-react';
 
 export const columns: ColumnDef<
   Property & {
-    address: Address | null;
+    address: Address;
     client: Client;
   }
 >[] = [
   {
     accessorKey: 'uprn',
     header: 'UPRN',
-    cell: ({ row }) => (
-      <div className="flex items-center space-x-4">
-        <House className="min-h-6 min-w-6" />
-        <div>
-          <div className="font-medium">
-            {row.getValue('uprn')} – {row.original.client.name}
-          </div>
-          <div className="font-light text-muted-foreground">
-            {row.original.address?.streetAddress},{' '}
-            {row.original.address?.postTown}, {row.original.address?.postcode}
-          </div>
-        </div>
-      </div>
-    ),
+  },
+  {
+    accessorKey: 'occupier',
+    header: 'Occupier',
+  },
+  {
+    accessorKey: 'client.name',
+    header: 'Client',
+  },
+  {
+    accessorKey: 'address.streetAddress',
+    header: 'Address',
   },
   {
     id: 'actions',

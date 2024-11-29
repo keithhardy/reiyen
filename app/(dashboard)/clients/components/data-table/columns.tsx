@@ -3,7 +3,6 @@
 import { RowActions } from '@/app/(dashboard)/clients/components/data-table/row-actions';
 import { Address, Client } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
-import { Building2 } from 'lucide-react';
 
 export const columns: ColumnDef<
   Client & {
@@ -13,17 +12,18 @@ export const columns: ColumnDef<
   {
     accessorKey: 'name',
     header: 'Name',
-    cell: ({ row }) => (
-      <div className="flex items-center space-x-4">
-        <Building2 className="min-h-6 min-w-6" />
-        <div>
-          <div className="font-medium">{row.getValue('name')}</div>
-          <div className="font-light text-muted-foreground">
-            {row.original.email} – {row.original.phone}
-          </div>
-        </div>
-      </div>
-    ),
+  },
+  {
+    accessorKey: 'email',
+    header: 'Email',
+  },
+  {
+    accessorKey: 'phone',
+    header: 'Phone',
+  },
+  {
+    accessorKey: 'address.streetAddress',
+    header: 'Address',
   },
   {
     id: 'actions',
