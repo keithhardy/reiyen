@@ -8,6 +8,10 @@ import { Button } from '@/components/ui/button';
 import { FacetedFilter } from './faceted-filter';
 import { ViewOptions } from './view-options';
 import { Input } from '@/components/ui/input';
+import { DateRange } from 'react-day-picker';
+import { addDays } from 'date-fns';
+import { useRef, useState } from 'react';
+import { DatePickerWithRange } from '@/components/form/date-picker-with-range';
 
 interface ToolbarProps<TData> {
   table: Table<TData>;
@@ -15,6 +19,8 @@ interface ToolbarProps<TData> {
 
 export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
+  const [, setDateRange] = useState<DateRange | undefined>(undefined);
+  const datePickerRef = useRef<{ reset: () => void }>(null);
 
   const clientColumn = table.getColumn('client');
   const clientOptions = clientColumn
@@ -52,7 +58,6 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
       )
     : [];
 
-  // Technician column filter
   const technicianColumn = table.getColumn('technician');
   const technicianOptions = technicianColumn
     ? Array.from(
@@ -63,6 +68,32 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
       }))
     : [];
 
+    const applyDateRangeFilter = (range: DateRange | undefined) => {
+      const column = table.getColumn('date');
+      if (column) {
+        const fromDate = range?.from ? range.from.toISOString() : null;
+        const toDate = range?.to ? range.to.toISOString() : null;
+  
+        column.setFilterValue({
+          from: fromDate,
+          to: toDate,
+        });
+      }
+    };
+  
+    const handleDateRangeSelect = (range: DateRange | undefined) => {
+      if (range?.from) {
+        if (!range.to) {
+          range = { from: range.from, to: addDays(range.from, 1) };
+        } else {
+          range = { from: range.from, to: addDays(range.to, 1) };
+        }
+      }
+  
+      setDateRange(range);
+      applyDateRangeFilter(range);
+    };
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
@@ -72,6 +103,9 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
           onChange={(event) => table.setGlobalFilter(event.target.value)}
           className="h-8 w-[150px] border-dashed lg:w-[250px]"
         />
+
+        <DatePickerWithRange ref={datePickerRef} onSelect={handleDateRangeSelect} />
+
 
         {certificateTypeColumn && (
           <FacetedFilter
@@ -108,7 +142,9 @@ export function Toolbar<TData>({ table }: ToolbarProps<TData>) {
         {isFiltered && (
           <Button
             variant="ghost"
-            onClick={() => table.resetColumnFilters()}
+            onClick={() => {
+              datePickerRef.current?.reset()
+              table.resetColumnFilters()}}
             className="h-8 px-2 lg:px-3"
           >
             Reset

@@ -44,6 +44,30 @@ export const columns: ColumnDef<Certificate>[] = [
     accessorKey: 'date',
     header: ({ column }) => <ColumnHeader column={column} title='Date' />,
     cell: ({ row }) => format(row.getValue('date'), 'dd/MM/yyyy'),
+    filterFn: (row, id, value) => {
+      const rowDate = new Date(row.getValue(id));
+
+      const startDate = value?.from ? new Date(value.from) : null;
+      const endDate = value?.to ? new Date(value.to) : null;
+
+      if (!rowDate || isNaN(rowDate.getTime())) {
+        return false;
+      }
+
+      if (startDate && endDate) {
+        return rowDate >= startDate && rowDate <= endDate;
+      }
+
+      if (startDate) {
+        return rowDate >= startDate;
+      }
+
+      if (endDate) {
+        return rowDate <= endDate;
+      }
+
+      return true;
+    },
   },
   {
     accessorKey: 'status',
