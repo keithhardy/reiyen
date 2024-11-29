@@ -6,7 +6,7 @@ import { ColumnDef } from '@tanstack/react-table';
 
 export const columns: ColumnDef<
   Property & {
-    address: Address;
+    address: Address | null;
     client: Client;
   }
 >[] = [
