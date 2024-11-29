@@ -32,7 +32,7 @@ export async function createEquipment(
       },
     });
 
-    revalidatePath('/users/[id]/equipment');
+    revalidatePath('/users');
   } catch {
     throw new Error('Equipment creation failed');
   }

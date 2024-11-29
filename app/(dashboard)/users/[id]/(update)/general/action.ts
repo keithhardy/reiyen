@@ -49,7 +49,7 @@ export async function updateUser(user: z.infer<typeof Schema>): Promise<User> {
       },
     });
 
-    revalidatePath('/users/[id]/general');
+    revalidatePath('/users');
     return prismaUser;
   } catch {
     throw new Error('User update failed.');

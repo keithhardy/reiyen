@@ -36,7 +36,7 @@ export async function updatePreferences(
       },
     });
 
-    revalidatePath('/users/[id]/preferences');
+    revalidatePath('/users');
     return updatedPreferences;
   } catch {
     throw new Error('Preferences update failed');
