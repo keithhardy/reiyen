@@ -15,7 +15,9 @@ export default async function RootLayout({
   return (
     <>
       <Header />
-      <main className='container mx-auto max-w-screen-xl flex-grow space-y-4 p-6'>{children}</main>
+      <main className="container mx-auto max-w-screen-xl flex-grow space-y-4 p-6">
+        {children}
+      </main>
       <Footer />
     </>
   );

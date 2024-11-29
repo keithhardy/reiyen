@@ -1,16 +1,23 @@
 'use client';
 
+import { createQualification } from '@/app/(dashboard)/users/[id]/(update)/qualifications/action';
+import { Schema } from '@/app/(dashboard)/users/[id]/(update)/qualifications/schema';
+import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { createQualification } from '@/app/(dashboard)/users/[id]/(update)/qualifications/action';
-import { Schema } from '@/app/(dashboard)/users/[id]/(update)/qualifications/schema';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
 
 export function UserQualificationsForm({ userId }: { userId: string }) {
   const { toast } = useToast();
@@ -38,7 +45,8 @@ export function UserQualificationsForm({ userId }: { userId: string }) {
     } catch {
       toast({
         title: 'Creation Failed',
-        description: 'An error occurred while creating the qualification. Please try again later.',
+        description:
+          'An error occurred while creating the qualification. Please try again later.',
         variant: 'destructive',
       });
     }
@@ -47,10 +55,10 @@ export function UserQualificationsForm({ userId }: { userId: string }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-4'>
+        <div className="space-y-4">
           <FormField
             control={form.control}
-            name='awardingBody'
+            name="awardingBody"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Awarding Body</FormLabel>
@@ -64,7 +72,7 @@ export function UserQualificationsForm({ userId }: { userId: string }) {
 
           <FormField
             control={form.control}
-            name='qualification'
+            name="qualification"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Qualification</FormLabel>
@@ -78,7 +86,7 @@ export function UserQualificationsForm({ userId }: { userId: string }) {
 
           <FormField
             control={form.control}
-            name='qualificationNumber'
+            name="qualificationNumber"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Qualification Number</FormLabel>
@@ -92,12 +100,12 @@ export function UserQualificationsForm({ userId }: { userId: string }) {
 
           <FormField
             control={form.control}
-            name='awardDate'
+            name="awardDate"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Award Date</FormLabel>
                 <FormControl>
-                  <Input type='date' {...field} />
+                  <Input type="date" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -106,20 +114,30 @@ export function UserQualificationsForm({ userId }: { userId: string }) {
 
           <FormField
             control={form.control}
-            name='certificateUrl'
+            name="certificateUrl"
             render={() => (
               <FormItem>
                 <FormLabel>Certificate</FormLabel>
                 <FormControl>
-                  <Input type='file' accept='image/*' onChange={(e) => handleFileChange(e, form.setValue, 'certificateUrl')} />
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      handleFileChange(e, form.setValue, 'certificateUrl')
+                    }
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <div className='flex justify-end'>
-            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+              disabled={form.formState.isSubmitting}
+              variant="outline"
+            >
               {form.formState.isSubmitting ? 'Adding' : 'Add'}
             </Button>
           </div>

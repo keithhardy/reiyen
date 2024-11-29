@@ -1,11 +1,24 @@
 'use client';
 
-import { useUser } from '@auth0/nextjs-auth0';
-import Link from 'next/link';
 import { useTheme } from 'next-themes';
+import Link from 'next/link';
+
+import { useUser } from '@auth0/nextjs-auth0';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function UserMenu() {
@@ -14,8 +27,8 @@ export default function UserMenu() {
 
   if (isLoading) {
     return (
-      <div className='ml-2'>
-        <Skeleton className='h-8 w-8 rounded-full' />
+      <div className="ml-2">
+        <Skeleton className="h-8 w-8 rounded-full" />
       </div>
     );
   }
@@ -31,18 +44,18 @@ export default function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className='ml-2 h-8 w-8 cursor-pointer'>
-          <AvatarImage src={user.picture} alt='Profile picture' />
+        <Avatar className="ml-2 h-8 w-8 cursor-pointer">
+          <AvatarImage src={user.picture} alt="Profile picture" />
           <AvatarFallback>{user.name!.charAt(0)}</AvatarFallback>
         </Avatar>
-
-        {/* <Image src={user.picture!} width={100} height={100} alt='Pic' /> */}
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='end'>
+      <DropdownMenuContent align="end">
         <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href={`/users/${user.sub.replace('auth0|', '')}/general`}>Profile</Link>
+          <Link href={`/users/${user.sub.replace('auth0|', '')}/general`}>
+            Profile
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuGroup>
           <DropdownMenuSub>
@@ -60,7 +73,7 @@ export default function UserMenu() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <a href='/auth/logout'>Logout</a>
+          <a href="/auth/logout">Logout</a>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

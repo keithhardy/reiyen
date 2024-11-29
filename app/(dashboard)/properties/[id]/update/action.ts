@@ -1,12 +1,14 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
 
 import { Schema } from '@/app/(dashboard)/properties/[id]/update/schema';
 import { prisma } from '@/lib/prisma';
+import { z } from 'zod';
 
-export async function updateProperty(property: z.infer<typeof Schema>): Promise<void> {
+export async function updateProperty(
+  property: z.infer<typeof Schema>
+): Promise<void> {
   try {
     await prisma.property.update({
       where: {

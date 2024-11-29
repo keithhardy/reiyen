@@ -1,19 +1,38 @@
 'use client';
 
+import { updateProperty } from '@/app/(dashboard)/properties/[id]/update/action';
+import { Schema } from '@/app/(dashboard)/properties/[id]/update/schema';
+import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Address, Client, Property } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { updateProperty } from '@/app/(dashboard)/properties/[id]/update/action';
-import { Schema } from '@/app/(dashboard)/properties/[id]/update/schema';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useToast } from '@/hooks/use-toast';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
-export function PropertyUpdateForm({ property, clients }: { property: Property & { address: Address | null; client: Client }; clients: Client[] }) {
+export function PropertyUpdateForm({
+  property,
+  clients,
+}: {
+  property: Property & { address: Address | null; client: Client };
+  clients: Client[];
+}) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof Schema>>({
@@ -55,17 +74,20 @@ export function PropertyUpdateForm({ property, clients }: { property: Property &
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-4 pb-4'>
+        <div className="space-y-4 pb-4">
           <FormField
             control={form.control}
-            name='client.id'
+            name="client.id"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Client</FormLabel>
                 <FormControl>
-                  <Select onValueChange={(value) => field.onChange(value)} defaultValue={field.value}>
+                  <Select
+                    onValueChange={(value) => field.onChange(value)}
+                    defaultValue={field.value}
+                  >
                     <SelectTrigger>
-                      <SelectValue placeholder='Select a client' />
+                      <SelectValue placeholder="Select a client" />
                     </SelectTrigger>
                     <SelectContent>
                       {clients.map((client) => (
@@ -83,7 +105,7 @@ export function PropertyUpdateForm({ property, clients }: { property: Property &
 
           <FormField
             control={form.control}
-            name='uprn'
+            name="uprn"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>UPRN</FormLabel>
@@ -97,7 +119,7 @@ export function PropertyUpdateForm({ property, clients }: { property: Property &
 
           <FormField
             control={form.control}
-            name='occupier'
+            name="occupier"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Occupier</FormLabel>
@@ -111,7 +133,7 @@ export function PropertyUpdateForm({ property, clients }: { property: Property &
 
           <FormField
             control={form.control}
-            name='address.streetAddress'
+            name="address.streetAddress"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Street Address</FormLabel>
@@ -125,7 +147,7 @@ export function PropertyUpdateForm({ property, clients }: { property: Property &
 
           <FormField
             control={form.control}
-            name='address.city'
+            name="address.city"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>City</FormLabel>
@@ -139,7 +161,7 @@ export function PropertyUpdateForm({ property, clients }: { property: Property &
 
           <FormField
             control={form.control}
-            name='address.county'
+            name="address.county"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>County</FormLabel>
@@ -153,7 +175,7 @@ export function PropertyUpdateForm({ property, clients }: { property: Property &
 
           <FormField
             control={form.control}
-            name='address.postTown'
+            name="address.postTown"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Post Town</FormLabel>
@@ -167,7 +189,7 @@ export function PropertyUpdateForm({ property, clients }: { property: Property &
 
           <FormField
             control={form.control}
-            name='address.postcode'
+            name="address.postcode"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Postcode</FormLabel>
@@ -181,7 +203,7 @@ export function PropertyUpdateForm({ property, clients }: { property: Property &
 
           <FormField
             control={form.control}
-            name='address.country'
+            name="address.country"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Country</FormLabel>
@@ -193,8 +215,12 @@ export function PropertyUpdateForm({ property, clients }: { property: Property &
             )}
           />
 
-          <div className='flex justify-end'>
-            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+              disabled={form.formState.isSubmitting}
+              variant="outline"
+            >
               {form.formState.isSubmitting ? 'Saving' : 'Save'}
             </Button>
           </div>

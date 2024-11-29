@@ -1,16 +1,21 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
 
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/qualifications/schema';
 import { prisma } from '@/lib/prisma';
 import { deleteFile, uploadFile } from '@/lib/vercel-blob';
+import { z } from 'zod';
 
-export async function createQualification(qualification: z.infer<typeof Schema>): Promise<void> {
+export async function createQualification(
+  qualification: z.infer<typeof Schema>
+): Promise<void> {
   try {
     try {
-      qualification.certificateUrl = await uploadFile(qualification.certificateUrl, 'certifictate');
+      qualification.certificateUrl = await uploadFile(
+        qualification.certificateUrl,
+        'certifictate'
+      );
     } catch {
       throw new Error('Qualification creation failed: Error updating file.');
     }
@@ -32,7 +37,9 @@ export async function createQualification(qualification: z.infer<typeof Schema>)
   }
 }
 
-export async function deleteQualification(qualification: z.infer<typeof Schema>): Promise<void> {
+export async function deleteQualification(
+  qualification: z.infer<typeof Schema>
+): Promise<void> {
   try {
     await prisma.qualification.delete({
       where: { id: qualification.id },

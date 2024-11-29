@@ -1,13 +1,14 @@
-import './globals.css';
+import type { Metadata } from 'next';
 
+import { ThemeProvider } from '@/providers/theme-provider';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
-import type { Metadata } from 'next';
 
 import { Toaster } from '@/components/ui/toaster';
-import { ThemeProvider } from '@/providers/theme-provider';
+
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Reiyen',
@@ -22,9 +23,16 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
-      <body className={`${GeistSans.className} ${GeistMono.className} flex min-h-dvh flex-col`}>
-        <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${GeistSans.className} ${GeistMono.className} flex min-h-dvh flex-col`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           {children}
           {modal}
           <Analytics />

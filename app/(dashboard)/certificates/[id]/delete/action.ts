@@ -1,12 +1,14 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
 
 import { Schema } from '@/app/(dashboard)/certificates/[id]/delete/schema';
 import { prisma } from '@/lib/prisma';
+import { z } from 'zod';
 
-export async function deleteCertificate(certificate: z.infer<typeof Schema>): Promise<void> {
+export async function deleteCertificate(
+  certificate: z.infer<typeof Schema>
+): Promise<void> {
   try {
     await prisma.certificate.delete({
       where: {

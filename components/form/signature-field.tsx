@@ -1,7 +1,9 @@
 'use client';
 
-import Image from 'next/image';
 import { useRef, useState } from 'react';
+
+import Image from 'next/image';
+
 import { ControllerRenderProps } from 'react-hook-form';
 import SignatureCanvas from 'react-signature-canvas';
 
@@ -43,17 +45,28 @@ export function SignatureField({ value, onChange }: ControllerRenderProps) {
             ref={signaturePad}
             onEnd={handleEndSignature}
             canvasProps={{
-              className: 'signature-canvas border rounded-md w-full h-56 bg-white',
+              className:
+                'signature-canvas border rounded-md w-full h-56 bg-white',
             }}
           />
-          <Button type='button' variant={'ghost'} onClick={handleClearSignature}>
+          <Button
+            type="button"
+            variant={'ghost'}
+            onClick={handleClearSignature}
+          >
             Clear Signature
           </Button>
         </>
       ) : (
         <>
-          <Image src={signatureValue} alt='Saved signature' width={1000} height={1000} className='h-56 w-full rounded-md border bg-white' />
-          <Button type='button' variant={'ghost'} onClick={handleEditSignature}>
+          <Image
+            src={signatureValue}
+            alt="Saved signature"
+            width={1000}
+            height={1000}
+            className="h-56 w-full rounded-md border bg-white"
+          />
+          <Button type="button" variant={'ghost'} onClick={handleEditSignature}>
             Edit Signature
           </Button>
         </>

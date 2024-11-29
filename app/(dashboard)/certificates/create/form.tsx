@@ -1,30 +1,57 @@
 'use client';
 
+import { useState } from 'react';
+
+import { useRouter } from 'next/navigation';
+
+import { createCertificate } from '@/app/(dashboard)/certificates/create/action';
+import { Schema } from '@/app/(dashboard)/certificates/create/schema';
+import { useToast } from '@/hooks/use-toast';
+import { certificateTypeNameMapping } from '@/lib/config';
+import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Address, Client, Property } from '@prisma/client';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { createCertificate } from '@/app/(dashboard)/certificates/create/action';
-import { Schema } from '@/app/(dashboard)/certificates/create/schema';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useToast } from '@/hooks/use-toast';
-import { certificateTypeNameMapping } from '@/lib/config';
-import { cn } from '@/lib/utils';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
-export function CertificateCreateForm({ clients }: { clients: (Client & { properties: (Property & { address: Address | null })[] })[] }) {
+export function CertificateCreateForm({
+  clients,
+}: {
+  clients: (Client & {
+    properties: (Property & { address: Address | null })[];
+  })[];
+}) {
   const router = useRouter();
   const { toast } = useToast();
   const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
-  const selectedClient = clients.find((client) => client.id === selectedClientId);
+  const selectedClient = clients.find(
+    (client) => client.id === selectedClientId
+  );
 
   const form = useForm<z.infer<typeof Schema>>({
     resolver: zodResolver(Schema),
@@ -59,24 +86,29 @@ export function CertificateCreateForm({ clients }: { clients: (Client & { proper
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-4'>
+        <div className="space-y-4">
           <FormField
             control={form.control}
-            name='certificateType'
+            name="certificateType"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Certificate Type</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
                     <SelectTrigger>
-                      <SelectValue placeholder='Select a certificate type' />
+                      <SelectValue placeholder="Select a certificate type" />
                     </SelectTrigger>
                     <SelectContent>
-                      {Object.entries(certificateTypeNameMapping).map(([key, label]) => (
-                        <SelectItem key={key} value={key}>
-                          {label}
-                        </SelectItem>
-                      ))}
+                      {Object.entries(certificateTypeNameMapping).map(
+                        ([key, label]) => (
+                          <SelectItem key={key} value={key}>
+                            {label}
+                          </SelectItem>
+                        )
+                      )}
                     </SelectContent>
                   </Select>
                 </FormControl>
@@ -88,9 +120,12 @@ export function CertificateCreateForm({ clients }: { clients: (Client & { proper
           <FormItem>
             <FormLabel>Client</FormLabel>
             <FormControl>
-              <Select onValueChange={(value) => setSelectedClientId(value)} value={selectedClientId || ''}>
+              <Select
+                onValueChange={(value) => setSelectedClientId(value)}
+                value={selectedClientId || ''}
+              >
                 <SelectTrigger>
-                  <SelectValue placeholder='Select a client' />
+                  <SelectValue placeholder="Select a client" />
                 </SelectTrigger>
                 <SelectContent>
                   {clients.map((client) => (
@@ -105,19 +140,32 @@ export function CertificateCreateForm({ clients }: { clients: (Client & { proper
 
           <FormField
             control={form.control}
-            name='property.id'
+            name="property.id"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Property</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange} defaultValue={field.value} disabled={!selectedClient || selectedClient.properties.length === 0}>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    disabled={
+                      !selectedClient || selectedClient.properties.length === 0
+                    }
+                  >
                     <SelectTrigger>
-                      <SelectValue placeholder={!selectedClient ? 'Select a client' : 'Select a property'} />
+                      <SelectValue
+                        placeholder={
+                          !selectedClient
+                            ? 'Select a client'
+                            : 'Select a property'
+                        }
+                      />
                     </SelectTrigger>
                     <SelectContent>
                       {selectedClient?.properties.map((property) => (
                         <SelectItem key={property.id} value={property.id}>
-                          {property.address?.streetAddress}, {property.address?.postcode}
+                          {property.address?.streetAddress},{' '}
+                          {property.address?.postcode}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -130,7 +178,7 @@ export function CertificateCreateForm({ clients }: { clients: (Client & { proper
 
           <FormField
             control={form.control}
-            name='date'
+            name="date"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Date</FormLabel>
@@ -138,14 +186,32 @@ export function CertificateCreateForm({ clients }: { clients: (Client & { proper
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
-                        <Button variant={'outline'} className={cn('flex w-[240px] pl-3 text-left font-normal', !field.value && 'text-muted-foreground')}>
-                          {field.value ? format(field.value, 'PPP') : <span>Pick a date</span>}
-                          <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+                        <Button
+                          variant={'outline'}
+                          className={cn(
+                            'flex w-[240px] pl-3 text-left font-normal',
+                            !field.value && 'text-muted-foreground'
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, 'PPP')
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className='w-auto p-0' align='start'>
-                      <Calendar mode='single' selected={field.value} onSelect={field.onChange} disabled={(date) => date > new Date() || date < new Date('1900-01-01')} initialFocus />
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date('1900-01-01')
+                        }
+                        initialFocus
+                      />
                     </PopoverContent>
                   </Popover>
                 </FormControl>
@@ -154,8 +220,12 @@ export function CertificateCreateForm({ clients }: { clients: (Client & { proper
             )}
           />
 
-          <div className='flex justify-end'>
-            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+              disabled={form.formState.isSubmitting}
+              variant="outline"
+            >
               {form.formState.isSubmitting ? 'Creating' : 'Create'}
             </Button>
           </div>

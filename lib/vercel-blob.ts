@@ -1,8 +1,14 @@
 import { del, put } from '@vercel/blob';
 
-async function saveFile(fileData: string | Buffer, fileName: string): Promise<string> {
+async function saveFile(
+  fileData: string | Buffer,
+  fileName: string
+): Promise<string> {
   try {
-    const binaryData = typeof fileData === 'string' ? Buffer.from(fileData.replace(/^data:.+;base64,/, ''), 'base64') : fileData;
+    const binaryData =
+      typeof fileData === 'string'
+        ? Buffer.from(fileData.replace(/^data:.+;base64,/, ''), 'base64')
+        : fileData;
 
     const blob = await put(fileName, binaryData, {
       access: 'public',
@@ -22,7 +28,10 @@ export async function deleteFile(fileUrl: string): Promise<void> {
   }
 }
 
-export async function uploadFile(newFile?: string, filePrefix: string = 'uploaded-file'): Promise<string | undefined> {
+export async function uploadFile(
+  newFile?: string,
+  filePrefix: string = 'uploaded-file'
+): Promise<string | undefined> {
   if (newFile === '') {
     return undefined;
   }
@@ -32,7 +41,8 @@ export async function uploadFile(newFile?: string, filePrefix: string = 'uploade
   }
 
   try {
-    const fileExtension = newFile.match(/data:(.*?);base64/)?.[1]?.split('/')[1] || 'unknown';
+    const fileExtension =
+      newFile.match(/data:(.*?);base64/)?.[1]?.split('/')[1] || 'unknown';
 
     const fileName = `${filePrefix}-${Date.now()}.${fileExtension}`;
 
@@ -44,7 +54,11 @@ export async function uploadFile(newFile?: string, filePrefix: string = 'uploade
   }
 }
 
-export async function updateFile(newFile?: string, currentFile?: string, filePrefix: string = 'uploaded-file'): Promise<string | undefined> {
+export async function updateFile(
+  newFile?: string,
+  currentFile?: string,
+  filePrefix: string = 'uploaded-file'
+): Promise<string | undefined> {
   if (newFile === '') {
     if (currentFile && currentFile.includes('vercel-storage.com')) {
       await deleteFile(currentFile);
@@ -61,7 +75,8 @@ export async function updateFile(newFile?: string, currentFile?: string, filePre
   }
 
   try {
-    const fileExtension = newFile.match(/data:(.*?);base64/)?.[1]?.split('/')[1] || 'unknown';
+    const fileExtension =
+      newFile.match(/data:(.*?);base64/)?.[1]?.split('/')[1] || 'unknown';
 
     const fileName = `${filePrefix}-${Date.now()}.${fileExtension}`;
 

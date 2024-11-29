@@ -1,19 +1,25 @@
 'use server';
 
-import { Settings } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
 
 import { Schema } from '@/app/(dashboard)/settings/schema';
 import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
+import { Settings } from '@prisma/client';
+import { z } from 'zod';
 
-export async function updateSettings(settings: z.infer<typeof Schema>): Promise<Settings> {
+export async function updateSettings(
+  settings: z.infer<typeof Schema>
+): Promise<Settings> {
   try {
     const settingsResponse = await prisma.settings.findFirst();
 
     try {
-      settings.logoUrl = await updateFile(settings.logoUrl, settingsResponse?.logoUrl, 'logo');
+      settings.logoUrl = await updateFile(
+        settings.logoUrl,
+        settingsResponse?.logoUrl,
+        'logo'
+      );
     } catch {
       throw new Error('Settings update failed: Error updating file.');
     }

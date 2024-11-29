@@ -1,20 +1,32 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Certificate } from '@prisma/client';
 import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import { deleteCertificate } from '@/app/(dashboard)/certificates/[id]/delete/action';
 import { Schema } from '@/app/(dashboard)/certificates/[id]/delete/schema';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { certificateTypeNameMapping } from '@/lib/config';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Certificate } from '@prisma/client';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
-export function CertificateDeleteForm({ certificate }: { certificate: Certificate }) {
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+
+export function CertificateDeleteForm({
+  certificate,
+}: {
+  certificate: Certificate;
+}) {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -46,14 +58,18 @@ export function CertificateDeleteForm({ certificate }: { certificate: Certificat
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-4'>
+        <div className="space-y-4">
           <FormField
             control={form.control}
-            name='certificateType'
+            name="certificateType"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-muted-foreground'>
-                  Enter <span className='text-foreground'>{certificateTypeNameMapping[certificate.certificateType]}</span> and press delete to remove.
+                <FormLabel className="text-muted-foreground">
+                  Enter{' '}
+                  <span className="text-foreground">
+                    {certificateTypeNameMapping[certificate.certificateType]}
+                  </span>{' '}
+                  and press delete to remove.
                 </FormLabel>
                 <FormControl>
                   <Input {...field} />
@@ -63,8 +79,16 @@ export function CertificateDeleteForm({ certificate }: { certificate: Certificat
             )}
           />
 
-          <div className='flex justify-end'>
-            <Button type='submit' disabled={form.watch('certificateType') !== certificateTypeNameMapping[certificate.certificateType] || form.formState.isSubmitting} variant='outline'>
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+              disabled={
+                form.watch('certificateType') !==
+                  certificateTypeNameMapping[certificate.certificateType] ||
+                form.formState.isSubmitting
+              }
+              variant="outline"
+            >
               {form.formState.isSubmitting ? 'Deleting' : 'Delete'}
             </Button>
           </div>

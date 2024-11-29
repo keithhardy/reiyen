@@ -1,16 +1,23 @@
 'use client';
 
+import { createEquipment } from '@/app/(dashboard)/users/[id]/(update)/equipment/action';
+import { Schema } from '@/app/(dashboard)/users/[id]/(update)/equipment/schema';
+import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { createEquipment } from '@/app/(dashboard)/users/[id]/(update)/equipment/action';
-import { Schema } from '@/app/(dashboard)/users/[id]/(update)/equipment/schema';
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
 
 export function UserEquipmentForm({ userId }: { userId: string }) {
   const { toast } = useToast();
@@ -39,7 +46,8 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
     } catch {
       toast({
         title: 'Create Failed',
-        description: 'An error occurred while creating the equipment. Please try again later.',
+        description:
+          'An error occurred while creating the equipment. Please try again later.',
         variant: 'destructive',
       });
     }
@@ -48,10 +56,10 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-4'>
+        <div className="space-y-4">
           <FormField
             control={form.control}
-            name='type'
+            name="type"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Type</FormLabel>
@@ -65,7 +73,7 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
 
           <FormField
             control={form.control}
-            name='make'
+            name="make"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Make</FormLabel>
@@ -79,7 +87,7 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
 
           <FormField
             control={form.control}
-            name='model'
+            name="model"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Model</FormLabel>
@@ -93,7 +101,7 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
 
           <FormField
             control={form.control}
-            name='serialNumber'
+            name="serialNumber"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Serial Number</FormLabel>
@@ -107,12 +115,12 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
 
           <FormField
             control={form.control}
-            name='testDate'
+            name="testDate"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Test Date</FormLabel>
                 <FormControl>
-                  <Input type='date' {...field} />
+                  <Input type="date" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -121,20 +129,30 @@ export function UserEquipmentForm({ userId }: { userId: string }) {
 
           <FormField
             control={form.control}
-            name='certificateUrl'
+            name="certificateUrl"
             render={() => (
               <FormItem>
                 <FormLabel>Certificate</FormLabel>
                 <FormControl>
-                  <Input type='file' accept='image/*' onChange={(e) => handleFileChange(e, form.setValue, 'certificateUrl')} />
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      handleFileChange(e, form.setValue, 'certificateUrl')
+                    }
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <div className='flex justify-end'>
-            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+              disabled={form.formState.isSubmitting}
+              variant="outline"
+            >
               {form.formState.isSubmitting ? 'Adding' : 'Add'}
             </Button>
           </div>

@@ -1,21 +1,34 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Address, Settings } from '@prisma/client';
-import Image from 'next/image';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+
+import Image from 'next/image';
 
 import { updateSettings } from '@/app/(dashboard)/settings/action';
 import { Schema } from '@/app/(dashboard)/settings/schema';
+import { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Address, Settings } from '@prisma/client';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
 
-export function SettingsUpdateForm({ settings }: { settings: Settings & { address: Address | null } }) {
+export function SettingsUpdateForm({
+  settings,
+}: {
+  settings: Settings & { address: Address | null };
+}) {
   const { toast } = useToast();
   const [imagePreview, setImagePreview] = useState(settings?.logoUrl || '');
 
@@ -60,10 +73,10 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-4'>
+        <div className="space-y-4">
           <FormField
             control={form.control}
-            name='name'
+            name="name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Name</FormLabel>
@@ -77,7 +90,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
 
           <FormField
             control={form.control}
-            name='email'
+            name="email"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
@@ -91,7 +104,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
 
           <FormField
             control={form.control}
-            name='phone'
+            name="phone"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Phone</FormLabel>
@@ -105,17 +118,34 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
 
           <FormField
             control={form.control}
-            name='logoUrl'
+            name="logoUrl"
             render={() => (
               <FormItem>
                 <FormLabel>Company Logo</FormLabel>
                 <FormControl>
-                  <Input type='file' accept='image/*' onChange={(e) => handleFileChange(e, form.setValue, 'logoUrl', setImagePreview)} />
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      handleFileChange(
+                        e,
+                        form.setValue,
+                        'logoUrl',
+                        setImagePreview
+                      )
+                    }
+                  />
                 </FormControl>
                 <FormMessage />
                 {imagePreview && (
-                  <div className='mt-2'>
-                    <Image src={imagePreview} alt='Logo Preview' width={200} height={200} className='rounded border' />
+                  <div className="mt-2">
+                    <Image
+                      src={imagePreview}
+                      alt="Logo Preview"
+                      width={200}
+                      height={200}
+                      className="rounded border"
+                    />
                   </div>
                 )}
               </FormItem>
@@ -124,7 +154,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
 
           <FormField
             control={form.control}
-            name='governingBody'
+            name="governingBody"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Governing Body</FormLabel>
@@ -138,7 +168,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
 
           <FormField
             control={form.control}
-            name='governingBodyNumber'
+            name="governingBodyNumber"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Governing Body Number</FormLabel>
@@ -152,7 +182,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
 
           <FormField
             control={form.control}
-            name='address.streetAddress'
+            name="address.streetAddress"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Street Address</FormLabel>
@@ -166,7 +196,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
 
           <FormField
             control={form.control}
-            name='address.city'
+            name="address.city"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>City</FormLabel>
@@ -180,7 +210,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
 
           <FormField
             control={form.control}
-            name='address.county'
+            name="address.county"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>County</FormLabel>
@@ -194,7 +224,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
 
           <FormField
             control={form.control}
-            name='address.postTown'
+            name="address.postTown"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Post Town</FormLabel>
@@ -208,7 +238,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
 
           <FormField
             control={form.control}
-            name='address.postcode'
+            name="address.postcode"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Postcode</FormLabel>
@@ -222,7 +252,7 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
 
           <FormField
             control={form.control}
-            name='address.country'
+            name="address.country"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Country</FormLabel>
@@ -234,8 +264,12 @@ export function SettingsUpdateForm({ settings }: { settings: Settings & { addres
             )}
           />
 
-          <div className='flex justify-end'>
-            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+              disabled={form.formState.isSubmitting}
+              variant="outline"
+            >
               {form.formState.isSubmitting ? 'Saving' : 'Save'}
             </Button>
           </div>

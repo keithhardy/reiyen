@@ -2,9 +2,21 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { UserDeleteForm } from '@/app/(dashboard)/users/[id]/delete/form';
-import { PageHeader, PageHeaderDescription, PageHeaderGroup, PageHeaderHeading } from '@/components/page-header';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
+
+import {
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderGroup,
+  PageHeaderHeading,
+} from '@/components/page-header';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 export const metadata: Metadata = {
   title: 'Delete – Users – Reiyen',
@@ -18,7 +30,11 @@ export async function generateStaticParams() {
   return users.map((user) => ({ id: user.id }));
 }
 
-export default async function UserDeletePage({ params }: { params: Promise<{ id: string }> }) {
+export default async function UserDeletePage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const user = await prisma.user.findFirst({
     where: {
       id: (await params).id,
@@ -34,7 +50,10 @@ export default async function UserDeletePage({ params }: { params: Promise<{ id:
       <PageHeader>
         <PageHeaderGroup>
           <PageHeaderHeading>Delete</PageHeaderHeading>
-          <PageHeaderDescription>Permanently delete a user account. Review the user&apos;s details carefully before proceeding with this irreversible action.</PageHeaderDescription>
+          <PageHeaderDescription>
+            Permanently delete a user account. Review the user&apos;s details
+            carefully before proceeding with this irreversible action.
+          </PageHeaderDescription>
         </PageHeaderGroup>
       </PageHeader>
 
@@ -42,7 +61,9 @@ export default async function UserDeletePage({ params }: { params: Promise<{ id:
         <CardHeader>
           <CardTitle>Delete User</CardTitle>
           <CardDescription>
-            Are you sure you want to delete <span className='text-primary'>{user.name}</span>? This action is permanent and the user will not be recoverable.
+            Are you sure you want to delete{' '}
+            <span className="text-primary">{user.name}</span>? This action is
+            permanent and the user will not be recoverable.
           </CardDescription>
         </CardHeader>
         <CardContent>

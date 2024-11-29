@@ -1,12 +1,12 @@
 'use server';
 
-import { User } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
 
 import { Schema } from '@/app/(dashboard)/users/create/schema';
-import { auth0Management } from '@/lib/auth0-management';
+import { auth0Management } from '@/lib/auth0-clients';
 import { prisma } from '@/lib/prisma';
+import { User } from '@prisma/client';
+import { z } from 'zod';
 
 export async function createUser(user: z.infer<typeof Schema>): Promise<User> {
   try {

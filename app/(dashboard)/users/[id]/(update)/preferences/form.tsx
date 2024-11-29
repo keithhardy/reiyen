@@ -1,19 +1,30 @@
 'use client';
 
+import { updatePreferences } from '@/app/(dashboard)/users/[id]/(update)/preferences/action';
+import { Schema } from '@/app/(dashboard)/users/[id]/(update)/preferences/schema';
+import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Preferences } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { updatePreferences } from '@/app/(dashboard)/users/[id]/(update)/preferences/action';
-import { Schema } from '@/app/(dashboard)/users/[id]/(update)/preferences/schema';
 import { SignatureField } from '@/components/form/signature-field';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
 
-export function UserPreferencesForm({ preferences }: { preferences: Preferences }) {
+export function UserPreferencesForm({
+  preferences,
+}: {
+  preferences: Preferences;
+}) {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof Schema>>({
@@ -31,7 +42,8 @@ export function UserPreferencesForm({ preferences }: { preferences: Preferences 
     } catch {
       toast({
         title: 'Update Failed',
-        description: 'An error occurred while updating the preferences. Please try again later.',
+        description:
+          'An error occurred while updating the preferences. Please try again later.',
         variant: 'destructive',
       });
     }
@@ -40,10 +52,10 @@ export function UserPreferencesForm({ preferences }: { preferences: Preferences 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-4'>
+        <div className="space-y-4">
           <FormField
             control={form.control}
-            name='position'
+            name="position"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Position</FormLabel>
@@ -57,7 +69,7 @@ export function UserPreferencesForm({ preferences }: { preferences: Preferences 
 
           <FormField
             control={form.control}
-            name='signature'
+            name="signature"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Signature</FormLabel>
@@ -69,8 +81,12 @@ export function UserPreferencesForm({ preferences }: { preferences: Preferences 
             )}
           />
 
-          <div className='flex justify-end'>
-            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+              disabled={form.formState.isSubmitting}
+              variant="outline"
+            >
               {form.formState.isSubmitting ? 'Saving' : 'Save'}
             </Button>
           </div>

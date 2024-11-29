@@ -1,14 +1,16 @@
 'use server';
 
-import { Client } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
 
 import { Schema } from '@/app/(dashboard)/clients/create/schema';
 import { prisma } from '@/lib/prisma';
 import { uploadFile } from '@/lib/vercel-blob';
+import { Client } from '@prisma/client';
+import { z } from 'zod';
 
-export async function createClient(client: z.infer<typeof Schema>): Promise<Client> {
+export async function createClient(
+  client: z.infer<typeof Schema>
+): Promise<Client> {
   try {
     try {
       client.logoUrl = await uploadFile(client.logoUrl, 'certifictate');

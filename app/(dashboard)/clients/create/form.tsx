@@ -1,19 +1,28 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import { createClient } from '@/app/(dashboard)/clients/create/action';
 import { Schema } from '@/app/(dashboard)/clients/create/schema';
+import { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
 import { handleFileChange } from '@/components/form/handle-file-change';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/hooks/use-toast';
 
 export function ClientCreateForm() {
   const router = useRouter();
@@ -58,15 +67,15 @@ export function ClientCreateForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className='space-y-4 pb-4'>
+        <div className="space-y-4 pb-4">
           <FormField
             control={form.control}
-            name='name'
+            name="name"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input {...field} autoComplete='new-name' />
+                  <Input {...field} autoComplete="new-name" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -75,12 +84,12 @@ export function ClientCreateForm() {
 
           <FormField
             control={form.control}
-            name='email'
+            name="email"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type='email' {...field} autoComplete='email' />
+                  <Input type="email" {...field} autoComplete="email" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -89,12 +98,12 @@ export function ClientCreateForm() {
 
           <FormField
             control={form.control}
-            name='phone'
+            name="phone"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Phone</FormLabel>
                 <FormControl>
-                  <Input type='tel' {...field} autoComplete='tel' />
+                  <Input type="tel" {...field} autoComplete="tel" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -103,17 +112,34 @@ export function ClientCreateForm() {
 
           <FormField
             control={form.control}
-            name='logoUrl'
+            name="logoUrl"
             render={() => (
               <FormItem>
                 <FormLabel>Company Logo</FormLabel>
                 <FormControl>
-                  <Input type='file' accept='image/*' onChange={(e) => handleFileChange(e, form.setValue, 'logoUrl', setImagePreview)} />
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      handleFileChange(
+                        e,
+                        form.setValue,
+                        'logoUrl',
+                        setImagePreview
+                      )
+                    }
+                  />
                 </FormControl>
                 <FormMessage />
                 {imagePreview && (
-                  <div className='mt-2'>
-                    <Image src={imagePreview} alt='Logo Preview' width={200} height={200} className='rounded border' />
+                  <div className="mt-2">
+                    <Image
+                      src={imagePreview}
+                      alt="Logo Preview"
+                      width={200}
+                      height={200}
+                      className="rounded border"
+                    />
                   </div>
                 )}
               </FormItem>
@@ -122,12 +148,12 @@ export function ClientCreateForm() {
 
           <FormField
             control={form.control}
-            name='address.streetAddress'
+            name="address.streetAddress"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Street Address</FormLabel>
                 <FormControl>
-                  <Input {...field} autoComplete='address-line1' />
+                  <Input {...field} autoComplete="address-line1" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -136,12 +162,12 @@ export function ClientCreateForm() {
 
           <FormField
             control={form.control}
-            name='address.city'
+            name="address.city"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>City</FormLabel>
                 <FormControl>
-                  <Input {...field} autoComplete='address-level2' />
+                  <Input {...field} autoComplete="address-level2" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -150,12 +176,12 @@ export function ClientCreateForm() {
 
           <FormField
             control={form.control}
-            name='address.county'
+            name="address.county"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>County</FormLabel>
                 <FormControl>
-                  <Input {...field} autoComplete='address-level1' />
+                  <Input {...field} autoComplete="address-level1" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -164,12 +190,12 @@ export function ClientCreateForm() {
 
           <FormField
             control={form.control}
-            name='address.postTown'
+            name="address.postTown"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Post Town</FormLabel>
                 <FormControl>
-                  <Input {...field} autoComplete='address-level2' />
+                  <Input {...field} autoComplete="address-level2" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -178,12 +204,12 @@ export function ClientCreateForm() {
 
           <FormField
             control={form.control}
-            name='address.postcode'
+            name="address.postcode"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Postcode</FormLabel>
                 <FormControl>
-                  <Input {...field} autoComplete='postal-code' />
+                  <Input {...field} autoComplete="postal-code" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -192,20 +218,24 @@ export function ClientCreateForm() {
 
           <FormField
             control={form.control}
-            name='address.country'
+            name="address.country"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Country</FormLabel>
                 <FormControl>
-                  <Input {...field} autoComplete='country-name' />
+                  <Input {...field} autoComplete="country-name" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <div className='flex justify-end'>
-            <Button type='submit' disabled={form.formState.isSubmitting} variant='outline'>
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+              disabled={form.formState.isSubmitting}
+              variant="outline"
+            >
               {form.formState.isSubmitting ? 'Creating' : 'Create'}
             </Button>
           </div>

@@ -1,13 +1,13 @@
 'use server';
 
-import { User } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
 
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/general/schema';
-import { auth0Management } from '@/lib/auth0-management';
+import { auth0Management } from '@/lib/auth0-clients';
 import { prisma } from '@/lib/prisma';
 import { updateFile } from '@/lib/vercel-blob';
+import { User } from '@prisma/client';
+import { z } from 'zod';
 
 export async function updateUser(user: z.infer<typeof Schema>): Promise<User> {
   try {
@@ -18,7 +18,11 @@ export async function updateUser(user: z.infer<typeof Schema>): Promise<User> {
     });
 
     try {
-      user.picture = await updateFile(user.picture, currentUser?.picture, 'profile-picture');
+      user.picture = await updateFile(
+        user.picture,
+        currentUser?.picture,
+        'profile-picture'
+      );
     } catch {
       throw new Error('User update failed: Error updating file.');
     }

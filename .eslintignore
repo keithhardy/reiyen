@@ -1,0 +1,10 @@
+app/fonts/**/*
+app/globals.css
+components/ui/**/*
+hooks/use-toast.ts
+node_modules/**/*
+lib/utils.ts
+lib/prisma.ts
+lib/auth0.ts
+prisma/**/*
+providers/theme-provider.tsx

@@ -1,16 +1,21 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
 
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/equipment/schema';
 import { prisma } from '@/lib/prisma';
 import { deleteFile, uploadFile } from '@/lib/vercel-blob';
+import { z } from 'zod';
 
-export async function createEquipment(equipment: z.infer<typeof Schema>): Promise<void> {
+export async function createEquipment(
+  equipment: z.infer<typeof Schema>
+): Promise<void> {
   try {
     try {
-      equipment.certificateUrl = await uploadFile(equipment.certificateUrl, 'certifictate');
+      equipment.certificateUrl = await uploadFile(
+        equipment.certificateUrl,
+        'certifictate'
+      );
     } catch {
       throw new Error('Equipment creation failed: Error updating file.');
     }
@@ -33,7 +38,9 @@ export async function createEquipment(equipment: z.infer<typeof Schema>): Promis
   }
 }
 
-export async function deleteEquipment(equipment: z.infer<typeof Schema>): Promise<void> {
+export async function deleteEquipment(
+  equipment: z.infer<typeof Schema>
+): Promise<void> {
   try {
     await prisma.equipment.delete({
       where: { id: equipment.id },

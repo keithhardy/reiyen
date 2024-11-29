@@ -1,12 +1,12 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
 
 import { Schema } from '@/app/(dashboard)/users/[id]/delete/schema';
-import { auth0Management } from '@/lib/auth0-management';
+import { auth0Management } from '@/lib/auth0-clients';
 import { prisma } from '@/lib/prisma';
 import { deleteFile } from '@/lib/vercel-blob';
+import { z } from 'zod';
 
 export async function deleteUser(user: z.infer<typeof Schema>): Promise<void> {
   try {

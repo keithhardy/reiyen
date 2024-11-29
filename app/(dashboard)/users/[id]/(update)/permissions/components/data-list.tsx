@@ -1,14 +1,20 @@
 'use client';
 
+import { deletePermission } from '@/app/(dashboard)/users/[id]/(update)/permissions/action';
+import { useToast } from '@/hooks/use-toast';
 import { Client, Permission } from '@prisma/client';
 import { XIcon } from 'lucide-react';
 
-import { deletePermission } from '@/app/(dashboard)/users/[id]/(update)/permissions/action';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useToast } from '@/hooks/use-toast';
 
-export function DataList({ permissions, clients }: { permissions: Permission[]; clients: Client[] }) {
+export function DataList({
+  permissions,
+  clients,
+}: {
+  permissions: Permission[];
+  clients: Client[];
+}) {
   const { toast } = useToast();
 
   const clientOptions = [
@@ -20,7 +26,9 @@ export function DataList({ permissions, clients }: { permissions: Permission[]; 
   ];
 
   const groupedPermissions = clientOptions.map(({ value, label }) => {
-    const clientPermissions = permissions.filter((perm) => (perm.clientId || 'global') === value);
+    const clientPermissions = permissions.filter(
+      (perm) => (perm.clientId || 'global') === value
+    );
     return {
       client: label,
       permissions: clientPermissions,
@@ -44,25 +52,36 @@ export function DataList({ permissions, clients }: { permissions: Permission[]; 
   };
 
   return (
-    <ScrollArea className='h-[310px]'>
-      <div className='space-y-6 pr-4'>
-        {groupedPermissions.every(({ permissions }) => permissions.length === 0) ? (
-          <p className='py-4 text-center text-sm text-muted-foreground'>No permissions added yet.</p>
+    <ScrollArea className="h-[310px]">
+      <div className="space-y-6 pr-4">
+        {groupedPermissions.every(
+          ({ permissions }) => permissions.length === 0
+        ) ? (
+          <p className="py-4 text-center text-sm text-muted-foreground">
+            No permissions added yet.
+          </p>
         ) : (
           groupedPermissions.map(({ client, permissions }) => {
             if (permissions.length === 0) return null;
 
             return (
-              <div key={client} className='space-y-4'>
-                <h4 className='text-sm font-semibold capitalize'>{client}</h4>
-                <div className='flex flex-wrap gap-2'>
+              <div key={client} className="space-y-4">
+                <h4 className="text-sm font-semibold capitalize">{client}</h4>
+                <div className="flex flex-wrap gap-2">
                   {permissions.map(({ id, permission }) => (
-                    <div key={id} className='flex space-x-1'>
-                      <Badge variant='outline' className='rounded-md px-2 py-1 font-medium'>
+                    <div key={id} className="flex space-x-1">
+                      <Badge
+                        variant="outline"
+                        className="rounded-md px-2 py-1 font-medium"
+                      >
                         {permission}
                       </Badge>
-                      <Badge variant='destructive' className='h-[26px] cursor-pointer rounded-md px-1.5' onClick={() => handleDelete(id)}>
-                        <XIcon className='h-3 w-3' />
+                      <Badge
+                        variant="destructive"
+                        className="h-[26px] cursor-pointer rounded-md px-1.5"
+                        onClick={() => handleDelete(id)}
+                      >
+                        <XIcon className="h-3 w-3" />
                       </Badge>
                     </div>
                   ))}

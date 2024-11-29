@@ -2,9 +2,21 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { PropertyUpdateForm } from '@/app/(dashboard)/properties/[id]/update/form';
-import { PageHeader, PageHeaderDescription, PageHeaderGroup, PageHeaderHeading } from '@/components/page-header';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { prisma } from '@/lib/prisma';
+
+import {
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderGroup,
+  PageHeaderHeading,
+} from '@/components/page-header';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 export const metadata: Metadata = {
   title: 'Update – Properties – Reiyen',
@@ -20,7 +32,11 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function PropertyUpdatePage({ params }: { params: Promise<{ id: string }> }) {
+export default async function PropertyUpdatePage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const property = await prisma.property.findUnique({
     where: {
       id: (await params).id,
@@ -42,16 +58,22 @@ export default async function PropertyUpdatePage({ params }: { params: Promise<{
       <PageHeader>
         <PageHeaderGroup>
           <PageHeaderHeading>Update</PageHeaderHeading>
-          <PageHeaderDescription>Update the property&apos;s profile information, account details, and associated data. Make adjustments to ensure the property&apos;s information is accurate and up to date.</PageHeaderDescription>
+          <PageHeaderDescription>
+            Update the property&apos;s profile information, account details, and
+            associated data. Make adjustments to ensure the property&apos;s
+            information is accurate and up to date.
+          </PageHeaderDescription>
         </PageHeaderGroup>
       </PageHeader>
 
-      <Card className='grid grid-cols-2'>
-        <CardHeader className='col-span-2 lg:col-span-1'>
+      <Card className="grid grid-cols-2">
+        <CardHeader className="col-span-2 lg:col-span-1">
           <CardTitle>Property Details</CardTitle>
-          <CardDescription>Ensure each field is completed accurately.</CardDescription>
+          <CardDescription>
+            Ensure each field is completed accurately.
+          </CardDescription>
         </CardHeader>
-        <CardContent className='col-span-2 p-6 lg:col-span-1'>
+        <CardContent className="col-span-2 p-6 lg:col-span-1">
           <PropertyUpdateForm property={property} clients={clients} />
         </CardContent>
       </Card>

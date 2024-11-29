@@ -1,10 +1,22 @@
-import { Client } from '@prisma/client';
 import { useState } from 'react';
 
+import { clientPermissions, globalPermissions } from '@/lib/config';
+import { Client } from '@prisma/client';
+
 import { Checkbox } from '@/components/ui/checkbox';
-import { FormControl, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Select as UISelect, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { clientPermissions, globalPermissions } from '@/lib/permissions';
+import {
+  FormControl,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import {
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Select as UISelect,
+} from '@/components/ui/select';
 
 interface PermissionFormData {
   userId: string;
@@ -23,10 +35,28 @@ interface PermissionsFieldProps {
   userId: string;
 }
 
-export function PermissionsField({ field, permissions, clients, userId }: PermissionsFieldProps) {
+export function PermissionsField({
+  field,
+  permissions,
+  clients,
+  userId,
+}: PermissionsFieldProps) {
   const [clientId, setClientId] = useState<string>('global');
 
-  const availablePermissions = clientId === 'global' || !clientId ? globalPermissions.filter((permission) => !permissions.some((p) => p.permission === permission && p.clientId === null)) : clientPermissions.filter((permission) => !permissions.some((p) => p.permission === permission && p.clientId === clientId));
+  const availablePermissions =
+    clientId === 'global' || !clientId
+      ? globalPermissions.filter(
+          (permission) =>
+            !permissions.some(
+              (p) => p.permission === permission && p.clientId === null
+            )
+        )
+      : clientPermissions.filter(
+          (permission) =>
+            !permissions.some(
+              (p) => p.permission === permission && p.clientId === clientId
+            )
+        );
 
   return (
     <>
@@ -41,10 +71,10 @@ export function PermissionsField({ field, permissions, clients, userId }: Permis
             }}
           >
             <SelectTrigger>
-              <SelectValue placeholder='Select client' />
+              <SelectValue placeholder="Select client" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem key='global' value='global'>
+              <SelectItem key="global" value="global">
                 Global
               </SelectItem>
               {clients.map((client) => (
@@ -61,12 +91,19 @@ export function PermissionsField({ field, permissions, clients, userId }: Permis
       <FormItem>
         <FormLabel>Permissions</FormLabel>
         <FormControl>
-          <div className='space-y-2'>
+          <div className="space-y-2">
             {availablePermissions.map((permission) => {
-              const isChecked = field.value.some((p) => p.permission === permission && p.clientId === (clientId === 'global' ? null : clientId));
+              const isChecked = field.value.some(
+                (p) =>
+                  p.permission === permission &&
+                  p.clientId === (clientId === 'global' ? null : clientId)
+              );
 
               return (
-                <div key={`${clientId}-${permission}`} className='flex items-center space-x-2'>
+                <div
+                  key={`${clientId}-${permission}`}
+                  className="flex items-center space-x-2"
+                >
                   <Checkbox
                     id={`${clientId}-${permission}`}
                     checked={isChecked}
@@ -81,11 +118,22 @@ export function PermissionsField({ field, permissions, clients, userId }: Permis
                           },
                         ]);
                       } else {
-                        field.onChange(field.value.filter((p) => !(p.permission === permission && p.clientId === (clientId === 'global' ? null : clientId))));
+                        field.onChange(
+                          field.value.filter(
+                            (p) =>
+                              !(
+                                p.permission === permission &&
+                                p.clientId ===
+                                  (clientId === 'global' ? null : clientId)
+                              )
+                          )
+                        );
                       }
                     }}
                   />
-                  <label htmlFor={`${clientId}-${permission}`}>{permission}</label>
+                  <label htmlFor={`${clientId}-${permission}`}>
+                    {permission}
+                  </label>
                 </div>
               );
             })}

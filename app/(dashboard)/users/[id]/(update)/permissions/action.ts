@@ -1,10 +1,10 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
 
 import { Schema } from '@/app/(dashboard)/users/[id]/(update)/permissions/schema';
 import { prisma } from '@/lib/prisma';
+import { z } from 'zod';
 
 export async function addPermissions(data: z.infer<typeof Schema>) {
   try {
