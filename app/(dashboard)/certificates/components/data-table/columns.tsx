@@ -16,6 +16,7 @@ export const columns: ColumnDef<Certificate>[] = [
       return certificateTypeNameMapping[row.original.certificateType];
     },
     filterFn: (row, id, value) => value.includes(row.getValue(id)),
+    enableSorting: false
   },
   {
     accessorKey: 'status',
@@ -23,11 +24,20 @@ export const columns: ColumnDef<Certificate>[] = [
     cell: ({ row }) => {
       return statusNameMapping[row.original.status];
     },
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
+    enableSorting: false
   },
   {
     accessorKey: 'date',
     header: ({ column }) => <ColumnHeader column={column} title='Date' />,
     cell: ({ row }) => format(row.getValue('date'), 'dd/MM/yyyy'),
+  },
+  {
+    accessorKey: 'property.client.name',
+    id: 'client',
+    header: ({ column }) => <ColumnHeader column={column} title='Client' />,
+    filterFn: (row, id, value) => value.includes(row.getValue(id)),
+    enableSorting: false,
   },
   {
     id: 'actions',
