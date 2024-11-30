@@ -3,8 +3,6 @@
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 
-import { useUser } from '@auth0/nextjs-auth0';
-
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -19,27 +17,10 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Skeleton } from '@/components/ui/skeleton';
+import { User } from '@prisma/client';
 
-export default function UserMenu() {
+export default function UserMenu({user}: {user: User}) {
   const { setTheme } = useTheme();
-  const { user, isLoading, error } = useUser();
-
-  if (isLoading) {
-    return (
-      <div className="ml-2">
-        <Skeleton className="h-8 w-8 rounded-full" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return null;
-  }
-
-  if (!user) {
-    return null;
-  }
 
   return (
     <DropdownMenu>
@@ -53,7 +34,7 @@ export default function UserMenu() {
         <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href={`/users/${user.sub.replace('auth0|', '')}/general`}>
+          <Link href={`/users/${user.id}/general`}>
             Profile
           </Link>
         </DropdownMenuItem>
